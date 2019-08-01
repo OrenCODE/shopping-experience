@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const passport = require('passport');
+const passport = require('passport');
 const path = require('path');
 const cors = require('cors');
 
 // Api Routes
-const index = require('./routes/api/index');
+const user = require('./routes/api/user');
 
 const app = express();
 
@@ -27,14 +27,14 @@ mongoose
 .catch(err => console.log(err));
 
 // Passport middleware
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 // Passport Config
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 const port = process.env.PORT || 4000;
 
 // Use Routes
-app.use('/api/index', index);
+app.use('/api/user', user);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
