@@ -21,19 +21,20 @@ exports.checkUserCredentials = (req, res) => {
         if (user) {
             errors.email = 'Email already exists';
             return res.status(400).json(errors);
+        } else {
+            User.findOne({identityNumber: req.body.identityNumber}).then(user => {
+                if (user) {
+                    errors.identityNumber = 'ID already exists';
+                    return res.status(400).json(errors);
+                } else {
+                    res.status(200).json({
+                        userChecked: true
+                    })
+                }
+            })
         }
-    }).then(() => {
-        User.findOne({identityNumber: req.body.identityNumber}).then(user => {
-            if (user) {
-                errors.identityNumber = 'ID already exists';
-                return res.status(400).json(errors);
-            } else {
-                res.status(200).json({
-                    userChecked: true
-                })
-            }
-        })
-    });
+    })
+
 };
 
 exports.createUser = (req, res) => {
@@ -42,26 +43,43 @@ exports.createUser = (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     } else {
-        const {identityNumber, email, password, firstName, lastName, city, street} = req.body;
+        const userEmail = req.body.email.toLowerCase();
+        // Check if user email already exists in the database
+        User.findOne({email: userEmail}).then(user => {
+            if (user) {
+                errors.email = 'Email already exists';
+                return res.status(400).json(errors);
+            } else {
+                // Check if user identityNumber already exists in the database
+                User.findOne({identityNumber: req.body.identityNumber}).then(user => {
+                    if (user) {
+                        errors.identityNumber = 'ID already exists';
+                        return res.status(400).json(errors);
+                    } else {
+                        const {identityNumber, email, password, firstName, lastName, city, street} = req.body;
+                        // Create new user and save it
+                        const newUser = new User({
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            identityNumber: identityNumber,
+                            password: password,
+                            city: city,
+                            street: street
+                        });
 
-        const newUser = new User({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            identityNumber: identityNumber,
-            password: password,
-            city: city,
-            street: street
-        });
-
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if (err) throw err;
-                newUser.password = hash;
-                newUser.save()
-                    .then(user => res.json(user))
-                    .catch(err => res.json(err))
-            })
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                if (err) throw err;
+                                newUser.password = hash;
+                                newUser.save()
+                                    .then(user => res.json(user))
+                                    .catch(err => res.json(err))
+                            })
+                        })
+                    }
+                }).catch(err => console.log(err))
+            }
         })
     }
 };
@@ -94,6 +112,9 @@ exports.userLogin = (req, res) => {
                         id: user.id,
                         firstName: user.firstName,
                         lastName: user.lastName,
+                        identityNumber: user.identityNumber,
+                        city: user.city,
+                        street: user.street,
                         isAdmin: user.isAdmin
                     }; // Create JWT Payload
 
