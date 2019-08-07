@@ -11,8 +11,8 @@ const CartSchema =  new Schema({
         required: true
     },
     status: {
-        type: Boolean,
-        required: true,
+        type: Number,
+        default: 0,
     },
 
     products:[{
