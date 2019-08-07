@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const validateUserCredentialsInput = require('../validation/userCredentials');
-const validateUserRegistration = require('../validation/userDetails');
+const validateRegistration = require('../validation/registration');
 const validateLoginInput = require('../validation/login');
 
 const keys = require('../config/keys');
@@ -38,7 +38,7 @@ exports.checkUserCredentials = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-    const {errors, isValid} = validateUserRegistration(req.body);
+    const {errors, isValid} = validateRegistration(req.body);
     // Check Validation
     if (!isValid) {
         return res.status(400).json(errors);

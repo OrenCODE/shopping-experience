@@ -8,6 +8,7 @@ const cors = require('cors');
 // Api Routes
 const user = require('./routes/api/user');
 
+// Express
 const app = express();
 
 // Body Parser middleware
@@ -37,4 +38,5 @@ const port = process.env.PORT || 4000;
 // Use Routes
 app.use('/api/user', user);
 
+// Listen
 app.listen(port, () => console.log(`Server is running on port ${port}`));
