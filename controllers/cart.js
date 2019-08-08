@@ -64,6 +64,5 @@ exports.deleteAllProductsFromCart = (req,res) => {
 
 // add here two more functions
 
-// A : get user cart with it's current status
-// B : get user cart by cartId
-
+// A : GET user cart with it's current status
+// B : GET user cart by cartId

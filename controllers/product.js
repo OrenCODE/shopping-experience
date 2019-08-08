@@ -1,11 +1,10 @@
 const Product = require('../models/Product');
 
-
 exports.createNewProduct = (req, res) => {
     const product = new Product({
         name: req.body.name,
         price: req.body.price,
-        category: req.body.category,
+        categoryId: req.body.categoryId,
         imageURL: req.body.imageURL,
     });
     product.save()
@@ -28,7 +27,7 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.getProductsByCategory = (req, res) => {
-    Product.find({category: req.params.id})
+    Product.find({categoryId: req.params.id})
         .then(productsByCategory => res.status(200).json({
             msg: "products fetched",
             products: productsByCategory
@@ -48,5 +47,3 @@ exports.getProductByName = (req,res) => {
             msg: "could not find product name"
         }))
 };
-
-
