@@ -62,3 +62,8 @@ exports.deleteAllProductsFromCart = (req,res) => {
         .catch(err => res.status(404).json({success: false}))
 };
 
+// add here two more functions
+
+// A : get user cart with it's current status
+// B : get user cart by cartId
+
