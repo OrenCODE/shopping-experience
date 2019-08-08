@@ -7,6 +7,7 @@ const cors = require('cors');
 
 // Api Routes
 const user = require('./routes/api/user');
+const cart = require('./routes/api/cart');
 
 // Express
 const app = express();
@@ -37,6 +38,7 @@ const port = process.env.PORT || 4000;
 
 // Use Routes
 app.use('/api/user', user);
+app.use('/api/cart', cart);
 
 // Listen
 app.listen(port, () => console.log(`Server is running on port ${port}`));

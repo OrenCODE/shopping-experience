@@ -4,7 +4,7 @@ exports.createNewCart = (req, res) => {
     const cart = new Cart({
         userId: req.body.userId,
         date: new Date(),
-        status: true
+        status: 1
     });
     cart.save()
         .then(cart => {
@@ -21,8 +21,8 @@ exports.createNewCart = (req, res) => {
         })
 };
 
-exports.saveProductToCart = (req, res) => {
-    Cart.findOneAndUpdate({_id: req.body.cartId}, {
+exports.addProductToCart = (req, res) => {
+    Cart.findOneAndUpdate({_id: req.params.id}, {
         $push: {
             products: {
                 name: req.body.name,
@@ -33,13 +33,32 @@ exports.saveProductToCart = (req, res) => {
         }
     }, {new: true})
         .then(() => {
-            Cart.findOne({_id: req.body.cartId})
-        })
-        .then(cart => {
-            res.json(cart)
+            Cart.findOne({_id: req.params.id})
+                .then((cart) => {
+                    res.json(cart)
+                })
         })
         .catch(err => {
             console.error(err);
             res.status(500).send(err);
         });
 };
+
+exports.deleteProductFromCart = (req, res) => {
+    Cart.updateOne({_id: req.params.id},
+        {$pull: {
+                products: {$elemMatch: {_id: req.body.productId}}
+            }
+        },
+        {safe: true, multi: true})
+        .then(() => res.json({success: true}))
+        .catch(err => res.status(404).json({success: false}))
+};
+
+exports.deleteAllProductsFromCart = (req,res) => {
+    Cart.updateOne({_id: req.params.id}, {products: []},
+        {safe: true, multi: true})
+        .then(() => res.json({success: true}))
+        .catch(err => res.status(404).json({success: false}))
+};
+
