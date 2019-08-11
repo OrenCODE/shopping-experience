@@ -2,9 +2,9 @@ const Product = require('../models/Product');
 
 exports.createNewProduct = (req, res) => {
     const product = new Product({
+        categoryId: req.body.categoryId,
         name: req.body.name,
         price: req.body.price,
-        categoryId: req.body.categoryId,
         imageURL: req.body.imageURL,
     });
     product.save()

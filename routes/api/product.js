@@ -14,7 +14,7 @@ router.post('/createNewProduct', authenticate, productController.createNewProduc
 // Gets products by categoryId
 router.get('/productsByCategory/:id', productController.getProductsByCategory);
 
-// Gets a product by productName
+// Gets a product by productName //FIX THIS ROUTE//
 router.get('/productByName/:name', productController.getProductByName);
 
 module.exports = router;

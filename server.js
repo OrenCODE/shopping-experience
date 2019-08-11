@@ -10,6 +10,7 @@ const user = require('./routes/api/user');
 const product = require('./routes/api/product');
 const cart = require('./routes/api/cart');
 const category = require('./routes/api/category');
+const order = require('./routes/api/order');
 
 // Express
 const app = express();
@@ -43,6 +44,7 @@ app.use('/api/user', user);
 app.use('/api/cart', cart);
 app.use('/api/product', product);
 app.use('/api/category', category);
+app.use('/api/order', order);
 
 // Listen
 app.listen(port, () => console.log(`Server is running on port ${port}`));

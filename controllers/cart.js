@@ -25,6 +25,7 @@ exports.addProductToCart = (req, res) => {
     Cart.findOneAndUpdate({_id: req.params.id}, {
         $push: {
             products: {
+                _id: req.body._id,
                 name: req.body.name,
                 quantity: req.body.quantity,
                 price: req.body.price,
@@ -45,7 +46,7 @@ exports.addProductToCart = (req, res) => {
 };
 
 exports.deleteProductFromCart = (req, res) => {
-    Cart.updateOne({_id: req.params.id},
+    Cart.findOneAndUpdate({_id: req.params.id},
         {$pull: {
                 products: {$elemMatch: {_id: req.body.productId}}
             }
@@ -62,6 +63,20 @@ exports.deleteAllProductsFromCart = (req,res) => {
         .catch(err => res.status(404).json({success: false}))
 };
 
+// exports.getUserCart = (req,res) => {
+//   Cart.find({userId: req.params.userId, status: 1})
+// };
+
+exports.getCartById = (req,res) => {
+    Cart.find({_id: req.params.id})
+        .then(cart => {
+            res.json(cart)
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send(err);
+                });
+        })
+};
 // add here two more functions
 
 // A : GET user cart with it's current status

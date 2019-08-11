@@ -20,8 +20,9 @@ router.put('/deleteProduct/:id', authenticate, cartController.deleteProductFromC
 // :id = cartId
 router.put('/deleteAllProducts/:id', authenticate, cartController.deleteAllProductsFromCart);
 
-// add here two more routes
+// Get cart by id
+// :id = cartId
+router.get('/:id', authenticate, cartController.getCartById);
 // A : get user cart with it's current status
-// B : get user cart by cartId
 
 module.exports = router;
