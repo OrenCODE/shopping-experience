@@ -11,9 +11,10 @@ const CartSchema =  new Schema({
         type: Date,
         required: true
     },
-    status: {
-        type: Number,
-        required: true,
+    isOpen: {
+        type: Boolean,
+        default: true,
+        required: true
     },
 
     products:[{

@@ -44,7 +44,7 @@ exports.createNewOrder = (req, res) => {
                     .then(() => {
                         Cart.findOneAndUpdate(
                             {_id: cartId},
-                            {$set: {status: 2}},
+                            {$set: {isOpen: false}},
                             {new: true}
                         )
                     })

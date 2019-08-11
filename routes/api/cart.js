@@ -23,6 +23,9 @@ router.put('/deleteAllProducts/:id', authenticate, cartController.deleteAllProdu
 // Get cart by id
 // :id = cartId
 router.get('/:id', authenticate, cartController.getCartById);
-// A : get user cart with it's current status
+
+// Get user cart while checking if it's open\closed
+// :id = userId
+router.get('getUserCart/:id', authenticate, cartController.getUserCart);
 
 module.exports = router;
