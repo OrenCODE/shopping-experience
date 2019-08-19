@@ -11,7 +11,7 @@ module.exports = function validateUserCredentialsInput(data) {
 
     // Identity Number Validation
 
-    if(!Validator.isLength(data.identityNumber, {min: 9, max: 9})) {
+    if(data.identityNumber.length !== 9) {
         errors.identityNumber = 'ID Number must be 9 digits'
     }
 
@@ -25,7 +25,7 @@ module.exports = function validateUserCredentialsInput(data) {
         errors.email = 'Email field is required';
     }
 
-    if (!Validator.isEmail(data.email)) {
+    if (!Validator.isEmail(data.email) && !Validator.isEmpty(data.email)) {
         errors.email = 'Email is invalid';
     }
 

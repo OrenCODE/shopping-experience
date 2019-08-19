@@ -73,12 +73,20 @@
       <workItem from="1565698961679" duration="33000" />
       <workItem from="1565699526888" duration="10070000" />
       <workItem from="1565819542849" duration="2166000" />
-      <workItem from="1565824742154" duration="6305000" />
+      <workItem from="1565824742154" duration="38160000" />
+      <workItem from="1566033244929" duration="14712000" />
+      <workItem from="1566114244033" duration="44677000" />
+      <workItem from="1566243103445" duration="6840000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../shop-demo2/Shopping-Online---MEAN-Stack-Project/Shopping Online/client/node_modules/karma/config.tpl.js" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>

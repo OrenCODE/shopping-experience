@@ -1,36 +1,75 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
+<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">-->
+<!--  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}-->
+<!--</button>-->
+<!--(selectionChange)="onStepChange($event)"-->
+
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+    <form (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill your credentials</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input matInput placeholder="Identity Number" formControlName="identityNumber" max="9"
+               (keydown)="allowNumbersOnly($event)"
+               (paste)="preventPaste($event)">
+<!--                <mat-error *ngIf="firstFormGroup.controls['identityNumber'].errors?.required">Identity Number is Required</mat-error>-->
+<!--                <mat-error *ngIf="firstFormGroup.controls['identityNumber'].errors?.pattern">ID Number must be 9 digits</mat-error>-->
+                <mat-error *ngIf="credentialsError?.identityNumber">{{ credentialsError.identityNumber }}</mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="credentialsError?.email">{{ credentialsError.email }}</mat-error>
+<!--                  <mat-error *ngIf="firstFormGroup.controls['email'].errors?.required">Email Field is Required</mat-error>-->
+<!--                  <mat-error *ngIf="firstFormGroup.controls['email'].errors?.email">Email is Invalid</mat-error>-->
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" formControlName="password">
+          <mat-error *ngIf="credentialsError?.password">{{ credentialsError.password }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Confirm Password" formControlName="password2">
+          <mat-error *ngIf="credentialsError?.password2">{{ credentialsError.password2 }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button (click)="goForward(stepper)" type="submit">Next</button>
+<!--        <button mat-button matStepperNext>Next</button>-->
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
+      <ng-template matStepLabel>Fill your shipping details</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+        <input matInput placeholder="First Name" formControlName="firstName" required>
       </mat-form-field>
       <div>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName="lastName" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="City" formControlName="city" required>
+            <mat-option *ngFor="let city of cities" [value]="city.value">
+              {{city.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Street" formControlName="street" required>
+        </mat-form-field>
+      </div>
+      <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button>Submit</button>
       </div>
     </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
   </mat-step>
 </mat-horizontal-stepper>
