@@ -99,7 +99,7 @@ exports.userLogin = (req, res) => {
         // Check for user
         if (!user) {
             errors.email = 'User not found';
-            return res.status(404).json(errors);
+            return res.status(400).json(errors);
         }
 
         // Check Password
@@ -124,6 +124,7 @@ exports.userLogin = (req, res) => {
                         {expiresIn: 10000},
                         (err, token) => {
                             res.json({
+                                user: payload,
                                 success: true,
                                 token: 'Bearer ' + token
                             })
