@@ -1,8 +1,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button routerLink="" mat-button>Shop</button>
+    <button routerLink="" mat-button>Shopping Experience</button>
     <span class="spacer"></span>
-      <button routerLink="signup" mat-button>SignUp</button>
-      <button routerLink="login" mat-button>Login</button>
+      <button *ngIf="authService.isUserLoggedIn()" routerLink="dashboard" mat-button>Shop</button>
+      <button *ngIf="!authService.isUserLoggedIn()" routerLink="signup" mat-button>SignUp</button>
+      <button *ngIf="!authService.isUserLoggedIn()" routerLink="login" mat-button>Login</button>
+     <button *ngIf="authService.isUserLoggedIn()" mat-button (click)="onLogOutClick()">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>

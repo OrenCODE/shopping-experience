@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from "../../services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,10 @@ export class LoginComponent implements OnInit {
 
   private userIsLoggedIn: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private router: Router
+              ) {
   }
 
   ngOnInit() {
@@ -28,6 +32,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(loginDetails).subscribe(data => {
       if(data.success){
         this.authService.storeUserData(data.token, data.user);
+        this.router.navigate(['dashboard']);
       }
     }, err => {
       if (err.status === 400) {

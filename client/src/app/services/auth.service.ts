@@ -39,6 +39,10 @@ export class AuthService {
     this.loggedUser = loggedUser
   }
 
+  loadToken(){
+    this.authToken = localStorage.getItem('id_token');
+  }
+
   isUserLoggedIn = () => {
     let jwtHelper = new JwtHelperService();
     if(localStorage.id_token == undefined)

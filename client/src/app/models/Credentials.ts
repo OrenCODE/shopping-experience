@@ -1,4 +1,4 @@
-// import { User } from "./User";
+import { User } from "./User";
 
 export interface Credentials {
   // Register Credentials
@@ -11,5 +11,5 @@ export interface Credentials {
   // Login Credentials
   success: Boolean;
   token: String
-  user: any
+  user: User
 }
