@@ -1,43 +1,41 @@
-<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">-->
-<!--  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}-->
-<!--</button>-->
-<!--(selectionChange)="onStepChange($event)"-->
-
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Fill your credentials</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Identity Number" formControlName="identityNumber" max="9"
+        <input matInput placeholder="Identity Number" formControlName="identityNumber"
                (keydown)="allowNumbersOnly($event)"
                (paste)="preventPaste($event)">
-<!--                <mat-error *ngIf="firstFormGroup.controls['identityNumber'].errors?.required">Identity Number is Required</mat-error>-->
-<!--                <mat-error *ngIf="firstFormGroup.controls['identityNumber'].errors?.pattern">ID Number must be 9 digits</mat-error>-->
-                <mat-error *ngIf="credentialsError?.identityNumber">{{ credentialsError.identityNumber }}</mat-error>
+        <mat-error *ngIf="firstFormGroup.get('identityNumber').errors?.serverError">
+          {{ firstFormGroup.get('identityNumber').errors?.serverError }}
+        </mat-error>
       </mat-form-field>
       <div>
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="email">
-          <mat-error *ngIf="credentialsError?.email">{{ credentialsError.email }}</mat-error>
-<!--                  <mat-error *ngIf="firstFormGroup.controls['email'].errors?.required">Email Field is Required</mat-error>-->
-<!--                  <mat-error *ngIf="firstFormGroup.controls['email'].errors?.email">Email is Invalid</mat-error>-->
+          <mat-error *ngIf="firstFormGroup.get('email').errors?.serverError">
+            {{ firstFormGroup.get('email').errors?.serverError }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
           <input type="password" matInput placeholder="Password" formControlName="password">
-          <mat-error *ngIf="credentialsError?.password">{{ credentialsError.password }}</mat-error>
+          <mat-error *ngIf="firstFormGroup.get('password').errors?.serverError">
+            {{ firstFormGroup.get('password').errors?.serverError }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
           <input type="password" matInput placeholder="Confirm Password" formControlName="password2">
-          <mat-error *ngIf="credentialsError?.password2">{{ credentialsError.password2 }}</mat-error>
+          <mat-error *ngIf="firstFormGroup.get('password2').errors?.serverError">
+            {{ firstFormGroup.get('password2').errors?.serverError }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <button mat-button (click)="goForward(stepper)" type="submit">Next</button>
-<!--        <button mat-button matStepperNext>Next</button>-->
       </div>
     </form>
   </mat-step>

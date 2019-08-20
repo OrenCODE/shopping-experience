@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from "../../services/auth.service";
-import {City} from "../../models/City";
-import {Credentials} from "../../models/Credentials";
-import {MatStepper} from "@angular/material";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from "../../services/auth.service";
+import { City } from "../../models/City";
+import { MatStepper } from "@angular/material";
 
 @Component({
   selector: 'app-signup-stepper',
@@ -15,20 +14,13 @@ export class SignupStepperComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  private credentialsError: Credentials;
   private formIsValid: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private authService: AuthService) {
-  }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
-      // identityNumber: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')
-      // ])],
       identityNumber: ['', Validators.required],
-      // email: ['',
-      //   Validators.compose([Validators.required, Validators.email])],
       email: ['', Validators.required],
       password: ['', Validators.required],
       password2: ['', Validators.required],
@@ -63,8 +55,15 @@ export class SignupStepperComponent implements OnInit {
       }
     }, err => {
       if (err.status === 400) {
-        console.log(err.error);
-        this.credentialsError = err.error;
+        Object.keys(err.error).forEach(prop => {
+          const formControl = this.firstFormGroup.get(prop);
+          if (formControl) {
+            // activate the error message
+            formControl.setErrors({
+              serverError: err.error[prop]
+            });
+          }
+        });
         this.formIsValid = false
       }
     });
@@ -75,9 +74,6 @@ export class SignupStepperComponent implements OnInit {
     setTimeout(() => {
       if (this.formIsValid) {
         stepper.next();
-      } else {
-        console.log(this.firstFormGroup);
-        this.firstFormGroup.reset();
       }
     }, 1500)
   }
