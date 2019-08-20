@@ -1,6 +1,6 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
-    <form (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup">
+    <form (ngSubmit)="onFirstStepSubmit()" [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Fill your credentials</ng-template>
       <mat-form-field>
         <input matInput placeholder="Identity Number" formControlName="identityNumber"
@@ -40,33 +40,47 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
+    <form (ngSubmit)="onSecondStepSubmit()" [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Fill your shipping details</ng-template>
       <mat-form-field>
-        <input matInput placeholder="First Name" formControlName="firstName" required>
+        <input matInput placeholder="First Name" formControlName="firstName">
+        <mat-error *ngIf="secondFormGroup.get('firstName').errors?.serverError">
+          {{ secondFormGroup.get('firstName').errors?.serverError }}
+        </mat-error>
+        <mat-error *ngIf="secondFormGroup.controls['firstName'].errors?.pattern">Please insert characters only</mat-error>
       </mat-form-field>
       <div>
         <mat-form-field>
-          <input matInput placeholder="Last Name" formControlName="lastName" required>
+          <input matInput placeholder="Last Name" formControlName="lastName">
+          <mat-error *ngIf="secondFormGroup.get('lastName').errors?.serverError">
+            {{ secondFormGroup.get('lastName').errors?.serverError }}
+          </mat-error>
+          <mat-error *ngIf="secondFormGroup.controls['lastName'].errors?.pattern">Please insert characters only</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <mat-select placeholder="City" formControlName="city" required>
+          <mat-select placeholder="City" formControlName="city">
             <mat-option *ngFor="let city of cities" [value]="city.value">
               {{city.viewValue}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="secondFormGroup.get('city').errors?.serverError">
+            {{ secondFormGroup.get('city').errors?.serverError }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput placeholder="Street" formControlName="street" required>
+          <input matInput placeholder="Street" formControlName="street">
+          <mat-error *ngIf="secondFormGroup.get('street').errors?.serverError">
+            {{ secondFormGroup.get('street').errors?.serverError }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button>Submit</button>
+        <button mat-button type="submit">Submit</button>
       </div>
     </form>
   </mat-step>

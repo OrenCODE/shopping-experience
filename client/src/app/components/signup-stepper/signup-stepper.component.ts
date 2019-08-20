@@ -15,8 +15,10 @@ export class SignupStepperComponent implements OnInit {
   secondFormGroup: FormGroup;
 
   private formIsValid: boolean = false;
+  private userIsRegistered: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -26,29 +28,27 @@ export class SignupStepperComponent implements OnInit {
       password2: ['', Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['',Validators.compose([
+        Validators.required, Validators.pattern('^[a-zA-Z ]*$')
+      ])],
+      lastName: ['',Validators.compose([
+        Validators.required, Validators.pattern('^[a-zA-Z ]*$')
+      ])],
       city: ['', Validators.required],
       street: ['', Validators.required]
     });
   }
 
   cities: City[] = [
-    {value: 'Tel-Aviv-0', viewValue: 'Tel Aviv'},
-    {value: 'Jerusalem-1', viewValue: 'Jerusalem'},
-    {value: 'Haifa-2', viewValue: 'Haifa'},
-    {value: 'Beer Sheva-3', viewValue: 'Beer Sheva'},
-    {value: 'Natenya-4', viewValue: 'Netanya'},
-    {value: 'Rishon-Le-Zion-5', viewValue: 'Rishon Le Zion'},
-    {value: 'Rehovot-6', viewValue: 'Rehovot'},
-    {value: 'Eilat-7', viewValue: 'Eilat'},
-    {value: 'Kfar-Saba-8', viewValue: 'Kfar Saba'},
-    {value: 'Kiryat-Shmona-9', viewValue: 'Kiryat Shmona'},
+    {value: 'Tel-Aviv-0', viewValue: 'Tel Aviv'}, {value: 'Jerusalem-1', viewValue: 'Jerusalem'},
+    {value: 'Haifa-2', viewValue: 'Haifa'}, {value: 'Beer Sheva-3', viewValue: 'Beer Sheva'},
+    {value: 'Natenya-4', viewValue: 'Netanya'}, {value: 'Rishon-Le-Zion-5', viewValue: 'Rishon Le Zion'},
+    {value: 'Rehovot-6', viewValue: 'Rehovot'}, {value: 'Eilat-7', viewValue: 'Eilat'},
+    {value: 'Kfar-Saba-8', viewValue: 'Kfar Saba'}, {value: 'Kiryat-Shmona-9', viewValue: 'Kiryat Shmona'},
   ];
 
-  onSubmit() {
+  onFirstStepSubmit() {
     const credentials = this.firstFormGroup.getRawValue();
-    console.log(credentials);
     this.authService.checkUserCredentials(credentials).subscribe(data => {
       if (data.userChecked) {
         this.formIsValid = true;
@@ -65,6 +65,35 @@ export class SignupStepperComponent implements OnInit {
           }
         });
         this.formIsValid = false
+      }
+    });
+  }
+
+  onSecondStepSubmit() {
+    const credentials = this.firstFormGroup.getRawValue();
+    const shippingDetails = this.secondFormGroup.getRawValue();
+    const user = {
+      email: credentials.email,
+      identityNumber: credentials.identityNumber,
+      password: credentials.password,
+      lastName: shippingDetails.lastName,
+      firstName: shippingDetails.firstName,
+      city: shippingDetails.city,
+      street: shippingDetails.street
+    };
+    this.authService.registerUser(user).subscribe(user => {
+      console.log(user);
+    }, err => {
+      if (err.status === 400) {
+        Object.keys(err.error).forEach(prop => {
+          const formControl = this.secondFormGroup.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: err.error[prop]
+            });
+          }
+        });
+        this.userIsRegistered = false;
       }
     });
   }
