@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from "../../services/auth.service";
 import { City } from "../../models/City";
 import { MatStepper } from "@angular/material";
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-signup-stepper',
@@ -17,7 +18,9 @@ export class SignupStepperComponent implements OnInit {
   private formIsValid: boolean = false;
   private userIsRegistered: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -82,7 +85,11 @@ export class SignupStepperComponent implements OnInit {
       street: shippingDetails.street
     };
     this.authService.registerUser(user).subscribe(user => {
-      console.log(user);
+      // Login and Redirect to Dashboard after a successful register
+      if(user){
+        const loginDetails = { email: credentials.email, password: credentials.password };
+        this.redirectToDashboard(loginDetails);
+      }
     }, err => {
       if (err.status === 400) {
         Object.keys(err.error).forEach(prop => {
@@ -96,6 +103,15 @@ export class SignupStepperComponent implements OnInit {
         this.userIsRegistered = false;
       }
     });
+  }
+
+  redirectToDashboard(loginDetails){
+    this.authService.loginUser(loginDetails).subscribe(data => {
+      if(data.success){
+        this.authService.storeUserData(data.token, data.user);
+        this.router.navigate(['dashboard']);
+      }
+    })
   }
 
   // Change to Promise

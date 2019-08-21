@@ -9,8 +9,8 @@ const authenticate = passport.authenticate('jwt',{session: false});
 // :id = userId
 router.get('/userShippingDetails/:id', authenticate, orderController.getUserShippingDetails);
 
-// Gets the total number of orders in the system
-router.get('/totalNumOfOrders', orderController.getNumOfOrders);
+// Gets all orders in the system
+router.get('/orders', orderController.getOrders);
 
 // Creates new Order while checking if the delivery date is available
 router.post('/createNewOrder', authenticate, orderController.createNewOrder);

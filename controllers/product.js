@@ -17,10 +17,7 @@ exports.createNewProduct = (req, res) => {
 
 exports.getAllProducts = (req, res) => {
     Product.find({})
-        .then(allProducts => res.status(200).json({
-            msg: "products fetched",
-            products: allProducts
-        }))
+        .then(allProducts => res.status(200).json(allProducts))
         .catch(err => res.status(500).json({
             msg: "could not fetch products"
         }))

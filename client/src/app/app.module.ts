@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
+import { AuthGuard } from "./gurds/auth.gurd";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +24,8 @@ import { NavbarComponent } from "./components/layout/navbar/navbar.component";
 import { SignupStepperComponent } from './components/signup-stepper/signup-stepper.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { ShopComponent } from './components/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     SignupStepperComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    FooterComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     FlexLayoutModule
 
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

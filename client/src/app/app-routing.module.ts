@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from "./gurds/auth.gurd";
 
 import { HomeComponent } from "./components/home/home.component";
 import { SignupStepperComponent } from "./components/signup-stepper/signup-stepper.component";
@@ -10,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupStepperComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

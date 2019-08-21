@@ -1,21 +1,58 @@
-<form [formGroup]="loginForm" (ngSubmit)="onUserLogin()">
-  <div>
-  <mat-form-field>
-    <input matInput placeholder="Email" formControlName="email">
-    <mat-error *ngIf="loginForm.get('email').errors?.serverError">
-      {{ loginForm.get('email').errors?.serverError }}
-    </mat-error>
-  </mat-form-field>
+<div class="form-wraper">
+  <div class="form-container card">
+    <div class="form-header">
+      <img src="./../../../assets/login-cart.png" class="main-lock-icon" alt="">
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onUserLogin()">
+      <div class="form-body">
+        <mat-form-field class="justifier">
+          <input class="form-input" matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="loginForm.get('email').errors?.serverError">
+            {{ loginForm.get('email').errors?.serverError }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="justifier">
+          <input class="form-input" type="password" matInput placeholder="Password" formControlName="password">
+          <mat-error *ngIf="loginForm.get('password').errors?.serverError">
+            {{ loginForm.get('password').errors?.serverError }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-footer">
+        <button class="btn custom-btn" mat-raised-button type="submit">
+          <mat-icon> input</mat-icon>
+          Login
+        </button>
+      </div>
+      <div class="additional-link">
+        <a routerLink="/signup">No Account? <strong>Create one here</strong></a>
+      </div>
+    </form>
   </div>
-  <div>
-  <mat-form-field>
-    <input type="password" matInput placeholder="Password" formControlName="password">
-    <mat-error *ngIf="loginForm.get('password').errors?.serverError">
-      {{ loginForm.get('password').errors?.serverError }}
-    </mat-error>
-  </mat-form-field>
-  </div>
-  <div>
-    <button mat-button type="submit">Next</button>
-  </div>
-</form>
+</div>
+
+<!--<div class="form-wraper">-->
+<!--  <div class="form-container card">-->
+<!--    <div class="form-header">-->
+<!--    </div>-->
+
+<!--    <div class="form-body">-->
+<!--      <mat-form-field class="justifier">-->
+<!--        <input matInput placeholder="Email" text="email" class="form-input">-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field class="justifier">-->
+<!--        <input matInput placeholder="Password" text="password" class="form-input">-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+
+<!--    <div class="form-footer">-->
+<!--      <button mat-raised-button class="btn custom-btn">-->
+<!--        <mat-icon>input</mat-icon>-->
+<!--        Login-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="additional-link">-->
+<!--      <a routerLink="/signup">No Account? <strong>Create one here</strong></a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
