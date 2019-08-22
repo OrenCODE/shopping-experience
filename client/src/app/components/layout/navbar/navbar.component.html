@@ -2,10 +2,19 @@
   <mat-toolbar-row>
     <button routerLink="" mat-button>Shopping Experience</button>
     <span class="spacer"></span>
-      <button *ngIf="authService.isUserLoggedIn()" routerLink="dashboard" mat-button>Dashboard</button>
+<!--      <button *ngIf="authService.isUserLoggedIn()" routerLink="dashboard" mat-button>Dashboard</button>-->
       <button *ngIf="!authService.isUserLoggedIn()" routerLink="signup" mat-button>SignUp</button>
       <button *ngIf="!authService.isUserLoggedIn()" routerLink="login" mat-button>Login</button>
 <!--    create DropDown menu here-->
-     <button *ngIf="authService.isUserLoggedIn()" mat-button (click)="onLogOutClick()">Logout</button>
+    <button mat-button *ngIf="authService.isUserLoggedIn()" [matMenuTriggerFor]="menu">
+      {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="dashboard">Dashboard</button>
+      <button mat-menu-item (click)="onLogOutClick()">Logout</button>
+    </mat-menu>
+<!--     <button *ngIf="authService.isUserLoggedIn()" mat-button (click)="onLogOutClick()">Logout</button>-->
+<!--    <button *ngIf="authService.isUserLoggedIn()" mat-button>{{ authService.currentUserData.firstName }}-->
+<!--  </button>-->
   </mat-toolbar-row>
 </mat-toolbar>

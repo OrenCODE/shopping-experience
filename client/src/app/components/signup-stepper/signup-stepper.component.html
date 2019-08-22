@@ -2,9 +2,11 @@
   <div class="card">
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
       <mat-step [stepControl]="firstFormGroup">
-        <div class="form-header">
+
+        <div class="signup-header">
           <img src="./../../../assets/sign-up.png" class="main-sign-icon" alt="">
         </div>
+
         <form (ngSubmit)="onFirstStepSubmit(stepper)" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Fill your credentials</ng-template>
 
@@ -58,18 +60,20 @@
               {{ firstFormGroup.get('password2').errors?.serverError }}
             </mat-error>
           </mat-form-field>
+
           <div class="to-center">
             <button mat-button class="sm-btn custom-btn" (click)="goForward(stepper)" type="submit">NEXT
               <mat-icon>forward</mat-icon>
             </button>
           </div>
+
         </form>
       </mat-step>
 
       <mat-step [stepControl]="secondFormGroup">
         <form (ngSubmit)="onSecondStepSubmit()" [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Fill your shipping details</ng-template>
-          <div class="form-header">
+          <div class="signup-header">
             <img src="./../../../assets/shipping.png" class="main-sign-icon" alt="">
           </div>
 
@@ -124,11 +128,14 @@
 
           <div class="to-center">
             <button mat-button class="sm-btn custom-btn" matStepperPrevious>BACK
-              <mat-icon>edit</mat-icon></button>
+              <mat-icon>edit</mat-icon>
+            </button>
             <button mat-button class="sm-btn custom-btn" type="submit"
-            style="margin:0 7px">START SHOPPING
-              <mat-icon>shopping_cart</mat-icon></button>
+                    style="margin:0 7px">START SHOPPING
+              <mat-icon>shopping_cart</mat-icon>
+            </button>
           </div>
+
         </form>
       </mat-step>
     </mat-horizontal-stepper>

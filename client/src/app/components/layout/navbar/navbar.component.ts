@@ -12,12 +12,17 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.authService.loadToken()
   }
 
   onLogOutClick(){
     this.authService.logoutUser();
     this.router.navigate(['']);
     return false;
+  }
+
+  capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 }
