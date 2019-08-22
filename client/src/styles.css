@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+html,body{ overflow-y: scroll; }
+
 body{
   font-family: 'Roboto', sans-serif;
   margin:0 !important;
@@ -13,6 +15,25 @@ button:focus, button:active:focus, button.active:focus {
 
 .spacer {
   flex-grow: 1;
+}
+
+.align-icon {
+  margin: 0 8px
+}
+
+.to-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.to-center{
+  display: flex;
+  justify-content: center;
+}
+
+.to-left {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .add-btn{
@@ -54,6 +75,12 @@ button:focus, button:active:focus, button.active:focus {
   display: block;
 }
 
+.main-sign-icon{
+  width: 10%;
+  margin: auto;
+  display: block;
+}
+
 /** form body **/
 .form-body{
   padding: 0 24px;
@@ -72,8 +99,15 @@ button:focus, button:active:focus, button.active:focus {
 .btn{
   display: block;
   width: 100%;
-  padding: 5% !important;
-  font-size: 1.5em;
+  padding: 2% !important;
+  font-size: 1em;
+  font-weight: 200;
+  margin-top: 18px;
+}
+
+.sm-btn{
+  display: block;
+  font-size: 1em;
   font-weight: 200;
   margin-top: 18px;
 }
@@ -82,6 +116,7 @@ button:focus, button:active:focus, button.active:focus {
   background: #3f51b5;
   color: #fff;
 }
+
 .google-icon{
   width: 6%;
 }

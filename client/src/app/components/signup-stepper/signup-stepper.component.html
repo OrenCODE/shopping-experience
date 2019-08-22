@@ -1,87 +1,136 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form (ngSubmit)="onFirstStepSubmit()" [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill your credentials</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Identity Number" formControlName="identityNumber"
-               (keydown)="allowNumbersOnly($event)"
-               (paste)="preventPaste($event)">
-        <mat-error *ngIf="firstFormGroup.get('identityNumber').errors?.serverError">
-          {{ firstFormGroup.get('identityNumber').errors?.serverError }}
-        </mat-error>
-      </mat-form-field>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Email" formControlName="email">
-          <mat-error *ngIf="firstFormGroup.get('email').errors?.serverError">
-            {{ firstFormGroup.get('email').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Password" formControlName="password">
-          <mat-error *ngIf="firstFormGroup.get('password').errors?.serverError">
-            {{ firstFormGroup.get('password').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Confirm Password" formControlName="password2">
-          <mat-error *ngIf="firstFormGroup.get('password2').errors?.serverError">
-            {{ firstFormGroup.get('password2').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-button (click)="goForward(stepper)" type="submit">Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form (ngSubmit)="onSecondStepSubmit()" [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill your shipping details</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="First Name" formControlName="firstName">
-        <mat-error *ngIf="secondFormGroup.get('firstName').errors?.serverError">
-          {{ secondFormGroup.get('firstName').errors?.serverError }}
-        </mat-error>
-        <mat-error *ngIf="secondFormGroup.controls['firstName'].errors?.pattern">Please insert characters only</mat-error>
-      </mat-form-field>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Last Name" formControlName="lastName">
-          <mat-error *ngIf="secondFormGroup.get('lastName').errors?.serverError">
-            {{ secondFormGroup.get('lastName').errors?.serverError }}
-          </mat-error>
-          <mat-error *ngIf="secondFormGroup.controls['lastName'].errors?.pattern">Please insert characters only</mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-select placeholder="City" formControlName="city">
-            <mat-option *ngFor="let city of cities" [value]="city.value">
-              {{city.viewValue}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="secondFormGroup.get('city').errors?.serverError">
-            {{ secondFormGroup.get('city').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Street" formControlName="street">
-          <mat-error *ngIf="secondFormGroup.get('street').errors?.serverError">
-            {{ secondFormGroup.get('street').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button type="submit">Submit</button>
-      </div>
-    </form>
-  </mat-step>
-</mat-horizontal-stepper>
+<div class="form-wraper">
+  <div class="card">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <div class="form-header">
+          <img src="./../../../assets/sign-up.png" class="main-sign-icon" alt="">
+        </div>
+        <form (ngSubmit)="onFirstStepSubmit(stepper)" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill your credentials</ng-template>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Identity Number</mat-label>
+            <input matInput placeholder="9 Digits..."
+                   formControlName="identityNumber"
+                   (keydown)="allowNumbersOnly($event)"
+                   (paste)="preventPaste($event)">
+            <button mat-icon-button matSuffix>
+              <mat-icon>picture_in_picture</mat-icon>
+            </button>
+            <mat-error *ngIf="firstFormGroup.get('identityNumber').errors?.serverError">
+              {{ firstFormGroup.get('identityNumber').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Email</mat-label>
+            <input matInput placeholder="Shopping@Experience.com" formControlName="email">
+            <button mat-icon-button matSuffix>
+              <mat-icon>mail_outline</mat-icon>
+            </button>
+            <mat-error *ngIf="firstFormGroup.get('email').errors?.serverError">
+              {{ firstFormGroup.get('email').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Password</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password"
+                   [type]="passHide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="passHide = !passHide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="passHide">
+              <mat-icon>{{passHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="firstFormGroup.get('password').errors?.serverError">
+              {{ firstFormGroup.get('password').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput placeholder="Confirm Password" formControlName="password2"
+                   [type]="passHide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="passHide = !passHide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="passHide">
+              <mat-icon>{{passHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="firstFormGroup.get('password2').errors?.serverError">
+              {{ firstFormGroup.get('password2').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+          <div class="to-center">
+            <button mat-button class="sm-btn custom-btn" (click)="goForward(stepper)" type="submit">NEXT
+              <mat-icon>forward</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form (ngSubmit)="onSecondStepSubmit()" [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill your shipping details</ng-template>
+          <div class="form-header">
+            <img src="./../../../assets/shipping.png" class="main-sign-icon" alt="">
+          </div>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your First Name</mat-label>
+            <input matInput placeholder="John" formControlName="firstName">
+            <button mat-icon-button matSuffix>
+              <mat-icon>face</mat-icon>
+            </button>
+            <mat-error *ngIf="secondFormGroup.get('firstName').errors?.serverError">
+              {{ secondFormGroup.get('firstName').errors?.serverError }}
+            </mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['firstName'].errors?.pattern">Please insert characters only
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Last Name</mat-label>
+            <input matInput placeholder="Doe" formControlName="lastName">
+            <button mat-icon-button matSuffix>
+              <mat-icon>face</mat-icon>
+            </button>
+            <mat-error *ngIf="secondFormGroup.get('lastName').errors?.serverError">
+              {{ secondFormGroup.get('lastName').errors?.serverError }}
+            </mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['lastName'].errors?.pattern">Please insert characters only
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your City</mat-label>
+            <mat-select placeholder="City" formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city.value">
+                {{city.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="secondFormGroup.get('city').errors?.serverError">
+              {{ secondFormGroup.get('city').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Address</mat-label>
+            <input matInput placeholder="King George 50 Apt. 4" formControlName="street">
+            <button mat-icon-button matSuffix>
+              <mat-icon>home</mat-icon>
+            </button>
+            <mat-error *ngIf="secondFormGroup.get('street').errors?.serverError">
+              {{ secondFormGroup.get('street').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="to-center">
+            <button mat-button class="sm-btn custom-btn" matStepperPrevious>BACK
+              <mat-icon>edit</mat-icon></button>
+            <button mat-button class="sm-btn custom-btn" type="submit"
+            style="margin:0 7px">START SHOPPING
+              <mat-icon>shopping_cart</mat-icon></button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

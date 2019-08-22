@@ -18,6 +18,8 @@ export class SignupStepperComponent implements OnInit {
   private formIsValid: boolean = false;
   private userIsRegistered: boolean = false;
 
+  passHide: boolean = true;
+
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {
@@ -50,18 +52,19 @@ export class SignupStepperComponent implements OnInit {
     {value: 'Kfar-Saba-8', viewValue: 'Kfar Saba'}, {value: 'Kiryat-Shmona-9', viewValue: 'Kiryat Shmona'},
   ];
 
-  onFirstStepSubmit() {
+  onFirstStepSubmit(stepper) {
     const credentials = this.firstFormGroup.getRawValue();
     this.authService.checkUserCredentials(credentials).subscribe(data => {
       if (data.userChecked) {
         this.formIsValid = true;
+        this.goForward(stepper);
       }
     }, err => {
       if (err.status === 400) {
         Object.keys(err.error).forEach(prop => {
           const formControl = this.firstFormGroup.get(prop);
           if (formControl) {
-            // activate the error message
+            // activate the error messages
             formControl.setErrors({
               serverError: err.error[prop]
             });
