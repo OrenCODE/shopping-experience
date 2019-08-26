@@ -18,6 +18,7 @@ export class AuthService {
   authToken: string;
   loggedUser: User;
   currentUserData: User;
+  currentUserToken: String;
 
   constructor(private http: HttpClient) { }
 
@@ -40,8 +41,12 @@ export class AuthService {
     this.loggedUser = loggedUser
   }
 
-  loadToken(){
+  loadUserPayload(){
     this.currentUserData = JSON.parse(localStorage.getItem('user'));
+  }
+
+  loadToken(){
+    this.currentUserToken = localStorage.getItem('id_token');
   }
 
   isUserLoggedIn = () => {

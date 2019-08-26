@@ -1,2 +1,6 @@
+<div>Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>
+<!--set go to the shop as ngIf if cart is Open-->
+<button mat-button routerLink="/shop">Go The Shop</button>
 <div>Products: {{numOfProducts}} </div>
+
 

@@ -1,4 +1,5 @@
 export interface User {
+  id: String;
   email: String;
   identityNumber: String;
   password: String;
@@ -6,4 +7,5 @@ export interface User {
   firstName: String;
   city: String;
   street: String;
+  isAdmin: Boolean;
 }

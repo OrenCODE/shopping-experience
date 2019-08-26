@@ -1,4 +1,4 @@
 export interface City {
-  value: string;
-  viewValue: string;
+  value: String;
+  viewValue: String;
 }

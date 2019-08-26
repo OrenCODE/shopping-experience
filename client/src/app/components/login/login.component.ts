@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(loginDetails).subscribe(data => {
       if(data.success){
         this.authService.storeUserData(data.token, data.user);
-        this.authService.loadToken();
+        this.authService.loadUserPayload();
         this.router.navigate(['dashboard']);
       }
     }, err => {

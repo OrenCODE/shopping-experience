@@ -25,10 +25,7 @@ exports.getAllProducts = (req, res) => {
 
 exports.getProductsByCategory = (req, res) => {
     Product.find({categoryId: req.params.id})
-        .then(productsByCategory => res.status(200).json({
-            msg: "products fetched",
-            products: productsByCategory
-        }))
+        .then(productsByCategory => res.status(200).json(productsByCategory))
         .catch(err => res.status(500).json({
             msg: "could not fetch products"
         }))

@@ -1,34 +1,35 @@
 <div class="form-wraper">
-  <div class="form-container card">
-    <div class="form-header">
-      <img src="./../../../assets/store.png" class="main-lock-icon" alt="">
+    <div class="form-container card">
+      <div class="form-header">
+        <img src="./../../../assets/store.png" class="main-lock-icon" alt="">
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onUserLogin()">
+        <div class="form-body">
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Email</mat-label>
+            <input class="form-input" matInput placeholder="Food@Awesome.com" formControlName="email">
+            <mat-error *ngIf="loginForm.get('email').errors?.serverError">
+              {{ loginForm.get('email').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="justifier">
+            <mat-label>Your Password</mat-label>
+            <input class="form-input" type="password" matInput placeholder="It's a secret..."
+                   formControlName="password">
+            <mat-error *ngIf="loginForm.get('password').errors?.serverError">
+              {{ loginForm.get('password').errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-footer">
+          <button class="btn custom-btn" mat-raised-button type="submit">
+            <mat-icon> input</mat-icon>
+            Login
+          </button>
+        </div>
+        <div class="additional-link">
+          <a routerLink="/signup">No Account? <strong>Create one here</strong></a>
+        </div>
+      </form>
     </div>
-    <form [formGroup]="loginForm" (ngSubmit)="onUserLogin()">
-      <div class="form-body">
-        <mat-form-field appearance="outline" class="justifier">
-          <mat-label>Your Email</mat-label>
-          <input class="form-input" matInput placeholder="Food@Awesome.com" formControlName="email">
-          <mat-error *ngIf="loginForm.get('email').errors?.serverError">
-            {{ loginForm.get('email').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="justifier">
-          <mat-label>Your Password </mat-label>
-          <input class="form-input" type="password" matInput placeholder="It's a secret..." formControlName="password">
-          <mat-error *ngIf="loginForm.get('password').errors?.serverError">
-            {{ loginForm.get('password').errors?.serverError }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="form-footer">
-        <button class="btn custom-btn" mat-raised-button type="submit">
-          <mat-icon> input</mat-icon>
-          Login
-        </button>
-      </div>
-      <div class="additional-link">
-        <a routerLink="/signup">No Account? <strong>Create one here</strong></a>
-      </div>
-    </form>
   </div>
-</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
 import { ProductService } from "../../services/product.service";
 import { OrderService } from "../../services/order.service";
 
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
   numOfProducts: Number;
   numOfOrders: Number;
 
-  constructor(private productService: ProductService,
+  constructor(private authService: AuthService,
+              private productService: ProductService,
               private orderService: OrderService) { }
 
   ngOnInit() {

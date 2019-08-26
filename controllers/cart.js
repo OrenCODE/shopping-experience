@@ -4,7 +4,7 @@ exports.createNewCart = (req, res) => {
     const cart = new Cart({
         userId: req.body.userId,
         date: new Date(),
-        isOpen: true
+        isOpen: 0
     });
     cart.save()
         .then(cart => {
@@ -104,4 +104,35 @@ exports.getUserCart = (req, res) => {
         })
         .catch(err => console.log(err))
 };
+
+exports.checkIfUserHasCart = (req, res) => {
+    Cart.findOne({userId: req.params.id})
+        .then(cart => {
+            if (cart === null) {
+                return res.status(203).json({
+                    status: 2,
+                    msg: "no carts"
+                })
+            }
+            if (cart.isOpen === 0) {
+                return res.status(200).json({
+                    msg: "cart initialized",
+                    status: 0,
+                    cart: cart
+                })
+            }
+            if (cart.isOpen === 1) {
+                return res.status(201).json({
+                    msg: `you have an open cart from ${cart.date}`,
+                    status: 1,
+                    cart: cart
+                })
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send(err);
+        })
+};
+
 
