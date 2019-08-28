@@ -8,6 +8,9 @@ const authenticate = passport.authenticate('jwt',{session: false});
 // Gets products from the database
 router.get('/products', productController.getAllProducts);
 
+// Get product by id
+router.get('/productById/:id', productController.getProductById);
+
 // Creates new Product: Admin
 router.post('/createNewProduct', authenticate, productController.createNewProduct);
 

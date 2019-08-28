@@ -11,14 +11,14 @@ import { CartService } from "../../services/cart.service";
 export class DashboardComponent implements OnInit {
   userId: String;
   userToken: String;
-  userCartStatus: Number;
 
   numOfProducts: Number;
 
   constructor(private authService: AuthService,
               private productService: ProductService,
               private cartService: CartService
-              ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.authService.loadUserPayload();
@@ -27,19 +27,18 @@ export class DashboardComponent implements OnInit {
     this.userToken = this.authService.currentUserToken;
 
     this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
-      console.log(data);
-      if(data.status === 0){
+      if (data.status === 0) {
         console.log(data);
-        this.userCartStatus = 0;
+        this.authService.storeCartData(data.cart);
         return;
       }
-      if(data.status === 1){
+      if (data.status === 1) {
         console.log(data);
-        this.userCartStatus = 1;
+        this.authService.storeCartData(data.cart);
         return;
       } else {
         const userId = {userId: this.userId};
-        this.cartService.createNewCart(userId ,this.userToken).subscribe(data => {
+        this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
           console.log(data);
         })
       }

@@ -50,6 +50,7 @@ button:focus, button:active:focus, button.active:focus {
 .form-wraper{
   width: 100%;
   margin-top: 2%;
+  margin-bottom: 2%;
 }
 .form-container{
   width: 35%;

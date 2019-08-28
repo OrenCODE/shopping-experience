@@ -34,4 +34,10 @@ router.get('/getUserCart/:id', authenticate, cartController.getUserCart);
 // :id = userId
 router.get('/checkIfUserHasCart/:id', authenticate, cartController.checkIfUserHasCart);
 
+// :id = cartId
+router.put('/updateCartStatus/:id', authenticate, cartController.updateCartStatus);
+
+// // : id = cartId
+// router.get('/getProductsFromCart/:id', cartController.getProductsFromCart);
+
 module.exports = router;

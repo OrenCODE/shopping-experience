@@ -19,6 +19,7 @@ export class AuthService {
   loggedUser: User;
   currentUserData: User;
   currentUserToken: String;
+  userCart: any;
 
   constructor(private http: HttpClient) { }
 
@@ -60,5 +61,13 @@ export class AuthService {
     this.authToken = null;
     this.loggedUser = null;
     localStorage.clear()
+  }
+
+  storeCartData = (currentUserCart) => {
+    localStorage.setItem('cart', JSON.stringify(currentUserCart));
+  };
+
+  loadUserCart(){
+    this.userCart = JSON.parse(localStorage.getItem('cart'));
   }
 }

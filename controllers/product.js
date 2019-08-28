@@ -41,3 +41,13 @@ exports.getProductByName = (req,res) => {
             msg: "could not find product name"
         }))
 };
+
+exports.getProductById = (req,res) => {
+    Product.findOne({_id: req.params.id})
+        .then(product => {
+            res.status(200).json(product)
+        })
+        .catch(err => res.status(500).json({
+            msg: "product not found"
+        }))
+};

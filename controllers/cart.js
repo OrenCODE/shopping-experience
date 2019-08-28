@@ -1,4 +1,6 @@
 const Cart = require("../models/Cart");
+// const Product = require("../models/Product");
+// const productController = require('../controllers/product');
 
 exports.createNewCart = (req, res) => {
     const cart = new Cart({
@@ -26,10 +28,10 @@ exports.addProductToCart = (req, res) => {
         $push: {
             products: {
                 _id: req.body._id,
-                name: req.body.name,
+                // name: req.body.name,
                 quantity: req.body.quantity,
-                price: req.body.price,
-                imageURL: req.body.imageURL
+                // price: req.body.price,
+                // imageURL: req.body.imageURL
             }
         }
     }, {new: true})
@@ -108,15 +110,16 @@ exports.getUserCart = (req, res) => {
 exports.checkIfUserHasCart = (req, res) => {
     Cart.findOne({userId: req.params.id})
         .then(cart => {
+            // add this part after order section is finished
+            // || cart[cart.length - 1].isOpen === 3
             if (cart === null) {
-                return res.status(203).json({
-                    status: 2,
+                return res.status(202).json({
                     msg: "no carts"
                 })
             }
             if (cart.isOpen === 0) {
                 return res.status(200).json({
-                    msg: "cart initialized",
+                    msg: "cart exists",
                     status: 0,
                     cart: cart
                 })
@@ -134,5 +137,32 @@ exports.checkIfUserHasCart = (req, res) => {
             res.status(500).send(err);
         })
 };
+
+exports.updateCartStatus = (req,res) => {
+    Cart.findOneAndUpdate({_id: req.params.id}, req.body)
+        .then(() => {
+            Cart.findOne({_id: req.params.id})
+                .then(cart => {
+                    res.status(200).json(cart)
+                })
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500);
+        })
+};
+
+
+// exports.getProductsFromCart = (req,res) => {
+// Cart.find({_id:req.params.id},{products:[]}).then(cart => {
+//         // .forEach(function(item){Product.findOne(item._id)});
+//     res.json(cart)
+// })
+// // forEach(function(item){Product.findOne(item._id)})
+// //     .then(products => {
+// //         return res.status(200).json(products)
+// //     })
+//     .catch(err => console.error(err))
+// };
 
 
