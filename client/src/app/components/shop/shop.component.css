@@ -6,16 +6,24 @@
 .example-sidenav-content {
   display: flex;
   height: 100%;
-  align-items: center;
-  justify-content: center;
+  /*align-items: center;*/
+  /*justify-content: center;*/
 }
 
 .example-sidenav {
-  padding: 20px;
+  width: 30%;
+  padding: 20px 0 0 20px;
 }
-
 .card-footer{
   padding: 0;
+}
+
+.row {
+  margin: auto;
+}
+
+.cart-item-img{
+  width: 100%
 }
 
 .mat-card{
@@ -31,3 +39,6 @@
   padding: 5px;
 }
 
+.cartImg{
+  padding: 5px;
+}

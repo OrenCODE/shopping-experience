@@ -24,14 +24,27 @@
 <!--Cart Sidebar Section-->
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
+    <h3>Shopping Cart</h3>
     <div *ngIf="currentCartProducts !== null">
-      <div *ngFor="let cartProduct of currentCartProducts">
-        <p>{{ products[cartProduct._id].name }}</p>
-        <p>{{ products[cartProduct._id].price | currency: 'USD'}}</p>
-        <p>{{ products[cartProduct._id].imageURL }}</p>
-        <p>{{ cartProduct.quantity }}</p>
+
+      <div class="row shopping-cart-item" *ngFor="let cartProduct of currentCartProducts">
+        <div class="col-4 to-left">
+          <img class="cart-item-img" [src]="products[cartProduct._id].imageURL" alt="...">
+        </div>
+        <ul class="col-8 to-center">
+          <li>
+            <span class="cd-qty">{{ cartProduct.quantity }}X</span> {{ products[cartProduct._id].name }}
+            <div class="cd-price">{{ products[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
+            <button class="cd-item-remove cd-img-replace">Remove</button>
+          </li>
+        </ul>
       </div>
+
+      <div class="cd-cart-total">
+        <p>Total <span>$39.96</span></p>
+      </div>
+      <a href="#0" class="checkout-btn">Checkout</a>
+      <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
     </div>
   </mat-drawer>
 
@@ -40,25 +53,25 @@
   <div *ngIf="!isLoading">
     <div *ngIf="!productsByCategory">
       <div class="row">
-        <mat-card class="col-md-4" *ngFor="let product of products | keyvalue">
+        <mat-card class="col-md-4" *ngFor="let item of products | keyvalue">
           <div class="to-center productImg">
-            <img class="card-img-top" [src]="products[product.key].imageURL">
+            <img class="card-img-top" [src]="products[item.key].imageURL">
           </div>
           <div class="mat-card-content">
-            <h4 class="to-center">{{ products[product.key].name }}</h4>
-            <p class="to-center">{{ products[product.key].price | currency: 'USD'}}</p>
+            <h4 class="to-center">{{ products[item.key].name }}</h4>
+            <p class="to-center">{{ products[item.key].price | currency: 'USD'}}</p>
             <div class="card-footer">
-              <button *ngIf="product.key !== productId" mat-button class="justifier"
-                      (click)="addToCart(product.key)">Add to Cart
+              <button *ngIf="item.key !== productId" mat-button class="justifier"
+                      (click)="addToCart(item.key)">Add to Cart
               </button>
-              <div *ngIf="productId === product.key"
+              <div *ngIf="productId === item.key"
                    class="to-center">
                 <button mat-button (click)="removeItem()">-</button>
                 <div>  {{ quantity }}  </div>
                 <button mat-button (click)="addItem()">+</button>
               </div>
-              <button *ngIf="productId === product.key" mat-button class="justifier"
-                      (click)="sendToCart(product.key, quantity)">Send To Cart
+              <button *ngIf="productId === item.key" mat-button class="justifier"
+                      (click)="sendToCart(item.key, quantity)">Send To Cart
               </button>
             </div>
           </div>
@@ -68,28 +81,28 @@
 
     <!--Products by Category-->
     <div class="row">
-    <mat-card class="col-md-4" *ngFor="let product of productsByCategory">
-      <div class="to-center productImg">
-        <img class="card-img-top" [src]="product.imageURL" [alt]="product.imageURL">
-      </div>
-      <div class="mat-card-content">
-        <h4 class="to-center"> {{ product.name}} </h4>
-        <p class="to-center"> {{ product.price | currency:'USD'}} </p>
-        <div class="card-footer">
-          <button *ngIf="product._id !== productId" mat-button class="justifier"
-                  (click)="addToCart(product._id)">Add To Cart
-          </button>
-          <div *ngIf="productId === product._id" class="to-center">
-            <button mat-button (click)="removeItem()">-</button>
-            <div>  {{ quantity }}  </div>
-            <button mat-button (click)="addItem()">+</button>
-          </div>
-          <button *ngIf="productId === product._id" mat-button class="justifier"
-                  (click)="sendToCart(productId, quantity)">Send To Cart
-          </button>
+      <mat-card class="col-md-4" *ngFor="let item of productsByCategory">
+        <div class="to-center productImg">
+          <img class="card-img-top" [src]="item.imageURL" [alt]="item.imageURL">
         </div>
-      </div>
-    </mat-card>
+        <div class="mat-card-content">
+          <h4 class="to-center"> {{ item.name}} </h4>
+          <p class="to-center"> {{ item.price | currency:'USD'}} </p>
+          <div class="card-footer">
+            <button *ngIf="item._id !== productId" mat-button class="justifier"
+                    (click)="addToCart(item._id)">Add To Cart
+            </button>
+            <div *ngIf="productId === item._id" class="to-center">
+              <button mat-button (click)="removeItem()">-</button>
+              <div>  {{ quantity }}  </div>
+              <button mat-button (click)="addItem()">+</button>
+            </div>
+            <button *ngIf="productId === item._id" mat-button class="justifier"
+                    (click)="sendToCart(productId, quantity)">Send To Cart
+            </button>
+          </div>
+        </div>
+      </mat-card>
     </div>
 
   </div>
