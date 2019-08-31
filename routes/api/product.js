@@ -5,8 +5,11 @@ const passport = require('passport');
 const productController = require('../../controllers/product');
 const authenticate = passport.authenticate('jwt',{session: false});
 
-// Gets products from the database
-router.get('/products', productController.getAllProducts);
+// Gets Array of products from the database
+router.get('/products', productController.getProducts);
+
+// Gets all products as objects
+router.get('/productsAsObjects', productController.getProductsAsObjects);
 
 // Get product by id
 router.get('/productById/:id', productController.getProductById);

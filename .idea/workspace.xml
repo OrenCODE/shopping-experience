@@ -31,7 +31,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="com.intellij.codeInsight.hints.config.SingleLanguageInlayHintsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -87,7 +87,7 @@
       <workItem from="1566433967519" duration="79327000" />
       <workItem from="1566763172197" duration="6859000" />
       <workItem from="1566776011912" duration="20259000" />
-      <workItem from="1566847626350" duration="29000000" />
+      <workItem from="1566847626350" duration="75584000" />
     </task>
     <servers />
   </component>

@@ -15,7 +15,7 @@ exports.createNewProduct = (req, res) => {
         .catch(err => console.log(err));
 };
 
-exports.getAllProducts = (req, res) => {
+exports.getProducts = (req, res) => {
     Product.find({})
         .then(allProducts => res.status(200).json(allProducts))
         .catch(err => res.status(500).json({
@@ -31,18 +31,18 @@ exports.getProductsByCategory = (req, res) => {
         }))
 };
 
-exports.getProductByName = (req,res) => {
+exports.getProductByName = (req, res) => {
     Product.find({name: req.params.name})
         .then(productByName => res.status(200).json({
             msg: "product found",
             product: productByName
-            }))
+        }))
         .catch(err => res.status(500).json({
             msg: "could not find product name"
         }))
 };
 
-exports.getProductById = (req,res) => {
+exports.getProductById = (req, res) => {
     Product.findOne({_id: req.params.id})
         .then(product => {
             res.status(200).json(product)
@@ -51,3 +51,23 @@ exports.getProductById = (req,res) => {
             msg: "product not found"
         }))
 };
+
+exports.getProductsAsObjects = (req, res) => {
+    const products = {};
+    Product.find(function (err, docs) {
+        docs.forEach(function (doc) {
+            products[doc._id] = doc;
+        })
+    })
+        .then(() => {
+            setTimeout(() => {
+                return res.status(200).json(products)
+            }, 200);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send(err)
+        })
+};
+
+

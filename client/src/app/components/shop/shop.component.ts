@@ -13,16 +13,16 @@ import {Product} from "../../models/Product";
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
-
-  // showFiller: boolean = false;
+  isLoading: Boolean = true;
   categories: Category[];
+  products: Record<any, Product>;
+
+  productsLength: Number;
   productsByCategory: Product[];
-  products: Product[];
   currentCartProducts: Product[];
 
   productId: String;
-  cartId: any;
-  addMode: Boolean = false;
+  cartId: String;
 
   public quantity: number;
 
@@ -44,18 +44,25 @@ export class ShopComponent implements OnInit {
     this.userToken = this.authService.currentUserToken;
     this.cartId = this.authService.userCart._id;
 
+    this.productService.getAllProducts().subscribe(data => {
+      this.products = data;
+      this.productsLength = Object.keys(data).length;
+      console.log(this.products, this.productsLength);
+    });
+
     this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
       this.currentCartProducts = data.cart.products;
+      console.log(this.currentCartProducts)
     });
 
     this.categoryService.getAllCategories().subscribe(data => {
       this.categories = data;
+      this.isLoading = false;
     });
+  }
 
-    this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
-      console.log(this.products);
-    })
+  showAllProducts() {
+    this.productsByCategory = null
   }
 
   filterProductsByCategory(categoryId) {
@@ -64,50 +71,39 @@ export class ShopComponent implements OnInit {
     })
   }
 
-  addProductToCart(e) {
-    e.preventDefault();
-    console.log('check')
-  }
-
-  // changeView(productId) {
-  //   this.productId = productId;
-  //   this.addMode = true;
-  // }
-
   addToCart(productId) {
     this.productId = productId;
     this.quantity = 1;
   }
 
   addItem() {
-    this.quantity = this.quantity + 1;
+    this.quantity += 1;
   }
 
   removeItem() {
     if (this.quantity > 1) {
-      this.quantity = this.quantity - 1;
+      this.quantity -= 1;
     }
   }
 
-  sendToCart(_id, quantity){
-    const addedProduct = { _id, quantity };
+  sendToCart(_id, quantity) {
+    const addedProduct = {_id, quantity};
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
     if (cartStatus === 0) {
-      const setOpenCart = { isOpen: 1 };
-      this.cartService.updateCartStatus(cartId, setOpenCart , this.userToken).subscribe(data => {
-        // this.cartId = data._id;
-        this.authService.storeCartData(data);
-        this.authService.loadUserCart();
+      const setOpenCart = {isOpen: 1};
+      this.cartService.updateCartStatus(cartId, setOpenCart, this.userToken).subscribe(data => {
+        this.updateLocalStorage(data)
       });
     }
-    if (cartStatus === 1) {
-      this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
-        this.authService.storeCartData(data);
-        this.authService.loadUserCart();
-        this.currentCartProducts = this.authService.userCart.products;
+    this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
+      this.updateLocalStorage(data)
+    })
+  }
 
-      })
-    }
+  updateLocalStorage(cartData) {
+    this.authService.storeCartData(cartData);
+    this.authService.loadUserCart();
+    this.currentCartProducts = this.authService.userCart.products;
   }
 }

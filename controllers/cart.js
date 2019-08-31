@@ -1,6 +1,4 @@
 const Cart = require("../models/Cart");
-// const Product = require("../models/Product");
-// const productController = require('../controllers/product');
 
 exports.createNewCart = (req, res) => {
     const cart = new Cart({
@@ -148,21 +146,6 @@ exports.updateCartStatus = (req,res) => {
         })
         .catch(err => {
             console.error(err);
-            res.status(500);
+            res.status(500).send(err);
         })
 };
-
-
-// exports.getProductsFromCart = (req,res) => {
-// Cart.find({_id:req.params.id},{products:[]}).then(cart => {
-//         // .forEach(function(item){Product.findOne(item._id)});
-//     res.json(cart)
-// })
-// // forEach(function(item){Product.findOne(item._id)})
-// //     .then(products => {
-// //         return res.status(200).json(products)
-// //     })
-//     .catch(err => console.error(err))
-// };
-
-

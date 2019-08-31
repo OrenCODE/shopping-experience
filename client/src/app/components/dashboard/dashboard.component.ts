@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { ProductService } from "../../services/product.service";
-import { CartService } from "../../services/cart.service";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {ProductService} from "../../services/product.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -39,15 +39,13 @@ export class DashboardComponent implements OnInit {
       } else {
         const userId = {userId: this.userId};
         this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
-          console.log(data);
-        })
+          this.authService.storeCartData(data.cart);
+        });
       }
-
     });
-
-    this.productService.getAllProducts().subscribe(data => {
-      this.numOfProducts = data.length;
-    })
+    // this.productService.getAllProducts().subscribe(data => {
+    //   this.numOfProducts = data.length;
+    // })
   }
 
   capFirstLetter(string) {

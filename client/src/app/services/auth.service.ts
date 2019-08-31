@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/User";
+import { Cart } from "../models/Cart";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,7 +20,7 @@ export class AuthService {
   loggedUser: User;
   currentUserData: User;
   currentUserToken: String;
-  userCart: any;
+  userCart: Cart;
 
   constructor(private http: HttpClient) { }
 
