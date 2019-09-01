@@ -33,4 +33,8 @@ export class CartService {
     return this.http.put<Product>(`http://localhost:4000/api/cart/addProductToCart/${cartId}`, product,{headers: {Authorization: token }})
   }
 
+  deleteProductFromCart(cartId, productId, token): Observable<any>{
+    return this.http.put<any>(`http://localhost:4000/api/cart/deleteProductFromCart/${cartId}`, productId ,{headers: {Authorization: token }})
+  }
+
 }

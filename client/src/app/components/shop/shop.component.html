@@ -28,20 +28,20 @@
     <div *ngIf="currentCartProducts !== null">
 
       <div class="row shopping-cart-item" *ngFor="let cartProduct of currentCartProducts">
-        <div class="col-4 to-left">
+        <div class="col-6 to-left">
           <img class="cart-item-img" [src]="products[cartProduct._id].imageURL" alt="...">
         </div>
-        <ul class="col-8 to-center">
+        <ul class="col-6 to-center">
           <li>
-            <span class="cd-qty">{{ cartProduct.quantity }}X</span> {{ products[cartProduct._id].name }}
-            <div class="cd-price">{{ products[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
-            <button class="cd-item-remove cd-img-replace">Remove</button>
+            <span>{{ cartProduct.quantity }}X</span> {{ products[cartProduct._id].name }}
+            <div>{{ products[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
+            <button mat-button (click)="deleteProductFromCart(cartProduct._id)">Remove</button>
           </li>
         </ul>
       </div>
 
       <div class="cd-cart-total">
-        <p>Total <span>$39.96</span></p>
+        <p>Total <span>000</span></p>
       </div>
       <a href="#0" class="checkout-btn">Checkout</a>
       <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>

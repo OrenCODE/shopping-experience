@@ -57,8 +57,9 @@ export class ShopComponent implements OnInit {
 
     this.categoryService.getAllCategories().subscribe(data => {
       this.categories = data;
-      this.isLoading = false;
     });
+
+    this.isLoading = false;
   }
 
   showAllProducts() {
@@ -68,6 +69,14 @@ export class ShopComponent implements OnInit {
   filterProductsByCategory(categoryId) {
     this.productService.getProductsByCategoryId(categoryId).subscribe(data => {
       this.productsByCategory = data
+    })
+  }
+
+  deleteProductFromCart(_id) {
+    const productId = { _id };
+    this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
+      console.log(data);
+      this.updateLocalStorage(data);
     })
   }
 

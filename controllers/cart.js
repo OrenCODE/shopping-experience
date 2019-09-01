@@ -26,10 +26,7 @@ exports.addProductToCart = (req, res) => {
         $push: {
             products: {
                 _id: req.body._id,
-                // name: req.body.name,
                 quantity: req.body.quantity,
-                // price: req.body.price,
-                // imageURL: req.body.imageURL
             }
         }
     }, {new: true})
@@ -46,16 +43,38 @@ exports.addProductToCart = (req, res) => {
 };
 
 exports.deleteProductFromCart = (req, res) => {
-    Cart.findOneAndUpdate({_id: req.params.id},
-        {
-            $pull: {
-                products: {$elemMatch: {_id: req.body.productId}}
-            }
-        },
-        {safe: true, multi: true})
-        .then(() => res.json({success: true}))
-        .catch(err => res.status(404).json({success: false}))
+    Cart.findOneAndUpdate({_id: req.params.id}, {$pull: {products: {_id: req.body._id}}})
+        .then(() => {
+            Cart.findOne({_id: req.params.id})
+                .then(cart => {
+                    res.status(200).json(cart);
+                })
+        }).catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+
+    })
 };
+
+// exports.deleteProductFromCart = (req, res) => {
+//     Cart.findOneAndUpdate({_id: req.params.id},
+//         {
+//             $pull: {
+//                 products: {$elemMatch: {_id: req.body._id}}
+//             }
+//         },
+//         {safe: true, multi: true})
+//         .then(() => {
+//         Cart.findOne({_id: req.params.id})
+//             .then((cart) => {
+//                 res.json(cart)
+//             })
+//     })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(500).send(err);
+//         });
+// };
 
 exports.deleteAllProductsFromCart = (req, res) => {
     Cart.updateOne({_id: req.params.id}, {products: []},
@@ -136,7 +155,7 @@ exports.checkIfUserHasCart = (req, res) => {
         })
 };
 
-exports.updateCartStatus = (req,res) => {
+exports.updateCartStatus = (req, res) => {
     Cart.findOneAndUpdate({_id: req.params.id}, req.body)
         .then(() => {
             Cart.findOne({_id: req.params.id})

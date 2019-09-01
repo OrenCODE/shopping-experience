@@ -14,7 +14,7 @@ router.put('/addProductToCart/:id', authenticate, cartController.addProductToCar
 
 // Delete Product from the user Cart
 // :id = cartId
-router.put('/deleteProduct/:id', authenticate, cartController.deleteProductFromCart);
+router.put('/deleteProductFromCart/:id', authenticate, cartController.deleteProductFromCart);
 
 // Delete all products from the user Cart
 // :id = cartId
