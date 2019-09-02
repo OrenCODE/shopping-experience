@@ -15,7 +15,7 @@ import {Product} from "../../models/Product";
 export class ShopComponent implements OnInit {
   isLoading: Boolean = true;
   categories: Category[];
-  products: Record<any, Product>;
+  products: Record<string, Product>;
 
   productsLength: Number;
   productsByCategory: Product[];
@@ -24,7 +24,8 @@ export class ShopComponent implements OnInit {
   productId: String;
   cartId: String;
 
-  public quantity: number;
+  public quantity: any;
+  public totalPrice: any;
 
   userId: String;
   userToken: String;
@@ -57,9 +58,8 @@ export class ShopComponent implements OnInit {
 
     this.categoryService.getAllCategories().subscribe(data => {
       this.categories = data;
+      this.isLoading = false;
     });
-
-    this.isLoading = false;
   }
 
   showAllProducts() {
@@ -73,20 +73,34 @@ export class ShopComponent implements OnInit {
   }
 
   deleteProductFromCart(_id) {
-    const productId = { _id };
+    const productId = {_id};
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
       console.log(data);
       this.updateLocalStorage(data);
     })
   }
 
+  cleanCart(){
+    this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
+      console.log(data);
+      this.updateLocalStorage(data);
+    })
+  }
+
   addToCart(productId) {
-    this.productId = productId;
-    this.quantity = 1;
+    const cartProduct = this.currentCartProducts.find(product => product._id === productId);
+    if (cartProduct === undefined) {
+      this.productId = productId;
+      this.quantity = 1;
+    } else if (cartProduct._id === productId) {
+      this.quantity = cartProduct.quantity;
+      this.productId = productId
+    }
   }
 
   addItem() {
     this.quantity += 1;
+
   }
 
   removeItem() {
@@ -106,6 +120,7 @@ export class ShopComponent implements OnInit {
       });
     }
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
+      console.log(data);
       this.updateLocalStorage(data)
     })
   }

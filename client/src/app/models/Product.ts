@@ -4,4 +4,6 @@ export interface Product {
   price: Number;
   category: String;
   imageURL: String;
+
+  quantity: Number;
 }

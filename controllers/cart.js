@@ -22,20 +22,38 @@ exports.createNewCart = (req, res) => {
 };
 
 exports.addProductToCart = (req, res) => {
-    Cart.findOneAndUpdate({_id: req.params.id}, {
-        $push: {
-            products: {
-                _id: req.body._id,
-                quantity: req.body.quantity,
-            }
-        }
-    }, {new: true})
-        .then(() => {
-            Cart.findOne({_id: req.params.id})
-                .then((cart) => {
-                    res.json(cart)
+    Cart.findOne({
+        _id: req.params.id,
+        products: {$elemMatch: {_id: req.body._id}}
+    }).then(product => {
+        if (product) {
+            Cart.updateOne({_id: req.params.id, "products._id": req.body._id}, {
+                    $set: {"products.$.quantity": req.body.quantity}
+                }
+            ).then(() => {
+                Cart.findOne({_id: req.params.id})
+                    .then((cart) => {
+                        res.status(200).json(cart);
+                    })
+            })
+        } else {
+            Cart.findOneAndUpdate({_id: req.params.id}, {
+                $push: {
+                    products: {
+                        _id: req.body._id,
+                        quantity: req.body.quantity,
+                    }
+                }
+            }, {new: true})
+                .then(() => {
+                    Cart.findOne({_id: req.params.id})
+                        .then((cart) => {
+                            res.status(200).json(cart);
+                            console.log(cart)
+                        })
                 })
-        })
+        }
+    })
         .catch(err => {
             console.error(err);
             res.status(500).send(err);
@@ -56,31 +74,18 @@ exports.deleteProductFromCart = (req, res) => {
     })
 };
 
-// exports.deleteProductFromCart = (req, res) => {
-//     Cart.findOneAndUpdate({_id: req.params.id},
-//         {
-//             $pull: {
-//                 products: {$elemMatch: {_id: req.body._id}}
-//             }
-//         },
-//         {safe: true, multi: true})
-//         .then(() => {
-//         Cart.findOne({_id: req.params.id})
-//             .then((cart) => {
-//                 res.json(cart)
-//             })
-//     })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).send(err);
-//         });
-// };
-
 exports.deleteAllProductsFromCart = (req, res) => {
     Cart.updateOne({_id: req.params.id}, {products: []},
         {safe: true, multi: true})
-        .then(() => res.json({success: true}))
-        .catch(err => res.status(404).json({success: false}))
+        .then(() => {
+            Cart.findOne({_id: req.params.id})
+                .then(cart => {
+                    res.status(200).json(cart);
+                })
+        }).catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 exports.getCartById = (req, res) => {
