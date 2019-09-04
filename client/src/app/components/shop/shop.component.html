@@ -4,6 +4,10 @@
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
+<form>
+  <input matInput type="text" placeholder="Search" [value]="searchValue" (keyup)="onUserSearch($event.target.value)">
+</form>
+
   <span>
     <button mat-button (click)="showAllProducts()">All</button>
       <button
@@ -28,25 +32,26 @@
     <div *ngIf="this.authService.userCart.products.length > 0">
 
       <div class="row shopping-cart-item" *ngFor="let cartProduct of currentCartProducts">
-        <div class="col-6 to-left">
+        <div class="col-6 to-left cartItem">
           <img class="cart-item-img" [src]="products[cartProduct._id].imageURL" alt="...">
         </div>
         <ul class="col-6 to-center">
           <li>
             <span>{{ cartProduct.quantity }}X</span> {{ products[cartProduct._id].name }}
             <div>{{ products[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
-            <button mat-button (click)="deleteProductFromCart(cartProduct._id)"></button>
+            <button mat-button (click)="deleteProductFromCart(cartProduct._id)">
+              <mat-icon>remove_shopping_cart</mat-icon>
+            </button>
           </li>
         </ul>
       </div>
 
-      <div class="cd-cart-total">
-        <p>Total <span>000</span></p>
+      <div>
+        <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
       </div>
       <button mat-button (click)="cleanCart()"
       >Delete All Products</button>
       <a href="#0" class="checkout-btn">Checkout</a>
-      <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
     </div>
   </mat-drawer>
 
@@ -66,13 +71,12 @@
               <button *ngIf="item.key !== productId" mat-button class="justifier"
                       (click)="addToCart(item.key)">Add to Cart
               </button>
-              <div *ngIf="productId === item.key"
-                   class="to-center">
+              <div *ngIf="productId === item.key" class="to-center">
                 <form>
-                  <button mat-button (click)="removeItem()">-</button>
+                  <button mat-button (click)="removeItem(item.key, quantity)">-</button>
                   <input type="number" name="quantity" [(ngModel)]="quantity">
 <!--                  <input type="text" value="check">-->
-                  <button mat-button (click)="addItem()">+</button>
+                  <button mat-button (click)="addItem(item.key, quantity)">+</button>
                     <button *ngIf="productId === item.key" mat-button class="justifier"
                             (click)="sendToCart(item.key, quantity)">Send To Cart
                     </button>
@@ -98,9 +102,9 @@
                     (click)="addToCart(item._id)">Add To Cart
             </button>
             <div *ngIf="productId === item._id" class="to-center">
-              <button mat-button (click)="removeItem()">-</button>
+              <button mat-button (click)="removeItem(item._id, quantity)">-</button>
               <div>  {{ quantity }}  </div>
-              <button mat-button (click)="addItem()">+</button>
+              <button mat-button (click)="addItem(item._id, quantity)">+</button>
             </div>
             <button *ngIf="productId === item._id" mat-button class="justifier"
                     (click)="sendToCart(productId, quantity)">Send To Cart

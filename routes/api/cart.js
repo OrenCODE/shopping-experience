@@ -26,7 +26,7 @@ router.get('/:id', authenticate, cartController.getCartById);
 
 // Get user cart while checking if it's open\closed
 // :id = userId
-router.get('/getUserCart/:id', authenticate, cartController.getUserCart);
+// router.get('/getUserCart/:id', authenticate, cartController.getUserCart);
 
 ///////////////////////
 

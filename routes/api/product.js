@@ -20,7 +20,7 @@ router.post('/createNewProduct', authenticate, productController.createNewProduc
 // Gets products by categoryId
 router.get('/productsByCategory/:id', productController.getProductsByCategory);
 
-// Gets a product by productName //FIX THIS ROUTE//
-router.get('/productByName/:name', productController.getProductByName);
+// Gets product/s by onType Search
+router.get('/search', productController.searchProduct);
 
 module.exports = router;

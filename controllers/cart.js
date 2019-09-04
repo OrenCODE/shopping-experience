@@ -22,38 +22,35 @@ exports.createNewCart = (req, res) => {
 };
 
 exports.addProductToCart = (req, res) => {
-    Cart.findOne({
-        _id: req.params.id,
-        products: {$elemMatch: {_id: req.body._id}}
-    }).then(product => {
-        if (product) {
-            Cart.updateOne({_id: req.params.id, "products._id": req.body._id}, {
-                    $set: {"products.$.quantity": req.body.quantity}
-                }
-            ).then(() => {
-                Cart.findOne({_id: req.params.id})
-                    .then((cart) => {
-                        res.status(200).json(cart);
+    Cart.findOne({_id: req.params.id, products: {$elemMatch: {_id: req.body._id}}})
+        .then(product => {
+            if (product) {
+                Cart.updateOne({_id: req.params.id, "products._id": req.body._id}, {
+                        $set: {"products.$.quantity": req.body.quantity}
                     })
-            })
-        } else {
-            Cart.findOneAndUpdate({_id: req.params.id}, {
-                $push: {
-                    products: {
-                        _id: req.body._id,
-                        quantity: req.body.quantity,
-                    }
-                }
-            }, {new: true})
-                .then(() => {
+                    .then(() => {
                     Cart.findOne({_id: req.params.id})
                         .then((cart) => {
                             res.status(200).json(cart);
-                            console.log(cart)
                         })
                 })
-        }
-    })
+            } else {
+                Cart.findOneAndUpdate({_id: req.params.id}, {
+                    $push: {
+                        products: {
+                            _id: req.body._id,
+                            quantity: req.body.quantity,
+                        }
+                    }
+                }, {new: true})
+                    .then(() => {
+                        Cart.findOne({_id: req.params.id})
+                            .then((cart) => {
+                                res.status(200).json(cart);
+                            })
+                    })
+            }
+        })
         .catch(err => {
             console.error(err);
             res.status(500).send(err);
@@ -99,35 +96,35 @@ exports.getCartById = (req, res) => {
         })
 };
 
-exports.getUserCart = (req, res) => {
-    Cart.find({userId: req.params.id, isOpen: true})
-        .then(cart => {
-            if (cart.length === 0) {
-                Cart.find({userId: req.params.id, isOpen: false})
-                    .then(checkedCart => {
-                        if (checkedCart) {
-                            const lastCheckedCart = checkedCart[checkedCart.length - 1];
-                            return res.status(200).json({
-                                msg: "last order from",
-                                cart: lastCheckedCart,
-                                OpenCart: false
-                            });
-                        } else {
-                            return res.status(200).json({
-                                msg: "Welcome to the shop"
-                            })
-                        }
-                    })
-            } else {
-                return res.status(200).json({
-                    msg: "open cart from",
-                    cart: cart,
-                    openCart: true
-                })
-            }
-        })
-        .catch(err => console.log(err))
-};
+// exports.getUserCart = (req, res) => {
+//     Cart.find({userId: req.params.id, isOpen: true})
+//         .then(cart => {
+//             if (cart.length === 0) {
+//                 Cart.find({userId: req.params.id, isOpen: false})
+//                     .then(checkedCart => {
+//                         if (checkedCart) {
+//                             const lastCheckedCart = checkedCart[checkedCart.length - 1];
+//                             return res.status(200).json({
+//                                 msg: "last order from",
+//                                 cart: lastCheckedCart,
+//                                 OpenCart: false
+//                             });
+//                         } else {
+//                             return res.status(200).json({
+//                                 msg: "Welcome to the shop"
+//                             })
+//                         }
+//                     })
+//             } else {
+//                 return res.status(200).json({
+//                     msg: "open cart from",
+//                     cart: cart,
+//                     openCart: true
+//                 })
+//             }
+//         })
+//         .catch(err => console.log(err))
+// };
 
 exports.checkIfUserHasCart = (req, res) => {
     Cart.findOne({userId: req.params.id})

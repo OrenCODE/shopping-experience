@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {CategoryService} from "../../services/category.service";
-import {ProductService} from "../../services/product.service";
-import {CartService} from "../../services/cart.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { CategoryService } from "../../services/category.service";
+import { ProductService } from "../../services/product.service";
+import { CartService } from "../../services/cart.service";
 
-import {Category} from "../../models/Category";
-import {Product} from "../../models/Product";
+import { Category } from "../../models/Category";
+import { Product } from "../../models/Product";
 
 @Component({
   selector: 'app-shop',
@@ -14,6 +14,7 @@ import {Product} from "../../models/Product";
 })
 export class ShopComponent implements OnInit {
   isLoading: Boolean = true;
+
   categories: Category[];
   products: Record<string, Product>;
 
@@ -24,8 +25,9 @@ export class ShopComponent implements OnInit {
   productId: String;
   cartId: String;
 
-  public quantity: any;
-  public totalPrice: any;
+  public quantity: number;
+  public totalPrice: number;
+  public searchValue: string = '';
 
   userId: String;
   userToken: String;
@@ -53,6 +55,7 @@ export class ShopComponent implements OnInit {
 
     this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
       this.currentCartProducts = data.cart.products;
+      this.setTotalPrice();
       console.log(this.currentCartProducts)
     });
 
@@ -77,6 +80,7 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
       console.log(data);
       this.updateLocalStorage(data);
+      this.setTotalPrice();
     })
   }
 
@@ -93,19 +97,25 @@ export class ShopComponent implements OnInit {
       this.productId = productId;
       this.quantity = 1;
     } else if (cartProduct._id === productId) {
-      this.quantity = cartProduct.quantity;
+      this.quantity = cartProduct.quantity as any;
       this.productId = productId
     }
   }
 
-  addItem() {
+  addItem(id , quantity) {
     this.quantity += 1;
-
+    this.sendToCart(id , quantity);
   }
 
-  removeItem() {
+  removeItem(id, quantity) {
+    // if (this.quantity === 1) {
+    //   this.deleteProductFromCart(_id);
+    //   this.quantity = 1;
+    //
+    // }
     if (this.quantity > 1) {
       this.quantity -= 1;
+      this.sendToCart(id, quantity)
     }
   }
 
@@ -114,14 +124,24 @@ export class ShopComponent implements OnInit {
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
     if (cartStatus === 0) {
-      const setOpenCart = {isOpen: 1};
-      this.cartService.updateCartStatus(cartId, setOpenCart, this.userToken).subscribe(data => {
-        this.updateLocalStorage(data)
-      });
+     this.updateCartStatus();
     }
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
+      this.updateLocalStorage(data);
+      this.setTotalPrice();
+    })
+  }
+
+  setTotalPrice(){
+    this.totalPrice = 0;
+    for (let i = 0; i < this.currentCartProducts.length; i++) {
+      this.totalPrice +=  this.currentCartProducts[i].quantity as any * this.products[this.currentCartProducts[i]._id as any].price;
+    }
+  }
+
+  onUserSearch(searchValue){
+    this.productService.searchProducts(searchValue).subscribe(data => {
       console.log(data);
-      this.updateLocalStorage(data)
     })
   }
 
@@ -129,5 +149,13 @@ export class ShopComponent implements OnInit {
     this.authService.storeCartData(cartData);
     this.authService.loadUserCart();
     this.currentCartProducts = this.authService.userCart.products;
+  }
+
+  updateCartStatus(){
+    const cartId = this.cartId;
+    const setOpenCart = {isOpen: 1};
+    this.cartService.updateCartStatus(cartId, setOpenCart, this.userToken).subscribe(data => {
+      this.updateLocalStorage(data)
+    });
   }
 }

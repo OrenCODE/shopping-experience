@@ -26,20 +26,25 @@ exports.getProducts = (req, res) => {
 exports.getProductsByCategory = (req, res) => {
     Product.find({categoryId: req.params.id})
         .then(productsByCategory => res.status(200).json(productsByCategory))
-        .catch(err => res.status(500).json({
-            msg: "could not fetch products"
-        }))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                msg: "could not fetch products"
+            })
+        })
 };
 
-exports.getProductByName = (req, res) => {
-    Product.find({name: req.params.name})
-        .then(productByName => res.status(200).json({
-            msg: "product found",
-            product: productByName
-        }))
-        .catch(err => res.status(500).json({
-            msg: "could not find product name"
-        }))
+exports.searchProduct = (req, res, next) => {
+    Product.find({"name": {$regex: RegExp(req.query.name)}})
+        .then(results => {
+            res.json(results)
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                msg: "something went wrong"
+            })
+        })
 };
 
 exports.getProductById = (req, res) => {
@@ -47,9 +52,12 @@ exports.getProductById = (req, res) => {
         .then(product => {
             res.status(200).json(product)
         })
-        .catch(err => res.status(500).json({
-            msg: "product not found"
-        }))
+        .catch(err => {
+            console.error(err);
+            res.status(400).json({
+                msg: "product not found"
+            })
+        })
 };
 
 exports.getProductsAsObjects = (req, res) => {

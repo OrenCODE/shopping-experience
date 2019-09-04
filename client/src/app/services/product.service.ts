@@ -24,6 +24,10 @@ export class ProductService {
     return this.http.get<Product[]>(`http://localhost:4000/api/product/productsByCategory/${categoryId}`);
   }
 
+  searchProducts(name): Observable<any>{
+    return this.http.get<any>(`http://localhost:4000/api/product/search?name=${name}`)
+  }
+
   getProductById(productId): Observable<Product>{
     return this.http.get<Product>(`http://localhost:4000/api/product/productById/${productId}`)
   }

@@ -36,9 +36,13 @@
 }
 
 .productImg{
-  padding: 5px;
+  padding: 22px;
 }
 
 .cartImg{
   padding: 5px;
+}
+
+.cartItem{
+  padding: 0 29px;
 }

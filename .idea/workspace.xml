@@ -35,12 +35,12 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/client/src/assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client/src/assets" />
       <recent name="$PROJECT_DIR$/client/src/app" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/assets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -90,7 +90,7 @@
       <workItem from="1566847626350" duration="83509000" />
       <workItem from="1567273434717" duration="20504000" />
       <workItem from="1567349340618" duration="742000" />
-      <workItem from="1567362321674" duration="33541000" />
+      <workItem from="1567362321674" duration="68179000" />
     </task>
     <servers />
   </component>
