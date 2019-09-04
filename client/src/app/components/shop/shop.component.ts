@@ -102,12 +102,11 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  addItem(id , quantity) {
+  addItem() {
     this.quantity += 1;
-    this.sendToCart(id , quantity);
   }
 
-  removeItem(id, quantity) {
+  removeItem(_id) {
     // if (this.quantity === 1) {
     //   this.deleteProductFromCart(_id);
     //   this.quantity = 1;
@@ -115,7 +114,6 @@ export class ShopComponent implements OnInit {
     // }
     if (this.quantity > 1) {
       this.quantity -= 1;
-      this.sendToCart(id, quantity)
     }
   }
 
@@ -141,7 +139,12 @@ export class ShopComponent implements OnInit {
 
   onUserSearch(searchValue){
     this.productService.searchProducts(searchValue).subscribe(data => {
-      console.log(data);
+      const valueFound = data;
+      const results = {};
+      for (let i = 0; i < valueFound.length; i++) {
+        results[valueFound[i]._id] = valueFound[i]
+      }
+      this.products = results;
     })
   }
 
