@@ -6,6 +6,7 @@ import { CartService } from "../../services/cart.service";
 
 import { Category } from "../../models/Category";
 import { Product } from "../../models/Product";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-shop',
@@ -14,12 +15,16 @@ import { Product } from "../../models/Product";
 })
 export class ShopComponent implements OnInit {
   isLoading: Boolean = true;
+  // search: FormGroup;
+  searchInputOn: Boolean = true;
 
   categories: Category[];
+  productsByCategory: Product[];
+
   products: Record<string, Product>;
+  productsForCart: Record<string,Product>;
 
   productsLength: Number;
-  productsByCategory: Product[];
   currentCartProducts: Product[];
 
   productId: String;
@@ -35,7 +40,8 @@ export class ShopComponent implements OnInit {
   constructor(private authService: AuthService,
               private categoryService: CategoryService,
               private productService: ProductService,
-              private cartService: CartService
+              private cartService: CartService,
+              private formBuilder: FormBuilder
   ) {
   }
 
@@ -47,31 +53,22 @@ export class ShopComponent implements OnInit {
     this.userToken = this.authService.currentUserToken;
     this.cartId = this.authService.userCart._id;
 
-    this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
-      this.productsLength = Object.keys(data).length;
-      console.log(this.products, this.productsLength);
-    });
+    this.getAllProducts();
+    this.checkIfUserHasCart();
+    this.getAllCategories();
 
-    this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
-      this.currentCartProducts = data.cart.products;
-      this.setTotalPrice();
-      console.log(this.currentCartProducts)
-    });
-
-    this.categoryService.getAllCategories().subscribe(data => {
-      this.categories = data;
-      this.isLoading = false;
-    });
+    // this.search = this.formBuilder.group({search: ['']})
   }
 
   showAllProducts() {
-    this.productsByCategory = null
+    this.productsByCategory = null;
+    this.searchInputOn = true
   }
 
   filterProductsByCategory(categoryId) {
     this.productService.getProductsByCategoryId(categoryId).subscribe(data => {
-      this.productsByCategory = data
+      this.productsByCategory = data;
+      this.searchInputOn = false
     })
   }
 
@@ -84,7 +81,7 @@ export class ShopComponent implements OnInit {
     })
   }
 
-  cleanCart(){
+  cleanCart() {
     this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
       console.log(data);
       this.updateLocalStorage(data);
@@ -122,7 +119,7 @@ export class ShopComponent implements OnInit {
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
     if (cartStatus === 0) {
-     this.updateCartStatus();
+      this.updateCartStatus();
     }
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
@@ -130,14 +127,14 @@ export class ShopComponent implements OnInit {
     })
   }
 
-  setTotalPrice(){
+  setTotalPrice() {
     this.totalPrice = 0;
     for (let i = 0; i < this.currentCartProducts.length; i++) {
-      this.totalPrice +=  this.currentCartProducts[i].quantity as any * this.products[this.currentCartProducts[i]._id as any].price;
+      this.totalPrice += this.currentCartProducts[i].quantity as any * this.productsForCart[this.currentCartProducts[i]._id as any].price;
     }
   }
 
-  onUserSearch(searchValue){
+  onUserSearch(searchValue) {
     this.productService.searchProducts(searchValue).subscribe(data => {
       const valueFound = data;
       const results = {};
@@ -154,11 +151,35 @@ export class ShopComponent implements OnInit {
     this.currentCartProducts = this.authService.userCart.products;
   }
 
-  updateCartStatus(){
+  updateCartStatus() {
     const cartId = this.cartId;
     const setOpenCart = {isOpen: 1};
     this.cartService.updateCartStatus(cartId, setOpenCart, this.userToken).subscribe(data => {
       this.updateLocalStorage(data)
+    });
+  }
+
+  getAllProducts() {
+    this.productService.getAllProducts().subscribe(data => {
+      this.products = data;
+      this.productsForCart = data;
+      this.productsLength = Object.keys(data).length;
+      console.log(this.products, this.productsLength);
+    });
+  }
+
+  checkIfUserHasCart() {
+    this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
+      this.currentCartProducts = data.cart.products;
+      this.setTotalPrice();
+      console.log(this.currentCartProducts)
+    });
+  }
+
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe(data => {
+      this.categories = data;
+      this.isLoading = false;
     });
   }
 }

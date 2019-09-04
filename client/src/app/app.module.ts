@@ -22,6 +22,7 @@ import { MatFormFieldModule } from "@angular/material";
 import { MatInputModule } from "@angular/material";
 import { MatProgressBarModule } from "@angular/material";
 import { MatSidenavModule } from "@angular/material";
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
@@ -64,6 +65,7 @@ import { ShopComponent } from './components/shop/shop.component';
     MatSelectModule,
     MatProgressBarModule,
     MatSidenavModule,
+    NgMatSearchBarModule,
     FlexLayoutModule
 
   ],
