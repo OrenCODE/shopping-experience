@@ -59,23 +59,3 @@ exports.getProductById = (req, res) => {
             })
         })
 };
-
-exports.getProductsAsObjects = (req, res) => {
-    const products = {};
-    Product.find(function (err, docs) {
-        docs.forEach(function (doc) {
-            products[doc._id] = doc;
-        })
-    })
-        .then(() => {
-            setTimeout(() => {
-                return res.status(200).json(products)
-            }, 200);
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send(err)
-        })
-};
-
-

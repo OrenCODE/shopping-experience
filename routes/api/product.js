@@ -8,9 +8,6 @@ const authenticate = passport.authenticate('jwt',{session: false});
 // Gets Array of products from the database
 router.get('/products', productController.getProducts);
 
-// Gets all products as objects
-router.get('/productsAsObjects', productController.getProductsAsObjects);
-
 // Get product by id
 router.get('/productById/:id', productController.getProductById);
 

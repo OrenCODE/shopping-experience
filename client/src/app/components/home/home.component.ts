@@ -17,9 +17,9 @@ export class HomeComponent implements OnInit {
               private orderService: OrderService) { }
 
   ngOnInit() {
-    // this.productService.getAllProducts().subscribe(data => {
-    //   this.numOfProducts = data.length;
-    // });
+    this.productService.getAllProducts().subscribe(data => {
+      this.numOfProducts = data.length;
+    });
     this.orderService.getAllOrders().subscribe(data => {
       this.numOfOrders = data.length;
     })

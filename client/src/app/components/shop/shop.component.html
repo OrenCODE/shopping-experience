@@ -20,19 +20,19 @@
         (click)="filterProductsByCategory(category._id)">{{ category.name }}
       </button>
   </span>
-<!--  <button mat-icon-button [mat-menu-trigger-for]="menu">-->
-<!--    <mat-icon>more_vert</mat-icon>-->
-<!--  </button>-->
+  <!--  <button mat-icon-button [mat-menu-trigger-for]="menu">-->
+  <!--    <mat-icon>more_vert</mat-icon>-->
+  <!--  </button>-->
 
-<!--  <span class="spacer"></span>-->
-<!--  <form *ngIf="searchInputOn">-->
-<!--&lt;!&ndash;    <mat-search-bar>&ndash;&gt;-->
-<!--      <input matInput type="text"-->
-<!--             placeholder="Search"-->
-<!--             [value]="searchValue"-->
-<!--             (keyup)="onUserSearch($event.target.value)">-->
-<!--&lt;!&ndash;    </mat-search-bar>&ndash;&gt;-->
-<!--  </form>-->
+  <!--  <span class="spacer"></span>-->
+  <!--  <form *ngIf="searchInputOn">-->
+  <!--&lt;!&ndash;    <mat-search-bar>&ndash;&gt;-->
+  <!--      <input matInput type="text"-->
+  <!--             placeholder="Search"-->
+  <!--             [value]="searchValue"-->
+  <!--             (keyup)="onUserSearch($event.target.value)">-->
+  <!--&lt;!&ndash;    </mat-search-bar>&ndash;&gt;-->
+  <!--  </form>-->
 
 </mat-toolbar>
 <!--<mat-menu #menu="matMenu">-->
@@ -84,21 +84,25 @@
             <h4 class="to-center">{{ products[item.key].name }}</h4>
             <p class="to-center">{{ products[item.key].price | currency: 'USD'}}</p>
             <div class="card-footer">
-              <button *ngIf="item.key !== productId" mat-button class="justifier"
+              <button *ngIf="item.key !== productId; else updateQuantity"
+                      mat-button class="justifier"
                       (click)="addToCart(item.key)">Add to Cart
               </button>
-              <div *ngIf="productId === item.key">
+              <ng-template #updateQuantity>
                 <form>
-                  <button mat-button (click)="removeItem(item.key)">-</button>
-                  <input type="number" min="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
-                         oninput="validity.valid||(value='')">
-                  <!--<input type="text" value="check">-->
-                  <button mat-button (click)="addItem(item.key)">+</button>
-                  <button *ngIf="productId === item.key" mat-button class="justifier"
-                          (click)="sendToCart(item.key, quantity)">Send To Cart
-                  </button>
+                  <div class="row">
+                    <button class="col-2 qnt-btn" mat-button (click)="removeItem(item.key)">-</button>
+                    <div class="col input-box">
+                      <input type="number" min="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
+                             oninput="validity.valid||(value='')">
+                    </div>
+                    <button class="col-2 qnt-btn" mat-button (click)="addItem(item.key)">+</button>
+                    <button *ngIf="productId === item.key" mat-button class="justifier"
+                            (click)="sendToCart(item.key, quantity)">Send To Cart
+                    </button>
+                  </div>
                 </form>
-              </div>
+              </ng-template>
             </div>
           </div>
         </mat-card>
@@ -121,7 +125,7 @@
             <div *ngIf="productId === item._id" class="to-center">
               <button mat-button (click)="removeItem(item._id)">-</button>
               <div>  {{ quantity }}  </div>
-              <button mat-button (click)="addItem()">+</button>
+              <button mat-button (click)="addItem(item._id)">+</button>
             </div>
             <button *ngIf="productId === item._id" mat-button class="justifier"
                     (click)="sendToCart(productId, quantity)">Send To Cart

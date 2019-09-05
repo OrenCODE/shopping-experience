@@ -6,7 +6,6 @@ import { CartService } from "../../services/cart.service";
 
 import { Category } from "../../models/Category";
 import { Product } from "../../models/Product";
-import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-shop',
@@ -15,14 +14,13 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class ShopComponent implements OnInit {
   isLoading: Boolean = true;
-  // search: FormGroup;
   searchInputOn: Boolean = true;
 
   categories: Category[];
   productsByCategory: Product[];
 
   products: Record<string, Product>;
-  productsForCart: Record<string,Product>;
+  productsForCart: Record<string, Product>;
 
   productsLength: Number;
   currentCartProducts: Product[];
@@ -40,8 +38,7 @@ export class ShopComponent implements OnInit {
   constructor(private authService: AuthService,
               private categoryService: CategoryService,
               private productService: ProductService,
-              private cartService: CartService,
-              private formBuilder: FormBuilder
+              private cartService: CartService
   ) {
   }
 
@@ -104,14 +101,14 @@ export class ShopComponent implements OnInit {
   }
 
   removeItem(_id) {
-    // if (this.quantity === 1) {
-    //   this.deleteProductFromCart(_id);
-    //   this.quantity = 1;
-    //
-    // }
-    if (this.quantity > 1) {
+    if (this.quantity - 1 >= 0) {
+      // this.deleteProductFromCart(_id);
       this.quantity -= 1;
+
     }
+    // if (this.quantity > 1) {
+    //   this.quantity -= 1;
+    // }
   }
 
   sendToCart(_id, quantity) {
@@ -161,8 +158,7 @@ export class ShopComponent implements OnInit {
 
   getAllProducts() {
     this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
-      this.productsForCart = data;
+      this.convertArrToObject(data);
       this.productsLength = Object.keys(data).length;
       console.log(this.products, this.productsLength);
     });
@@ -183,6 +179,12 @@ export class ShopComponent implements OnInit {
     });
   }
 
-
-
+  convertArrToObject(allProducts) {
+    const productsObj = {};
+    for (let i = 0; i < allProducts.length; i++) {
+      productsObj[allProducts[i]._id] = allProducts[i]
+    }
+    this.products = productsObj;
+    this.productsForCart = productsObj;
+  }
 }

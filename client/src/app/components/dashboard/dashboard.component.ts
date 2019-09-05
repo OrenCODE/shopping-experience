@@ -43,9 +43,9 @@ export class DashboardComponent implements OnInit {
         });
       }
     });
-    // this.productService.getAllProducts().subscribe(data => {
-    //   this.numOfProducts = data.length;
-    // })
+    this.productService.getAllProducts().subscribe(data => {
+      this.numOfProducts = data.length;
+    })
   }
 
   capFirstLetter(string) {
