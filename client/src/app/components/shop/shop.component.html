@@ -4,6 +4,14 @@
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
+  <form *ngIf="searchInputOn">
+    <!--    <mat-search-bar>-->
+    <input matInput type="text"
+           placeholder="Search"
+           [value]="searchValue"
+           (keyup)="onUserSearch($event.target.value)">
+    <!--    </mat-search-bar>-->
+  </form>
 
   <span>
     <button mat-button (click)="showAllProducts()">All</button>
@@ -12,26 +20,25 @@
         (click)="filterProductsByCategory(category._id)">{{ category.name }}
       </button>
   </span>
+<!--  <button mat-icon-button [mat-menu-trigger-for]="menu">-->
+<!--    <mat-icon>more_vert</mat-icon>-->
+<!--  </button>-->
 
-  <button mat-icon-button [mat-menu-trigger-for]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-
-  <span class="spacer"></span>
-  <form *ngIf="searchInputOn">
-<!--    <mat-search-bar>-->
-      <input matInput type="text"
-             placeholder="Search"
-             [value]="searchValue"
-             (keyup)="onUserSearch($event.target.value)">
-<!--    </mat-search-bar>-->
-  </form>
+<!--  <span class="spacer"></span>-->
+<!--  <form *ngIf="searchInputOn">-->
+<!--&lt;!&ndash;    <mat-search-bar>&ndash;&gt;-->
+<!--      <input matInput type="text"-->
+<!--             placeholder="Search"-->
+<!--             [value]="searchValue"-->
+<!--             (keyup)="onUserSearch($event.target.value)">-->
+<!--&lt;!&ndash;    </mat-search-bar>&ndash;&gt;-->
+<!--  </form>-->
 
 </mat-toolbar>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>Option 1</button>
-  <button mat-menu-item>Option 2</button>
-</mat-menu>
+<!--<mat-menu #menu="matMenu">-->
+<!--  <button mat-menu-item>Option 1</button>-->
+<!--  <button mat-menu-item>Option 2</button>-->
+<!--</mat-menu>-->
 
 <!--Cart Sidebar Section-->
 <mat-drawer-container class="example-container" autosize>
@@ -39,11 +46,11 @@
     <h3>Shopping Cart</h3>
     <div *ngIf="this.authService.userCart.products.length > 0">
 
-      <div class="row shopping-cart-item" *ngFor="let cartProduct of currentCartProducts">
-        <div class="col-6 to-left cartItem">
+      <div class="row" *ngFor="let cartProduct of currentCartProducts">
+        <div class="col-md-5 to-left cartItem">
           <img class="cart-item-img" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
         </div>
-        <ul class="col-6 to-center">
+        <ul class="col-md-7 to-center">
           <li>
             <span>{{ cartProduct.quantity }}X</span> {{ productsForCart[cartProduct._id].name }}
             <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
@@ -69,7 +76,7 @@
   <div *ngIf="!isLoading">
     <div *ngIf="!productsByCategory">
       <div class="row">
-        <mat-card class="col-md-2" *ngFor="let item of products | keyvalue">
+        <mat-card class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of products | keyvalue">
           <div class="to-center productImg">
             <img class="card-img-top" [src]="products[item.key].imageURL">
           </div>
@@ -99,7 +106,7 @@
 
     <!--Products by Category-->
     <div class="row">
-      <mat-card class="col-md-2" *ngFor="let item of productsByCategory">
+      <mat-card class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of productsByCategory">
         <div class="to-center productImg">
           <img class="card-img-top" [src]="item.imageURL" [alt]="item.imageURL">
         </div>
