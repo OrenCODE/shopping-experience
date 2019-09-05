@@ -99,7 +99,7 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  addItem() {
+  addItem(_id) {
     this.quantity += 1;
   }
 
@@ -182,4 +182,7 @@ export class ShopComponent implements OnInit {
       this.isLoading = false;
     });
   }
+
+
+
 }

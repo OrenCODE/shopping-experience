@@ -87,12 +87,13 @@
               <button *ngIf="item.key !== productId" mat-button class="justifier"
                       (click)="addToCart(item.key)">Add to Cart
               </button>
-              <div *ngIf="productId === item.key" class="to-center">
+              <div *ngIf="productId === item.key">
                 <form>
                   <button mat-button (click)="removeItem(item.key)">-</button>
-                  <input type="number" name="quantity" [(ngModel)]="quantity">
-                  <!--                  <input type="text" value="check">-->
-                  <button mat-button (click)="addItem()">+</button>
+                  <input type="number" min="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
+                         oninput="validity.valid||(value='')">
+                  <!--<input type="text" value="check">-->
+                  <button mat-button (click)="addItem(item.key)">+</button>
                   <button *ngIf="productId === item.key" mat-button class="justifier"
                           (click)="sendToCart(item.key, quantity)">Send To Cart
                   </button>
