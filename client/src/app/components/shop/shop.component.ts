@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {CategoryService} from "../../services/category.service";
-import {ProductService} from "../../services/product.service";
-import {CartService} from "../../services/cart.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { CategoryService } from "../../services/category.service";
+import { ProductService } from "../../services/product.service";
+import { CartService } from "../../services/cart.service";
 
 import {Category} from "../../models/Category";
 import {Product} from "../../models/Product";
@@ -39,8 +39,7 @@ export class ShopComponent implements OnInit {
               private categoryService: CategoryService,
               private productService: ProductService,
               private cartService: CartService,
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.authService.loadUserPayload();
@@ -126,13 +125,7 @@ export class ShopComponent implements OnInit {
     for (let i = 0; i < this.currentCartProducts.length; i++) {
       this.totalPrice += this.currentCartProducts[i].quantity as any * this.productsForCart[this.currentCartProducts[i]._id as any].price;
     }
-    // update the users cart totalPrice on database
-    const totalCartPrice = { totalCartPrice: this.totalPrice };
-    this.cartService.setCartTotalPrice(this.cartId, totalCartPrice, this.userToken).subscribe(data => {
-      this.updateLocalStorage(data);
-      console.log(data)
-    })
-
+    this.updateCartTotalPrice();
   }
 
   onUserSearch(searchValue) {
@@ -179,6 +172,14 @@ export class ShopComponent implements OnInit {
       this.categories = data;
       this.isLoading = false;
     });
+  }
+
+  updateCartTotalPrice(){
+    // update the users cart totalPrice on database
+    const totalCartPrice = { totalCartPrice: this.totalPrice };
+    this.cartService.setCartTotalPrice(this.cartId, totalCartPrice, this.userToken).subscribe(data => {
+      this.updateLocalStorage(data);
+    })
   }
 
   convertArrToObject(productsArray) {

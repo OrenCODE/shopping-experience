@@ -4,6 +4,7 @@
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
+<!--  Search input-->
   <form *ngIf="searchInputOn">
     <input matInput type="text"
            placeholder="Search"
@@ -44,7 +45,7 @@
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <h3>Shopping Cart</h3>
     <div *ngIf="this.authService.userCart.products.length > 0">
-
+      <button mat-button routerLink="/order">CHECKOUT</button>
       <div class="row" *ngFor="let cartProduct of currentCartProducts">
         <div class="col-md-5 to-left cartItem">
           <img class="cart-item-img" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
@@ -66,7 +67,6 @@
       <button mat-button (click)="cleanCart()"
       >Delete All Products
       </button>
-      <a href="#0" class="checkout-btn">Checkout</a>
     </div>
   </mat-drawer>
 

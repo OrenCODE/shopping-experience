@@ -7,13 +7,15 @@ import { SignupStepperComponent } from "./components/signup-stepper/signup-stepp
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { ShopComponent } from "./components/shop/shop.component";
+import {OrderComponent} from "./components/order/order.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupStepperComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
-  { path: 'shop', component: ShopComponent, canActivate:[AuthGuard] }
+  { path: 'shop', component: ShopComponent, canActivate:[AuthGuard] },
+  { path: 'order', component: OrderComponent, canActivate:[AuthGuard] }
 ];
 
 @NgModule({

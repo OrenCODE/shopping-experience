@@ -6,5 +6,6 @@ export interface Cart {
   products: [];
 
   status: Number;
+  totalCartPrice: Number;
   cart: Cart;
 }
