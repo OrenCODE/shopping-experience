@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { CategoryService } from "../../services/category.service";
-import { ProductService } from "../../services/product.service";
-import { CartService } from "../../services/cart.service";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {CategoryService} from "../../services/category.service";
+import {ProductService} from "../../services/product.service";
+import {CartService} from "../../services/cart.service";
 
-import { Category } from "../../models/Category";
-import { Product } from "../../models/Product";
+import {Category} from "../../models/Category";
+import {Product} from "../../models/Product";
 
 @Component({
   selector: 'app-shop',
@@ -38,7 +38,7 @@ export class ShopComponent implements OnInit {
   constructor(private authService: AuthService,
               private categoryService: CategoryService,
               private productService: ProductService,
-              private cartService: CartService
+              private cartService: CartService,
   ) {
   }
 
@@ -53,26 +53,23 @@ export class ShopComponent implements OnInit {
     this.getAllProducts();
     this.checkIfUserHasCart();
     this.getAllCategories();
-
-    // this.search = this.formBuilder.group({search: ['']})
   }
 
   showAllProducts() {
     this.productsByCategory = null;
-    this.searchInputOn = true
+    this.searchInputOn = true;
   }
 
   filterProductsByCategory(categoryId) {
     this.productService.getProductsByCategoryId(categoryId).subscribe(data => {
       this.productsByCategory = data;
-      this.searchInputOn = false
+      this.searchInputOn = false;
     })
   }
 
   deleteProductFromCart(_id) {
     const productId = {_id};
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
-      console.log(data);
       this.updateLocalStorage(data);
       this.setTotalPrice();
     })
@@ -80,9 +77,9 @@ export class ShopComponent implements OnInit {
 
   cleanCart() {
     this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
-      console.log(data);
       this.updateLocalStorage(data);
-    })
+      this.setTotalPrice();
+    });
   }
 
   addToCart(productId) {
@@ -101,14 +98,14 @@ export class ShopComponent implements OnInit {
   }
 
   removeItem(_id) {
-    if (this.quantity - 1 >= 0) {
-      // this.deleteProductFromCart(_id);
-      this.quantity -= 1;
-
-    }
-    // if (this.quantity > 1) {
+    // if (this.quantity - 1 >= 0) {
+    //   // this.deleteProductFromCart(_id);
     //   this.quantity -= 1;
+    //
     // }
+    if (this.quantity > 1) {
+      this.quantity -= 1;
+    }
   }
 
   sendToCart(_id, quantity) {
@@ -121,7 +118,7 @@ export class ShopComponent implements OnInit {
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
-    })
+    });
   }
 
   setTotalPrice() {
@@ -129,6 +126,13 @@ export class ShopComponent implements OnInit {
     for (let i = 0; i < this.currentCartProducts.length; i++) {
       this.totalPrice += this.currentCartProducts[i].quantity as any * this.productsForCart[this.currentCartProducts[i]._id as any].price;
     }
+    // update the users cart totalPrice on database
+    const totalCartPrice = { totalCartPrice: this.totalPrice };
+    this.cartService.setCartTotalPrice(this.cartId, totalCartPrice, this.userToken).subscribe(data => {
+      this.updateLocalStorage(data);
+      console.log(data)
+    })
+
   }
 
   onUserSearch(searchValue) {
@@ -160,7 +164,6 @@ export class ShopComponent implements OnInit {
     this.productService.getAllProducts().subscribe(data => {
       this.convertArrToObject(data);
       this.productsLength = Object.keys(data).length;
-      console.log(this.products, this.productsLength);
     });
   }
 
@@ -168,7 +171,6 @@ export class ShopComponent implements OnInit {
     this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
       this.currentCartProducts = data.cart.products;
       this.setTotalPrice();
-      console.log(this.currentCartProducts)
     });
   }
 
@@ -179,10 +181,10 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  convertArrToObject(allProducts) {
+  convertArrToObject(productsArray) {
     const productsObj = {};
-    for (let i = 0; i < allProducts.length; i++) {
-      productsObj[allProducts[i]._id] = allProducts[i]
+    for (let i = 0; i < productsArray.length; i++) {
+      productsObj[productsArray[i]._id] = productsArray[i]
     }
     this.products = productsObj;
     this.productsForCart = productsObj;

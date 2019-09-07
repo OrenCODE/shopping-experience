@@ -33,6 +33,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShopComponent } from './components/shop/shop.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ShopComponent } from './components/shop/shop.component';
     LoginComponent,
     DashboardComponent,
     FooterComponent,
-    ShopComponent
+    ShopComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

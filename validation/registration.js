@@ -37,6 +37,10 @@ module.exports = function validateRegistration(data) {
         errors.firstName = 'First Name must be between 2 and 30 characters';
     }
 
+    if(!data.firstName.match(/^[a-zA-Z ]+$/)){
+        errors.firstName = 'Please insert characters only'
+    }
+
     if (Validator.isEmpty(data.firstName)) {
         errors.firstName = 'First Name field is required';
     }
@@ -45,6 +49,10 @@ module.exports = function validateRegistration(data) {
 
     if (!Validator.isLength(data.lastName, {min: 2, max: 30})) {
         errors.lastName = 'Last Name must be between 2 and 30 characters';
+    }
+
+    if(!data.lastName.match(/^[a-zA-Z ]+$/)){
+        errors.lastName = 'Please insert characters only'
     }
 
     if (Validator.isEmpty(data.lastName)) {

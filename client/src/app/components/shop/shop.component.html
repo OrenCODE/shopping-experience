@@ -5,12 +5,11 @@
   </button>
 
   <form *ngIf="searchInputOn">
-    <!--    <mat-search-bar>-->
     <input matInput type="text"
            placeholder="Search"
-           [value]="searchValue"
+           name="searchValue"
+           [(ngModel)]="searchValue"
            (keyup)="onUserSearch($event.target.value)">
-    <!--    </mat-search-bar>-->
   </form>
 
   <span>

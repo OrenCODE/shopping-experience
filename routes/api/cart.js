@@ -37,7 +37,7 @@ router.get('/checkIfUserHasCart/:id', authenticate, cartController.checkIfUserHa
 // :id = cartId
 router.put('/updateCartStatus/:id', authenticate, cartController.updateCartStatus);
 
-// // : id = cartId
-// router.get('/getProductsFromCart/:id', cartController.getProductsFromCart);
+// :id = cartId
+router.put('/setCartTotalPrice/:id', cartController.setCartTotalPrice);
 
 module.exports = router;

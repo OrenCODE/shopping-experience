@@ -4,7 +4,8 @@ exports.createNewCart = (req, res) => {
     const cart = new Cart({
         userId: req.body.userId,
         date: new Date(),
-        isOpen: 0
+        isOpen: 0,
+        totalCartPrice: 0
     });
     cart.save()
         .then(cart => {
@@ -159,6 +160,20 @@ exports.checkIfUserHasCart = (req, res) => {
 
 exports.updateCartStatus = (req, res) => {
     Cart.findOneAndUpdate({_id: req.params.id}, req.body)
+        .then(() => {
+            Cart.findOne({_id: req.params.id})
+                .then(cart => {
+                    res.status(200).json(cart)
+                })
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send(err);
+        })
+};
+
+exports.setCartTotalPrice = (req,res) => {
+    Cart.findOneAndUpdate({_id: req.params.id}, {totalCartPrice: req.body.totalCartPrice})
         .then(() => {
             Cart.findOne({_id: req.params.id})
                 .then(cart => {

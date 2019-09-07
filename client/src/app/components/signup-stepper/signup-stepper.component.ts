@@ -11,7 +11,7 @@ import { Router } from "@angular/router"
   styleUrls: ['./signup-stepper.component.css']
 })
 export class SignupStepperComponent implements OnInit {
-  isLinear: boolean = true;
+  isLinear: boolean = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
@@ -78,6 +78,7 @@ export class SignupStepperComponent implements OnInit {
   onSecondStepSubmit() {
     const credentials = this.firstFormGroup.getRawValue();
     const shippingDetails = this.secondFormGroup.getRawValue();
+
     const user = {
       email: credentials.email,
       identityNumber: credentials.identityNumber,
