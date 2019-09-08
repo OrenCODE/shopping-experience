@@ -1,54 +1,65 @@
-<button mat-button routerLink="/shop">Back To the Shop</button>
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-<div *ngIf="!isLoading">
-  <div class="row" *ngFor="let cartProduct of currentCartProducts">
-    <div class="col-md-5 to-left cartItem">
-      <img class="cart-item-img" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
-    </div>
-    <ul class="col-md-7 to-center">
-      <li>
-        <span>{{ cartProduct.quantity }}X</span> {{ productsForCart[cartProduct._id].name }}
-        <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
-  </div>
+<button mat-button routerLink="/shop">Back To the Shop</button>
+<div *ngIf="this.authService.userCart.products.length === 0">
+  You have no products in your cart...
 </div>
+<div *ngIf="this.authService.userCart.products.length > 0">
+  <div *ngIf="!isLoading">
+    <div class="row" *ngFor="let cartProduct of currentCartProducts">
+      <div class="col-md-5 to-left cartItem">
+        <img class="cart-item-img" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
+      </div>
+      <ul class="col-md-7 to-center">
+        <li>
+          <span>{{ cartProduct.quantity }}X</span> {{ productsForCart[cartProduct._id].name }}
+          <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
+    </div>
+  </div>
 
-<form>
-  <div class="form-group">
-    <label for="city">City</label>
-    <input
-    id="city"
-    type="text"
-    class="form-control"
-    >
-  </div>
-  <div class="form-group">
-    <label for="street">Street</label>
-    <input
-      id="street"
-      type="text"
-      class="form-control"
-    >
-  </div>
-  <div class="form-group">
-    <label for="shippingDate">Shipping Date</label>
-    <input
-      id="shippingDate"
-      type="date"
-      class="form-control"
-    >
-  </div>
-  <div class="form-group">
-    <label for="creditCard">Credit Card</label>
-    <input
-      id="creditCard"
-      type="number"
-      min="8" max="16"
-      class="form-control"
-    >
-  </div>
-</form>
+  <form [formGroup]="form">
+    <h4>CHECKOUT</h4>
+
+    <mat-form-field appearance="outline" class="justifier">
+      <mat-label>Street</mat-label>
+      <input matInput
+             formControlName="street"
+             id="street"
+             type="text"
+             (dblclick)="setUserAddress()">
+      <mat-error>Street is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="justifier">
+      <mat-label>Your City</mat-label>
+      <mat-select placeholder="City" formControlName="city">
+        <mat-option *ngFor="let city of cities" [value]="city.value">
+          {{city.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error>City is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="justifier">
+      <mat-label>Shipping Date</mat-label>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Shipping Date is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="justifier">
+      <mat-label>Credit Card</mat-label>
+      <input matInput
+             formControlName="creditCard"
+             id="creditCard"
+             type="number">
+      <mat-error>Credit Card is Invalid</mat-error>
+    </mat-form-field>
+  </form>
+
+</div>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { CategoryService } from "../../services/category.service";
-import { ProductService } from "../../services/product.service";
-import { CartService } from "../../services/cart.service";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {CategoryService} from "../../services/category.service";
+import {ProductService} from "../../services/product.service";
+import {CartService} from "../../services/cart.service";
 
 import {Category} from "../../models/Category";
 import {Product} from "../../models/Product";
@@ -15,6 +15,7 @@ import {Product} from "../../models/Product";
 export class ShopComponent implements OnInit {
   isLoading: Boolean = true;
   searchInputOn: Boolean = true;
+  numOfSearchResults: Number;
 
   categories: Category[];
   productsByCategory: Product[];
@@ -39,7 +40,8 @@ export class ShopComponent implements OnInit {
               private categoryService: CategoryService,
               private productService: ProductService,
               private cartService: CartService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.authService.loadUserPayload();
@@ -71,14 +73,22 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
-    })
+    });
+    if (this.currentCartProducts.length === 1){
+      const status = {isOpen: 0};
+      const cartId = this.cartId;
+      this.updateCartStatus(cartId, status);
+    }
   }
 
-  cleanCart() {
+  emptyCart() {
     this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
     });
+    const status = {isOpen: 0};
+    const cartId = this.cartId;
+    this.updateCartStatus(cartId, status);
   }
 
   addToCart(productId) {
@@ -112,7 +122,8 @@ export class ShopComponent implements OnInit {
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
     if (cartStatus === 0) {
-      this.updateCartStatus();
+      const status = {isOpen: 1};
+      this.updateCartStatus(cartId, status);
     }
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
@@ -136,6 +147,7 @@ export class ShopComponent implements OnInit {
         results[valueFound[i]._id] = valueFound[i]
       }
       this.products = results;
+      this.numOfSearchResults = valueFound.length
     })
   }
 
@@ -145,10 +157,8 @@ export class ShopComponent implements OnInit {
     this.currentCartProducts = this.authService.userCart.products;
   }
 
-  updateCartStatus() {
-    const cartId = this.cartId;
-    const setOpenCart = {isOpen: 1};
-    this.cartService.updateCartStatus(cartId, setOpenCart, this.userToken).subscribe(data => {
+  updateCartStatus(cartId, cartStatus) {
+    this.cartService.updateCartStatus(cartId, cartStatus, this.userToken).subscribe(data => {
       this.updateLocalStorage(data)
     });
   }
@@ -174,9 +184,9 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  updateCartTotalPrice(){
+  updateCartTotalPrice() {
     // update the users cart totalPrice on database
-    const totalCartPrice = { totalCartPrice: this.totalPrice };
+    const totalCartPrice = {totalCartPrice: this.totalPrice};
     this.cartService.setCartTotalPrice(this.cartId, totalCartPrice, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
     })

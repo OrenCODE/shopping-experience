@@ -4,7 +4,8 @@ import {CartService} from "../../services/cart.service";
 import {ProductService} from "../../services/product.service";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 
-import {Product} from "../../models/Product";
+import { Product } from "../../models/Product";
+import { City } from "../../models/City";
 
 @Component({
   selector: 'app-order',
@@ -14,10 +15,10 @@ import {Product} from "../../models/Product";
 export class OrderComponent implements OnInit {
 
   form = new FormGroup({
-    city: new FormControl(),
-    street: new FormControl(),
-    shippingDate: new FormControl(),
-    creditCard: new FormControl()
+    city: new FormControl('', Validators.required),
+    street: new FormControl('', Validators.required),
+    shippingDate: new FormControl('', Validators.required),
+    creditCard: new FormControl('', Validators.required)
   });
 
   isLoading: boolean = true;
@@ -28,6 +29,14 @@ export class OrderComponent implements OnInit {
   currentCartProducts: Product[];
   productsForCart: Record<string, Product>;
   totalPrice: Number;
+
+  cities: City[] = [
+    {value: 'Tel-Aviv-0', viewValue: 'Tel Aviv'}, {value: 'Jerusalem-1', viewValue: 'Jerusalem'},
+    {value: 'Haifa-2', viewValue: 'Haifa'}, {value: 'Beer Sheva-3', viewValue: 'Beer Sheva'},
+    {value: 'Natenya-4', viewValue: 'Netanya'}, {value: 'Rishon-Le-Zion-5', viewValue: 'Rishon Le Zion'},
+    {value: 'Rehovot-6', viewValue: 'Rehovot'}, {value: 'Eilat-7', viewValue: 'Eilat'},
+    {value: 'Kfar-Saba-8', viewValue: 'Kfar Saba'}, {value: 'Kiryat-Shmona-9', viewValue: 'Kiryat Shmona'},
+  ];
 
   constructor(private authService: AuthService,
               private productService: ProductService,
@@ -43,8 +52,6 @@ export class OrderComponent implements OnInit {
 
     this.currentCartProducts = this.authService.userCart.products;
     this.totalPrice = this.authService.userCart.totalCartPrice;
-
-
   }
 
   getAllProducts() {
@@ -60,5 +67,11 @@ export class OrderComponent implements OnInit {
       productsObj[productsArray[i]._id] = productsArray[i]
     }
     this.productsForCart = productsObj;
+  }
+
+  setUserAddress(){
+    this.authService.loadUserPayload();
+    this.form.controls['city'].setValue(this.authService.currentUserData.city);
+    this.form.controls['street'].setValue(this.authService.currentUserData.street);
   }
 }

@@ -22,6 +22,7 @@ import { MatFormFieldModule } from "@angular/material";
 import { MatInputModule } from "@angular/material";
 import { MatProgressBarModule } from "@angular/material";
 import { MatSidenavModule } from "@angular/material";
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -67,8 +68,10 @@ import { OrderComponent } from './components/order/order.component';
     MatSelectModule,
     MatProgressBarModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NgMatSearchBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
 
   ],
   providers: [AuthGuard],

@@ -46,6 +46,9 @@
     <h3>Shopping Cart</h3>
     <div *ngIf="this.authService.userCart.products.length > 0">
       <button mat-button routerLink="/order">CHECKOUT</button>
+      <button mat-button (click)="emptyCart()"
+      >CLEAR CART
+      </button>
       <div class="row" *ngFor="let cartProduct of currentCartProducts">
         <div class="col-md-5 to-left cartItem">
           <img class="cart-item-img" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
@@ -64,9 +67,6 @@
       <div>
         <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
       </div>
-      <button mat-button (click)="cleanCart()"
-      >Delete All Products
-      </button>
     </div>
   </mat-drawer>
 
@@ -74,6 +74,10 @@
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <div *ngIf="!isLoading">
     <div *ngIf="!productsByCategory">
+
+      <span *ngIf="searchValue && !numOfSearchResults">No products found</span>
+      <span *ngIf="searchValue && numOfSearchResults !== 0">results: {{ numOfSearchResults }}</span>
+
       <div class="row">
         <mat-card class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of products | keyvalue">
           <div class="to-center productImg">
