@@ -24,6 +24,7 @@ import { MatProgressBarModule } from "@angular/material";
 import { MatSidenavModule } from "@angular/material";
 import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+import { NgHighlightModule } from 'ngx-text-highlight';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
@@ -71,6 +72,7 @@ import { OrderComponent } from './components/order/order.component';
     MatDatepickerModule,
     MatNativeDateModule,
     NgMatSearchBarModule,
+    NgHighlightModule,
     FlexLayoutModule,
 
   ],

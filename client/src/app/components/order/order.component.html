@@ -1,5 +1,16 @@
+<!--<div>-->
+<!--  <div>-->
+<!--    <input type="text" [(ngModel)]="searchValue" placeholder="Query..." />-->
+<!--  </div>-->
+<!--  <p [innerHTML]="highlight()"></p>-->
+<!--</div>-->
+
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <button mat-button routerLink="/shop">Back To the Shop</button>
+<form>
+  <input autocomplete="off" type="search" name="searchValue" placeholder="Search"
+         [(ngModel)]="searchValue">
+</form>
 <div *ngIf="this.authService.userCart.products.length === 0">
   You have no products in your cart...
 </div>
@@ -11,7 +22,12 @@
       </div>
       <ul class="col-md-7 to-center">
         <li>
-          <span>{{ cartProduct.quantity }}X</span> {{ productsForCart[cartProduct._id].name }}
+          <span>{{ cartProduct.quantity }}X </span>
+          <span ngxTextHighlight
+                [content]="productsForCart[cartProduct._id].name"
+                [searchTerm]="searchValue"
+                [caseSensitive]="false">
+          </span>
           <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
         </li>
       </ul>
@@ -21,7 +37,7 @@
     </div>
   </div>
 
-  <form [formGroup]="form">
+  <form [formGroup]="orderForm" (ngSubmit)="onOrderSubmit()">
     <h4>CHECKOUT</h4>
 
     <mat-form-field appearance="outline" class="justifier">
@@ -31,7 +47,9 @@
              id="street"
              type="text"
              (dblclick)="setUserAddress()">
-      <mat-error>Street is required</mat-error>
+      <mat-error *ngIf="orderForm.get('street').errors?.serverError">
+        {{ orderForm.get('street').errors?.serverError }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="justifier">
@@ -41,15 +59,22 @@
           {{city.viewValue}}
         </mat-option>
       </mat-select>
-      <mat-error>City is required</mat-error>
+      <mat-error *ngIf="orderForm.get('city').errors?.serverError">
+        {{ orderForm.get('city').errors?.serverError }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="justifier">
-      <mat-label>Shipping Date</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-label>Delivery Date</mat-label>
+      <input matInput [matDatepicker]="picker"
+             formControlName="deliveryDate"
+             placeholder="Choose a date"
+      >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error>Shipping Date is required</mat-error>
+      <mat-error *ngIf="orderForm.get('deliveryDate').errors?.serverError">
+        {{ orderForm.get('deliveryDate').errors?.serverError }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="justifier">
@@ -57,9 +82,12 @@
       <input matInput
              formControlName="creditCard"
              id="creditCard"
-             type="number">
-      <mat-error>Credit Card is Invalid</mat-error>
+             type="text">
+      <mat-error *ngIf="orderForm.get('creditCard').errors?.serverError">
+        {{ orderForm.get('creditCard').errors?.serverError }}
+      </mat-error>
     </mat-form-field>
+    <button mat-button type="submit">Submit Your Order</button>
   </form>
 
 </div>

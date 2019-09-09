@@ -7,7 +7,7 @@ const authenticate = passport.authenticate('jwt',{session: false});
 
 // Gets the user address
 // :id = userId
-router.get('/userShippingDetails/:id', authenticate, orderController.getUserShippingDetails);
+// router.get('/userShippingDetails/:id', authenticate, orderController.getUserShippingDetails);
 
 // Gets all orders in the system
 router.get('/orders', orderController.getOrders);

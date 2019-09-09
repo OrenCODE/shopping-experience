@@ -1,32 +1,38 @@
 const parseDate = require('../middleware/parseDate');
+const validateOrder = require('../validation/order');
 
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Cart = require('../models/Cart');
 
-exports.getUserShippingDetails = (req, res) => {
-    User.findOne({_id: req.params.id})
-        .then(user => {
-            if (!user) {
-                return res.status(400).json({
-                    msg: 'User not found'
-                })
-            } else {
-                return res.status(200).json({
-                    city: user.city,
-                    street: user.street
-                })
-            }
-        })
-};
+// exports.getUserShippingDetails = (req, res) => {
+//     User.findOne({_id: req.params.id})
+//         .then(user => {
+//             if (!user) {
+//                 return res.status(400).json({
+//                     msg: 'User not found'
+//                 })
+//             } else {
+//                 return res.status(200).json({
+//                     city: user.city,
+//                     street: user.street
+//                 })
+//             }
+//         })
+// };
 
 exports.createNewOrder = (req, res) => {
+    const {errors, isValid} = validateOrder(req.body);
+    // Check Validation
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
     const {userId, cartId, totalPrice, city, street, deliveryDate, creditCard} = req.body;
-    Order.find({deliveryDate: parseDate(deliveryDate)})
+    Order.find({deliveryDate: deliveryDate})
         .then(orders => {
             // check if the same delivery date exist more than 3 times
             if (orders.length >= 3) {
-                res.status(400).json({
+                return res.status(400).json({
                     msg: "all deliveries are taken for this date"
                 })
             } else {
@@ -37,16 +43,12 @@ exports.createNewOrder = (req, res) => {
                     city: city,
                     street: street,
                     orderDate: new Date(),
-                    deliveryDate: parseDate(deliveryDate),
-                    creditCArd: creditCard
+                    deliveryDate: deliveryDate,
+                    creditCard: creditCard
                 });
                 newOrder.save()
                     .then(() => {
-                        Cart.findOneAndUpdate(
-                            {_id: cartId},
-                            {$set: {isOpen: false}},
-                            {new: true}
-                        )
+                        Cart.updateOne({_id:cartId}, {$set: {isOpen: 2}}, {new: true})
                     })
                     .then(order => res.status(200).json({
                         msg: "success",

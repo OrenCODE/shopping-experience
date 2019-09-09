@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Order } from "../models/Order";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Order} from "../models/Order";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,9 +14,14 @@ const httpOptions = {
 })
 export class OrderService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getAllOrders(): Observable<Order[]>{
+  getAllOrders(): Observable<Order[]> {
     return this.http.get<Order[]>('http://localhost:4000/api/order/orders');
+  }
+
+  createNewOrder(order, token): Observable<any> {
+    return this.http.post<any>('http://localhost:4000/api/order/createNewOrder', order, {headers: {Authorization: token }});
   }
 }
