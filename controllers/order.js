@@ -1,4 +1,3 @@
-const parseDate = require('../middleware/parseDate');
 const validateOrder = require('../validation/order');
 
 const Order = require('../models/Order');
@@ -24,10 +23,10 @@ const Cart = require('../models/Cart');
 exports.createNewOrder = (req, res) => {
     const {errors, isValid} = validateOrder(req.body);
     // Check Validation
-    if(!isValid){
+    if (!isValid) {
         return res.status(400).json(errors);
     }
-    const {userId, cartId, totalPrice, city, street, deliveryDate, creditCard} = req.body;
+    const {userId, cartId, totalPrice, city, street, deliveryDate, creditCard, products} = req.body;
     Order.find({deliveryDate: deliveryDate})
         .then(orders => {
             // check if the same delivery date exist more than 3 times
@@ -36,7 +35,7 @@ exports.createNewOrder = (req, res) => {
                     msg: "all deliveries are taken for this date"
                 })
             } else {
-                const creditCardEnd = creditCard.slice(12,17);
+                const creditCardEnd = creditCard.slice(12, 16);
                 const newOrder = new Order({
                     userId: userId,
                     cartId: cartId,
@@ -45,15 +44,17 @@ exports.createNewOrder = (req, res) => {
                     street: street,
                     orderDate: new Date(),
                     deliveryDate: deliveryDate,
-                    creditCard: creditCardEnd
+                    creditCard: creditCardEnd,
+                    products: products
                 });
                 newOrder.save()
                     .then(() => {
                         // Change cart status to closed = 2
-                        updateCartStatus(req);
+                        // updateCartStatus(req);
+                        deleteClosedCart(req);
                     })
                     .then(order => res.status(200).json({
-                        msg: "success",
+                        success: "order created",
                         order: order
                     }))
                     .catch(err => console.log(err))
@@ -61,16 +62,23 @@ exports.createNewOrder = (req, res) => {
         });
 };
 
-const updateCartStatus = (req, res) => {
-    Cart.findOneAndUpdate(
-        { _id: req.body.cartId },
-        { $set: { isOpen: 2 } },
-        { new: true },
-        (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-        });
+// const updateCartStatus = (req, res) => {
+//     Cart.findOneAndUpdate(
+//         {_id: req.body.cartId},
+//         {$set: {isOpen: 2}},
+//         {new: true},
+//         (err, result) => {
+//             if (err) {
+//                 console.log(err);
+//             }
+//         });
+// };
+
+const deleteClosedCart = (req, res) => {
+    Cart.findById(req.body.cartId)
+        .then(cart =>
+            cart.remove())
+        .catch(err => console.log(err))
 };
 
 

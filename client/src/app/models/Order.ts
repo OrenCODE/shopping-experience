@@ -7,4 +7,6 @@ export interface Order {
   orderDate: Date;
   deliveryDate: Date;
   creditCard: Number;
+
+  products: [{_id: string, quantity: number}]
 }

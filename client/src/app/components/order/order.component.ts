@@ -3,6 +3,7 @@ import { AuthService } from "../../services/auth.service";
 import { ProductService } from "../../services/product.service";
 import { OrderService } from "../../services/order.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router"
 
 import { Product } from "../../models/Product";
 import { City } from "../../models/City";
@@ -39,6 +40,7 @@ export class OrderComponent implements OnInit {
   constructor(private authService: AuthService,
               private productService: ProductService,
               private orderService: OrderService,
+              private router: Router
   ) { }
 
   ngOnInit() {
@@ -63,9 +65,12 @@ export class OrderComponent implements OnInit {
 
   onOrderSubmit() {
     const orderDetails = this.orderForm.getRawValue();
+
     const creditCard = orderDetails.creditCard;
     const deliveryDate = new DatePipe('en').transform(orderDetails.deliveryDate, 'yyyy/MM/dd');
-    console.log(creditCard, deliveryDate);
+    const products = this.authService.userCart.products;
+
+    console.log(creditCard, deliveryDate, products);
 
     const order = {
       userId: this.userId,
@@ -74,11 +79,14 @@ export class OrderComponent implements OnInit {
       city: orderDetails.city,
       street: orderDetails.street,
       deliveryDate: deliveryDate,
-      creditCard: creditCard
+      creditCard: creditCard,
+      products: products
     };
     console.log(order);
     this.orderService.createNewOrder(order, this.userToken).subscribe(data => {
-      console.log(data);
+      if(data.success){
+        this.router.navigate(['dashboard'])
+      }
     }, err => {
       if (err.status === 400) {
         Object.keys(err.error).forEach(prop => {

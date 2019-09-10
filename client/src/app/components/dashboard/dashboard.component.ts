@@ -36,26 +36,16 @@ export class DashboardComponent implements OnInit {
         console.log(data);
         this.authService.storeCartData(data.cart);
         return;
-      }
-      // if (data.status === 2) {
-      //   this.createNewCart();
-      //   return;
-      // }
-      else {
-        this.createNewCart();
+      } else {
+        const userId = {userId: this.userId};
+        this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
+          this.authService.storeCartData(data.cart);
+        });
       }
     });
-
     this.productService.getAllProducts().subscribe(data => {
       this.numOfProducts = data.length;
     })
-  }
-
-  createNewCart() {
-    const userId = {userId: this.userId};
-    this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
-      this.authService.storeCartData(data.cart);
-    });
   }
 
   capFirstLetter(string) {

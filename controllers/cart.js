@@ -27,14 +27,14 @@ exports.addProductToCart = (req, res) => {
         .then(product => {
             if (product) {
                 Cart.updateOne({_id: req.params.id, "products._id": req.body._id}, {
-                        $set: {"products.$.quantity": req.body.quantity}
-                    })
-                    .then(() => {
-                    Cart.findOne({_id: req.params.id})
-                        .then((cart) => {
-                            res.status(200).json(cart);
-                        })
+                    $set: {"products.$.quantity": req.body.quantity}
                 })
+                    .then(() => {
+                        Cart.findOne({_id: req.params.id})
+                            .then((cart) => {
+                                res.status(200).json(cart);
+                            })
+                    })
             } else {
                 Cart.findOneAndUpdate({_id: req.params.id}, {
                     $push: {
@@ -151,6 +151,12 @@ exports.checkIfUserHasCart = (req, res) => {
                     cart: cart
                 })
             }
+            // if (cart.isOpen === 2) {
+            //     return res.status(203).json({
+            //         msg: 'order has been submitted in the past, new cart is now open',
+            //         status: 2
+            //     })
+            // }
         })
         .catch(err => {
             console.error(err);
@@ -172,7 +178,7 @@ exports.updateCartStatus = (req, res) => {
         })
 };
 
-exports.setCartTotalPrice = (req,res) => {
+exports.setCartTotalPrice = (req, res) => {
     Cart.findOneAndUpdate({_id: req.params.id}, {totalCartPrice: req.body.totalCartPrice})
         .then(() => {
             Cart.findOne({_id: req.params.id})

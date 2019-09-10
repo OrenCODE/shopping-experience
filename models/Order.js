@@ -34,7 +34,8 @@ const OrderSchema = new Schema({
     creditCard: {
         type: String,
         required: true
-    }
+    },
+    products: [{_id: String, quantity: Number}]
 });
 
 module.exports = Order = mongoose.model('orders', OrderSchema);
