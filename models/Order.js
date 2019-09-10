@@ -32,7 +32,7 @@ const OrderSchema = new Schema({
         required: true
     },
     creditCard: {
-        type: Number,
+        type: String,
         required: true
     }
 });

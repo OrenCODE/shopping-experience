@@ -36,6 +36,7 @@ exports.createNewOrder = (req, res) => {
                     msg: "all deliveries are taken for this date"
                 })
             } else {
+                const creditCardEnd = creditCard.slice(12,17);
                 const newOrder = new Order({
                     userId: userId,
                     cartId: cartId,
@@ -44,11 +45,12 @@ exports.createNewOrder = (req, res) => {
                     street: street,
                     orderDate: new Date(),
                     deliveryDate: deliveryDate,
-                    creditCard: creditCard
+                    creditCard: creditCardEnd
                 });
                 newOrder.save()
                     .then(() => {
-                        Cart.updateOne({_id:cartId}, {$set: {isOpen: 2}}, {new: true})
+                        // Change cart status to closed = 2
+                        updateCartStatus(req);
                     })
                     .then(order => res.status(200).json({
                         msg: "success",
@@ -58,6 +60,19 @@ exports.createNewOrder = (req, res) => {
             }
         });
 };
+
+const updateCartStatus = (req, res) => {
+    Cart.findOneAndUpdate(
+        { _id: req.body.cartId },
+        { $set: { isOpen: 2 } },
+        { new: true },
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+};
+
 
 exports.getOrders = (req, res) => {
     Order.find({})

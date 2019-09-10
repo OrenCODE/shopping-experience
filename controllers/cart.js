@@ -131,7 +131,7 @@ exports.checkIfUserHasCart = (req, res) => {
     Cart.findOne({userId: req.params.id})
         .then(cart => {
             // add this part after order section is finished
-            // || cart[cart.length - 1].isOpen === 3
+            //  || cart.isOpen === 2
             if (cart === null) {
                 return res.status(202).json({
                     msg: "no carts"
