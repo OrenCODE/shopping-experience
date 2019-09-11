@@ -26,6 +26,7 @@ export class OrderComponent implements OnInit {
   productsForCart: Record<string, Product>;
   fullyBookedDates: any = [];
   totalPrice: Number;
+  totalCartProductsQuantity: Number;
 
   public searchValue: string;
 
@@ -56,6 +57,8 @@ export class OrderComponent implements OnInit {
 
     this.currentCartProducts = this.authService.userCart.products;
     this.totalPrice = this.authService.userCart.totalCartPrice;
+
+    this.setTotalCartProductsQuantity();
 
     this.orderForm = new FormGroup({
       city: new FormControl('', Validators.required),
@@ -126,6 +129,11 @@ export class OrderComponent implements OnInit {
     this.orderForm.controls['street'].setValue(this.authService.currentUserData.street);
   }
 
+  setTotalCartProductsQuantity(){
+    const cartProductsQuantityArr = this.currentCartProducts.map(obj => obj.quantity);
+    this.totalCartProductsQuantity = cartProductsQuantityArr.reduce((a, b) => a + b, 0);
+  }
+
   getFullyBookedDates() {
     this.orderService.getFullyBookedDates(this.userToken).subscribe(data => {
       this.fullyBookedDates = data.map(obj => new Date(obj.date).getTime());
@@ -140,6 +148,9 @@ export class OrderComponent implements OnInit {
   dateClass = (d: Date) => {
     const day: any = d.getDay();
     return (this.fullyBookedDates.includes(d.valueOf())) ? 'example-custom-date-class' : undefined;
-
   };
+
+  capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }
