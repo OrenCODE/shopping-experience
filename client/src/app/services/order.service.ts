@@ -24,4 +24,8 @@ export class OrderService {
   createNewOrder(order, token): Observable<any> {
     return this.http.post<any>('http://localhost:4000/api/order/createNewOrder', order, {headers: {Authorization: token }});
   }
+
+  getFullyBookedDates(token): Observable<any> {
+    return this.http.get<any>('http://localhost:4000/api/order/getFullyBookedDates',{headers: {Authorization: token }});
+  }
 }

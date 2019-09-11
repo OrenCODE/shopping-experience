@@ -8,6 +8,10 @@ body{
   margin:0 !important;
   overflow: hidden;
 }
+.example-custom-date-class {
+  background: red;
+  border-radius: 100%;
+}
 
 button:focus, button:active:focus, button.active:focus {
   outline: none !important;

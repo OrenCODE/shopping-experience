@@ -1,7 +1,7 @@
 const validateOrder = require('../validation/order');
 
 const Order = require('../models/Order');
-const User = require('../models/User');
+const OrderDates = require('../models/OrderDates');
 const Cart = require('../models/Cart');
 
 // exports.getUserShippingDetails = (req, res) => {
@@ -26,7 +26,7 @@ exports.createNewOrder = (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    const {userId, cartId, totalPrice, city, street, deliveryDate, creditCard, products} = req.body;
+    const {deliveryDate} = req.body;
     Order.find({deliveryDate: deliveryDate})
         .then(orders => {
             // check if the same delivery date exist more than 3 times
@@ -34,51 +34,53 @@ exports.createNewOrder = (req, res) => {
                 return res.status(400).json({
                     msg: "all deliveries are taken for this date"
                 })
+            }
+            if (orders.length === 2) {
+                newOrder(req);
+                setFullyBookedDate(req);
+                deleteClosedCart(req);
+                return res.status(202).json({
+                    success: "order created"
+                })
             } else {
-                const creditCardEnd = creditCard.slice(12, 16);
-                const newOrder = new Order({
-                    userId: userId,
-                    cartId: cartId,
-                    totalPrice: totalPrice,
-                    city: city,
-                    street: street,
-                    orderDate: new Date(),
-                    deliveryDate: deliveryDate,
-                    creditCard: creditCardEnd,
-                    products: products
-                });
-                newOrder.save()
-                    .then(() => {
-                        // Change cart status to closed = 2
-                        // updateCartStatus(req);
-                        deleteClosedCart(req);
-                    })
-                    .then(order => res.status(200).json({
-                        success: "order created",
-                        order: order
-                    }))
-                    .catch(err => console.log(err))
+                newOrder(req);
+                deleteClosedCart(req);
+                res.status(200).json({
+                    success: "order created"
+                })
             }
         });
 };
 
-// const updateCartStatus = (req, res) => {
-//     Cart.findOneAndUpdate(
-//         {_id: req.body.cartId},
-//         {$set: {isOpen: 2}},
-//         {new: true},
-//         (err, result) => {
-//             if (err) {
-//                 console.log(err);
-//             }
-//         });
-// };
+const setFullyBookedDate = (req) => {
+    const fullyBookedDate = new OrderDates({
+        date: req.body.deliveryDate
+    });
+    fullyBookedDate.save();
+};
 
-const deleteClosedCart = (req, res) => {
+const deleteClosedCart = (req) => {
     Cart.findById(req.body.cartId)
         .then(cart =>
             cart.remove())
         .catch(err => console.log(err))
+};
+
+const newOrder = (req) => {
+    const {userId, cartId, totalPrice, city, street, deliveryDate, creditCard, products} = req.body;
+    const creditCardEnd = creditCard.slice(12, 16);
+    const newOrder = new Order({
+        userId: userId,
+        cartId: cartId,
+        totalPrice: totalPrice,
+        city: city,
+        street: street,
+        orderDate: new Date(),
+        deliveryDate: deliveryDate,
+        creditCard: creditCardEnd,
+        products: products
+    });
+    newOrder.save()
 };
 
 
@@ -89,5 +91,19 @@ exports.getOrders = (req, res) => {
             msg: "could not find any orders"
         }))
 };
+
+exports.getFullyBookedDates = (req,res) => {
+    OrderDates.find({})
+        .then(dates => {
+            return res.status(200).json(dates)
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: 'something went wrong'
+            })
+        })
+};
+
 
 // create receipt functions here

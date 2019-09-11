@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-
   isLoading: boolean = true;
   userId: String;
   userToken: String;
@@ -25,6 +24,7 @@ export class OrderComponent implements OnInit {
 
   currentCartProducts: Product[];
   productsForCart: Record<string, Product>;
+  fullyBookedDates: any = [];
   totalPrice: Number;
 
   public searchValue: string;
@@ -41,7 +41,8 @@ export class OrderComponent implements OnInit {
               private productService: ProductService,
               private orderService: OrderService,
               private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.authService.loadUserCart();
@@ -51,6 +52,7 @@ export class OrderComponent implements OnInit {
     this.cartId = this.authService.userCart._id;
 
     this.getAllProducts();
+    this.getFullyBookedDates();
 
     this.currentCartProducts = this.authService.userCart.products;
     this.totalPrice = this.authService.userCart.totalCartPrice;
@@ -84,7 +86,7 @@ export class OrderComponent implements OnInit {
     };
     console.log(order);
     this.orderService.createNewOrder(order, this.userToken).subscribe(data => {
-      if(data.success){
+      if (data.success) {
         this.router.navigate(['dashboard'])
       }
     }, err => {
@@ -124,4 +126,20 @@ export class OrderComponent implements OnInit {
     this.orderForm.controls['street'].setValue(this.authService.currentUserData.street);
   }
 
+  getFullyBookedDates() {
+    this.orderService.getFullyBookedDates(this.userToken).subscribe(data => {
+      this.fullyBookedDates = data.map(obj => new Date(obj.date).getTime());
+    })
+  }
+
+  myFilter = (d: Date): boolean => {
+    const day: any = d.getDay();
+    return (!this.fullyBookedDates.includes(d.valueOf()));
+  };
+
+  dateClass = (d: Date) => {
+    const day: any = d.getDay();
+    return (this.fullyBookedDates.includes(d.valueOf())) ? 'example-custom-date-class' : undefined;
+
+  };
 }

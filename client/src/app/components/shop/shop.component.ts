@@ -13,6 +13,7 @@ import { Product } from "../../models/Product";
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
+
   isLoading: Boolean = true;
   searchInputOn: Boolean = true;
   numOfSearchResults: Number;
@@ -199,5 +200,9 @@ export class ShopComponent implements OnInit {
     }
     this.products = productsObj;
     this.productsForCart = productsObj;
+  }
+
+  capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

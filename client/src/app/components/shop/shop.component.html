@@ -55,7 +55,7 @@
         </div>
         <ul class="col-md-7 to-center">
           <li>
-            <span>{{ cartProduct.quantity }}X</span> {{ productsForCart[cartProduct._id].name }}
+            <span>{{ cartProduct.quantity }}X</span> {{ capFirstLetter(productsForCart[cartProduct._id].name) }}
             <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
             <button mat-button (click)="deleteProductFromCart(cartProduct._id)">
               <mat-icon>remove_shopping_cart</mat-icon>
@@ -84,7 +84,7 @@
             <img class="card-img-top" [src]="products[item.key].imageURL">
           </div>
           <div class="mat-card-content">
-            <h4 class="to-center">{{ products[item.key].name }}</h4>
+            <h4 class="to-center">{{ capFirstLetter(products[item.key].name) }}</h4>
             <p class="to-center">{{ products[item.key].price | currency: 'USD'}}</p>
             <div class="card-footer">
               <button *ngIf="item.key !== productId; else updateQuantity"
@@ -97,7 +97,7 @@
                     <button class="col-2 qnt-btn" mat-button (click)="removeItem(item.key)">-</button>
                     <div class="col input-box">
                       <input type="number" min="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
-                             oninput="validity.valid||(value='')">
+                             oninput="validity.valid || (value ='')">
                     </div>
                     <button class="col-2 qnt-btn" mat-button (click)="addItem(item.key)">+</button>
                     <button *ngIf="productId === item.key" mat-button class="justifier"
@@ -119,7 +119,7 @@
           <img class="card-img-top" [src]="item.imageURL" [alt]="item.imageURL">
         </div>
         <div class="mat-card-content">
-          <h4 class="to-center"> {{ item.name }} </h4>
+          <h4 class="to-center"> {{ capFirstLetter(item.name) }} </h4>
           <p class="to-center"> {{ item.price | currency:'USD'}} </p>
           <div class="card-footer">
             <button *ngIf="item._id !== productId" mat-button class="justifier"

@@ -24,12 +24,6 @@ router.put('/deleteAllProducts/:id', authenticate, cartController.deleteAllProdu
 // :id = cartId
 router.get('/:id', authenticate, cartController.getCartById);
 
-// Get user cart while checking if it's open\closed
-// :id = userId
-// router.get('/getUserCart/:id', authenticate, cartController.getUserCart);
-
-///////////////////////
-
 // Check if the User has a cart
 // :id = userId
 router.get('/checkIfUserHasCart/:id', authenticate, cartController.checkIfUserHasCart);

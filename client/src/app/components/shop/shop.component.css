@@ -61,4 +61,5 @@
 
 .qnt-btn {
   padding: 0;
+  min-width: 0;
 }
