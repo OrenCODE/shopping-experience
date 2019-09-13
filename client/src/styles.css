@@ -8,9 +8,13 @@ body{
   margin:0 !important;
   overflow: hidden;
 }
-.example-custom-date-class {
+.occupied-date-class {
   background: red;
   border-radius: 100%;
+}
+
+.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  color: black;
 }
 
 button:focus, button:active:focus, button.active:focus {

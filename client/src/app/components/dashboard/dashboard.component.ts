@@ -9,6 +9,8 @@ import {CartService} from "../../services/cart.service";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  isLoading: Boolean = true;
+
   userId: String;
   userToken: String;
 
@@ -45,7 +47,10 @@ export class DashboardComponent implements OnInit {
     });
     this.productService.getAllProducts().subscribe(data => {
       this.numOfProducts = data.length;
-    })
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 300);
+    });
   }
 
   capFirstLetter(string) {

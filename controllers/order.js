@@ -4,21 +4,6 @@ const Order = require('../models/Order');
 const OrderDates = require('../models/OrderDates');
 const Cart = require('../models/Cart');
 
-// exports.getUserShippingDetails = (req, res) => {
-//     User.findOne({_id: req.params.id})
-//         .then(user => {
-//             if (!user) {
-//                 return res.status(400).json({
-//                     msg: 'User not found'
-//                 })
-//             } else {
-//                 return res.status(200).json({
-//                     city: user.city,
-//                     street: user.street
-//                 })
-//             }
-//         })
-// };
 
 exports.createNewOrder = (req, res) => {
     const {errors, isValid} = validateOrder(req.body);

@@ -44,7 +44,7 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <h3>Shopping Cart</h3>
-    <div *ngIf="this.authService.userCart.products.length > 0">
+    <div *ngIf="this.authService.userCart.products.length > 0 && !isLoading">
       <button mat-button routerLink="/order">CHECKOUT</button>
       <button mat-button (click)="emptyCart()"
       >CLEAR CART

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { ProductService } from "../../services/product.service";
 import { OrderService } from "../../services/order.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { CartService } from "../../services/cart.service";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router"
 
 import { Product } from "../../models/Product";
@@ -16,6 +17,10 @@ import { DatePipe } from '@angular/common';
 })
 export class OrderComponent implements OnInit {
   isLoading: boolean = true;
+
+  minDate: Date = new Date();
+  fullyBookedDates: any = [];
+
   userId: String;
   userToken: String;
   cartId: String;
@@ -24,7 +29,7 @@ export class OrderComponent implements OnInit {
 
   currentCartProducts: Product[];
   productsForCart: Record<string, Product>;
-  fullyBookedDates: any = [];
+
   totalPrice: Number;
   totalCartProductsQuantity: Number;
 
@@ -41,6 +46,8 @@ export class OrderComponent implements OnInit {
   constructor(private authService: AuthService,
               private productService: ProductService,
               private orderService: OrderService,
+              private cartService: CartService,
+              private formBuilder: FormBuilder,
               private router: Router
   ) {
   }
@@ -60,22 +67,23 @@ export class OrderComponent implements OnInit {
 
     this.setTotalCartProductsQuantity();
 
-    this.orderForm = new FormGroup({
-      city: new FormControl('', Validators.required),
-      street: new FormControl('', Validators.required),
-      deliveryDate: new FormControl('', Validators.required),
-      creditCard: new FormControl('', Validators.required)
+    this.orderForm = this.formBuilder.group({
+      billingName: [ '', Validators.required ],
+      city: [ '', Validators.required ],
+      street: [ '', Validators.required ],
+      deliveryDate: [ '', Validators.required ],
+      creditCard: [ '', Validators.required ],
+      cardName: [ '', Validators.required ],
+      expiration: [ '', Validators.required ],
+      cvv: [ '', Validators.required ]
     });
   }
 
   onOrderSubmit() {
     const orderDetails = this.orderForm.getRawValue();
-
     const creditCard = orderDetails.creditCard;
     const deliveryDate = new DatePipe('en').transform(orderDetails.deliveryDate, 'yyyy/MM/dd');
     const products = this.authService.userCart.products;
-
-    console.log(creditCard, deliveryDate, products);
 
     const order = {
       userId: this.userId,
@@ -87,9 +95,13 @@ export class OrderComponent implements OnInit {
       creditCard: creditCard,
       products: products
     };
-    console.log(order);
+
     this.orderService.createNewOrder(order, this.userToken).subscribe(data => {
       if (data.success) {
+        const userId = {userId: this.userId};
+        this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
+          this.authService.storeCartData(data.cart);
+        });
         this.router.navigate(['dashboard'])
       }
     }, err => {
@@ -105,7 +117,6 @@ export class OrderComponent implements OnInit {
         });
       }
     });
-    console.log(orderDetails);
   }
 
   getAllProducts() {
@@ -129,7 +140,7 @@ export class OrderComponent implements OnInit {
     this.orderForm.controls['street'].setValue(this.authService.currentUserData.street);
   }
 
-  setTotalCartProductsQuantity(){
+  setTotalCartProductsQuantity() {
     const cartProductsQuantityArr = this.currentCartProducts.map(obj => obj.quantity);
     this.totalCartProductsQuantity = cartProductsQuantityArr.reduce((a, b) => a + b, 0);
   }
@@ -147,10 +158,11 @@ export class OrderComponent implements OnInit {
 
   dateClass = (d: Date) => {
     const day: any = d.getDay();
-    return (this.fullyBookedDates.includes(d.valueOf())) ? 'example-custom-date-class' : undefined;
+    return (this.fullyBookedDates.includes(d.valueOf())) ? 'occupied-date-class' : undefined;
   };
 
   capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
 }

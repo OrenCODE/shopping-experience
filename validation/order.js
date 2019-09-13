@@ -35,7 +35,7 @@ module.exports = function validateOrder(data) {
     }
 
     if (Validator.isEmpty(data.creditCard)) {
-        errors.creditCard = 'credit card is required';
+        errors.creditCard = 'Credit card is required';
     }
 
     return {
