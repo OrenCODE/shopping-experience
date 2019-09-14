@@ -77,7 +77,7 @@ exports.getOrders = (req, res) => {
         }))
 };
 
-exports.getFullyBookedDates = (req,res) => {
+exports.getFullyBookedDates = (req, res) => {
     OrderDates.find({})
         .then(dates => {
             return res.status(200).json(dates)
@@ -90,5 +90,13 @@ exports.getFullyBookedDates = (req,res) => {
         })
 };
 
-
-// create receipt functions here
+exports.getLatestOrderByUserId = (req, res) => {
+    Order.find({userId: req.params.id})
+        .sort({"orderDate": -1}).limit(1)
+        .then(order => {
+            res.json(order)
+        }).catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+    })
+};

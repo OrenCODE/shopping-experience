@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {ProductService} from "../../services/product.service";
-import {CartService} from "../../services/cart.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { ProductService } from "../../services/product.service";
+import { CartService } from "../../services/cart.service";
+import { OrderService } from "../../services/order.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,8 @@ import {CartService} from "../../services/cart.service";
 })
 export class DashboardComponent implements OnInit {
   isLoading: Boolean = true;
-  continueShopButton= false;
+  continueShopButton = false;
+  havePas
 
   userId: String;
   userToken: String;
@@ -20,7 +22,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private productService: ProductService,
-              private cartService: CartService
+              private cartService: CartService,
+              private orderService: OrderService
   ) {
   }
 
@@ -33,7 +36,13 @@ export class DashboardComponent implements OnInit {
     this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
       // IF cart has been initialized
       if (data.status === 0) {
-        this.cartStatusMessage = data.msg;
+        this.orderService.checkIfUserHasOrder(this.userId, this.userToken).subscribe(data => {
+          if(data[0]){
+            this.cartStatusMessage = "Welcome back, no cart found. Last order date: " + (data[0].orderDate);
+          }else{
+            this.cartStatusMessage = 'welcome to your first shopping experience';
+          }
+        });
         this.authService.storeCartData(data.cart);
         return;
       }

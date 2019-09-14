@@ -14,4 +14,7 @@ router.post('/createNewOrder', authenticate , orderController.createNewOrder);
 // Gets All fully booked dates
 router.get('/getFullyBookedDates', authenticate ,orderController.getFullyBookedDates);
 
+// Get The latest order by userId
+router.get('/getLatestOrderByUserId/:id', authenticate, orderController.getLatestOrderByUserId);
+
 module.exports = router;

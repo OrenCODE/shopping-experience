@@ -115,7 +115,7 @@ exports.checkIfUserHasCart = (req, res) => {
             }
             if (cart.isOpen === 1) {
                 return res.status(201).json({
-                    msg: `You have an open cart from: ${cart.date.toDateString()}, Total: ${cart.totalCartPrice}$`,
+                    msg: `You have an open cart from: ${cart.date.toDateString()}, Total: ${parseFloat(cart.totalCartPrice).toFixed(2)}$`,
                     status: 1,
                     cart: cart
                 })
