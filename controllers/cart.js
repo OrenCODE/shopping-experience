@@ -97,41 +97,10 @@ exports.getCartById = (req, res) => {
         })
 };
 
-// exports.getUserCart = (req, res) => {
-//     Cart.find({userId: req.params.id, isOpen: true})
-//         .then(cart => {
-//             if (cart.length === 0) {
-//                 Cart.find({userId: req.params.id, isOpen: false})
-//                     .then(checkedCart => {
-//                         if (checkedCart) {
-//                             const lastCheckedCart = checkedCart[checkedCart.length - 1];
-//                             return res.status(200).json({
-//                                 msg: "last order from",
-//                                 cart: lastCheckedCart,
-//                                 OpenCart: false
-//                             });
-//                         } else {
-//                             return res.status(200).json({
-//                                 msg: "Welcome to the shop"
-//                             })
-//                         }
-//                     })
-//             } else {
-//                 return res.status(200).json({
-//                     msg: "open cart from",
-//                     cart: cart,
-//                     openCart: true
-//                 })
-//             }
-//         })
-//         .catch(err => console.log(err))
-// };
 
 exports.checkIfUserHasCart = (req, res) => {
     Cart.findOne({userId: req.params.id})
         .then(cart => {
-            // add this part after order section is finished
-            //  || cart.isOpen === 2
             if (cart === null) {
                 return res.status(202).json({
                     msg: "no carts"
@@ -139,24 +108,18 @@ exports.checkIfUserHasCart = (req, res) => {
             }
             if (cart.isOpen === 0) {
                 return res.status(200).json({
-                    msg: "cart exists",
+                    msg: "cart initialized",
                     status: 0,
                     cart: cart
                 })
             }
             if (cart.isOpen === 1) {
                 return res.status(201).json({
-                    msg: `you have an open cart from ${cart.date}`,
+                    msg: `You have an open cart from: ${cart.date.toDateString()}, Total: ${cart.totalCartPrice}$`,
                     status: 1,
                     cart: cart
                 })
             }
-            // if (cart.isOpen === 2) {
-            //     return res.status(203).json({
-            //         msg: 'order has been submitted in the past, new cart is now open',
-            //         status: 2
-            //     })
-            // }
         })
         .catch(err => {
             console.error(err);

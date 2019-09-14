@@ -1,9 +1,17 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="!isLoading">
   <div> Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>
-  <!--set go to the shop as ngIf if cart is Open-->
-  <button mat-button routerLink="/shop">Go The Shop</button>
-  <div>Products: {{numOfProducts}} </div>
+
+  <div>{{ cartStatusMessage }}</div>
+
+  <!--if there are products in the cart-->
+  <button *ngIf="continueShopButton"
+          mat-button routerLink="/shop">Continue Shopping</button>
+  <!--if there are no products in the cart-->
+
+  <button *ngIf="!continueShopButton"
+    mat-button routerLink="/shop">Go The Shop</button>
+  <div>Products: {{ numOfProducts }} </div>
 </div>
 
 

@@ -138,6 +138,8 @@
                          formControlName="cardName"
                          id="cardName"
                          type="text">
+                  <mat-error *ngIf="orderForm.controls['cardName'].errors?.pattern">Please insert characters only
+                  </mat-error>
                 </mat-form-field>
 
               </div>
@@ -147,7 +149,7 @@
                   <input matInput
                          formControlName="creditCard"
                          id="creditCard"
-                         type="text">
+                         type="number">
                   <mat-error *ngIf="orderForm.get('creditCard').errors?.serverError">
                     {{ orderForm.get('creditCard').errors?.serverError }}
                   </mat-error>

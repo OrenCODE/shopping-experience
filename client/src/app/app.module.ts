@@ -36,6 +36,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { OrderComponent } from './components/order/order.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { OrderComponent } from './components/order/order.component';
     DashboardComponent,
     FooterComponent,
     ShopComponent,
-    OrderComponent
+    OrderComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,

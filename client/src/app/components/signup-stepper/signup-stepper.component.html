@@ -14,8 +14,10 @@
             <mat-label>Your Identity Number</mat-label>
             <input matInput placeholder="9 Digits..."
                    formControlName="identityNumber"
+                   type="number"
+                   [min]="0"
                    (keydown)="allowNumbersOnly($event)"
-                   (paste)="preventPaste($event)">
+            >
             <button mat-icon-button matSuffix>
               <mat-icon>picture_in_picture</mat-icon>
             </button>

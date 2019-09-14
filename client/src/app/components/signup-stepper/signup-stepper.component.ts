@@ -53,7 +53,15 @@ export class SignupStepperComponent implements OnInit {
   ];
 
   onFirstStepSubmit(stepper) {
-    const credentials = this.firstFormGroup.getRawValue();
+    const signUpDetails = this.firstFormGroup.getRawValue();
+    const identityNumber = signUpDetails.identityNumber.toString();
+    const credentials = {
+      identityNumber: identityNumber,
+      email: signUpDetails.email,
+      password: signUpDetails.password,
+      password2: signUpDetails.password2
+    };
+
     this.authService.checkUserCredentials(credentials).subscribe(data => {
       if (data.userChecked) {
         this.formIsValid = true;
@@ -77,11 +85,12 @@ export class SignupStepperComponent implements OnInit {
 
   onSecondStepSubmit() {
     const credentials = this.firstFormGroup.getRawValue();
+    const identityNumber = credentials.identityNumber.toString();
     const shippingDetails = this.secondFormGroup.getRawValue();
 
     const user = {
       email: credentials.email,
-      identityNumber: credentials.identityNumber,
+      identityNumber: identityNumber,
       password: credentials.password,
       lastName: shippingDetails.lastName,
       firstName: shippingDetails.firstName,
@@ -126,11 +135,6 @@ export class SignupStepperComponent implements OnInit {
         stepper.next();
       }
     }, 1500)
-  }
-
-  preventPaste(e) {
-    e.preventDefault();
-    return false;
   }
 
   allowNumbersOnly(e) {
