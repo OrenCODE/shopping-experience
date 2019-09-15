@@ -123,7 +123,7 @@ export class ShopComponent implements OnInit {
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
     if (cartStatus === 0) {
-      const status = {isOpen: 1};
+      const status = {isOpen: 1, date: new Date()};
       this.updateCartStatus(cartId, status);
     }
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {

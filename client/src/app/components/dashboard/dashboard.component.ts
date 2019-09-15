@@ -3,6 +3,7 @@ import { AuthService } from "../../services/auth.service";
 import { ProductService } from "../../services/product.service";
 import { CartService } from "../../services/cart.service";
 import { OrderService } from "../../services/order.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +13,12 @@ import { OrderService } from "../../services/order.service";
 export class DashboardComponent implements OnInit {
   isLoading: Boolean = true;
   continueShopButton = false;
-  havePas
 
   userId: String;
   userToken: String;
 
   numOfProducts: Number;
-  cartStatusMessage: String;
+  dashboardMessage: String;
 
   constructor(private authService: AuthService,
               private productService: ProductService,
@@ -38,9 +38,9 @@ export class DashboardComponent implements OnInit {
       if (data.status === 0) {
         this.orderService.checkIfUserHasOrder(this.userId, this.userToken).subscribe(data => {
           if(data[0]){
-            this.cartStatusMessage = "Welcome back, no cart found. Last order date: " + (data[0].orderDate);
+            this.dashboardMessage = "Welcome back, no cart found. Last order from: " + (new DatePipe('en').transform(data[0].orderDate, 'dd/MM/yyyy'));
           }else{
-            this.cartStatusMessage = 'welcome to your first shopping experience';
+            this.dashboardMessage = 'welcome to your first shopping experience';
           }
         });
         this.authService.storeCartData(data.cart);
@@ -48,14 +48,14 @@ export class DashboardComponent implements OnInit {
       }
       // IF the user cart has products init
       if (data.status === 1) {
-        this.cartStatusMessage = data.msg;
+        this.dashboardMessage = data.msg;
         this.continueShopButton = true;
         this.authService.storeCartData(data.cart);
         return;
 
-        // IF this user is new
+        // IF the user is new
       } else {
-        this.cartStatusMessage = 'welcome to your first shopping experience';
+        this.dashboardMessage = 'welcome to your first shopping experience';
 
         const userId = {userId: this.userId};
         this.cartService.createNewCart(userId, this.userToken).subscribe(data => {

@@ -2,7 +2,7 @@
 <div *ngIf="!isLoading">
   <div> Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>
 
-  <div>{{ cartStatusMessage }}</div>
+  <div>{{ dashboardMessage }}</div>
 
   <!--if there are products in the cart-->
   <button *ngIf="continueShopButton"
