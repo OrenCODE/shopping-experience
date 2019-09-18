@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Credentials } from "../models/Credentials";
 import { User } from "../models/User";
 import { Cart } from "../models/Cart";
+import * as jwt_decode from "jwt-decode";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +18,7 @@ const httpOptions = {
 })
 export class AuthService {
   authToken: string;
-  loggedUser: User;
+  loggedUser: any;
   currentUserData: User;
   currentUserToken: String;
   userCart: Cart;
@@ -35,6 +36,10 @@ export class AuthService {
   loginUser(loginDetails): Observable<Credentials>{
     return this.http.post<Credentials>('http://localhost:4000/api/user/login', loginDetails , httpOptions)
   }
+
+  // checkIfAdmin(userId, token): Observable<any>{
+  //   return this.http.get<any>(`http://localhost:4000/api/user/checkIfAdmin/${userId}`,{headers: {Authorization: token }})
+  // }
 
   storeUserData(token, loggedUser){
     localStorage.setItem('id_token', token);
@@ -70,5 +75,14 @@ export class AuthService {
 
   loadUserCart(){
     this.userCart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  getDecodedAccessToken = (token: string): any => {
+    try{
+      return jwt_decode(token);
+    }
+    catch(Error){
+      return null;
+    }
   }
 }

@@ -12,4 +12,5 @@ export interface Credentials {
   success: Boolean;
   token: String;
   user: User;
+  admin: User;
 }

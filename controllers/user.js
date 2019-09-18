@@ -117,11 +117,32 @@ exports.userLogin = (req, res) => {
                         isAdmin: user.isAdmin
                     }; // Create JWT Payload
 
+                    // If the user has admin permissions on the database
+                    if (payload.isAdmin) {
+                        const adminPayload = {
+                            id: payload.id,
+                            firstName: payload.firstName,
+                            lastName: payload.lastName,
+                            identityNumber: payload.identityNumber,
+                            isAdmin: payload.isAdmin
+                        };
+                        jwt.sign(
+                            adminPayload,
+                            keys.secretOrKey,
+                            {expiresIn: 3600},
+                            (err, token) => {
+                                res.json({
+                                    admin: adminPayload,
+                                    token: 'Bearer ' + token
+                                })
+                            });
+                        return;
+                    }
                     // Sign Token
                     jwt.sign(
                         payload,
                         keys.secretOrKey,
-                        {expiresIn: 10000},
+                        {expiresIn: 3600},
                         (err, token) => {
                             res.json({
                                 user: payload,

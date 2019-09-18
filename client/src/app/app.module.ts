@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 import { AuthGuard } from "./gurds/auth.gurd";
+import { AdminGuard } from "./gurds/admin.gurd";
 
 import { NgRedux, NgReduxModule, DevToolsExtension } from "ng2-redux";
 import { IAppState, rootReducer } from "./store";
@@ -37,6 +38,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { OrderComponent } from './components/order/order.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     FooterComponent,
     ShopComponent,
     OrderComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    AdminPageComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +83,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     FlexLayoutModule,
 
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -103,11 +103,13 @@ export class OrderComponent implements OnInit {
           orderDate: new DatePipe('en').transform(new Date(), 'dd/MM/yyyy')
         };
         localStorage.setItem('orderDates', JSON.stringify(orderDates));
+
         const userId = {userId: this.userId};
         this.cartService.createNewCart(userId, this.userToken).subscribe(data => {
           this.authService.storeCartData(data.cart);
         });
-        this.router.navigate(['invoice'])
+        this.router.navigate(['invoice']);
+        localStorage.setItem('invoiceSummary', localStorage.getItem('cart'));
       }
     }, err => {
       if (err.status === 400) {

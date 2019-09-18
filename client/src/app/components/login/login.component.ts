@@ -29,6 +29,13 @@ export class LoginComponent implements OnInit {
   onUserLogin() {
     const loginDetails = this.loginForm.getRawValue();
     this.authService.loginUser(loginDetails).subscribe(data => {
+
+      if(data.admin){
+        this.authService.storeUserData(data.token, data.admin);
+        this.authService.loadUserPayload();
+        this.router.navigate(['admin']);
+      }
+
       if(data.success){
         this.authService.storeUserData(data.token, data.user);
         this.authService.loadUserPayload();

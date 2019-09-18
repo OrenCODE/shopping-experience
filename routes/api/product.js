@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 
 const productController = require('../../controllers/product');
-const authenticate = passport.authenticate('jwt',{session: false});
+const adminCheck = require("../../middleware/adminAuthCheck");
 
 // Gets Array of products from the database
 router.get('/products', productController.getProducts);
@@ -12,7 +11,7 @@ router.get('/products', productController.getProducts);
 router.get('/productById/:id', productController.getProductById);
 
 // Creates new Product: Admin
-router.post('/createNewProduct', authenticate, productController.createNewProduct);
+router.post('/createNewProduct', adminCheck , productController.createNewProduct);
 
 // Gets products by categoryId
 router.get('/productsByCategory/:id', productController.getProductsByCategory);

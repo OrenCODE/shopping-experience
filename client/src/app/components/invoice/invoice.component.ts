@@ -1,18 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import {AuthService} from "../../services/auth.service";
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../models/Product";
+import { ProductService } from "../../services/product.service";
+import { Product } from "../../models/Product";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.css']
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   dates: any;
+  hasProducts: boolean = true;
 
   currentCartProducts: Product[];
   productsForCart: Record<string, Product>;
@@ -20,20 +21,23 @@ export class InvoiceComponent implements OnInit {
 
   totalCartProductsQuantity: Number;
 
-  constructor(private authService: AuthService,
-              private productService: ProductService
-  ) {
-  }
+  constructor(private productService: ProductService,
+              private router: Router
+  ) { }
 
   ngOnInit() {
-    this.authService.loadUserCart();
     this.getAllProducts();
 
-    this.currentCartProducts = this.authService.userCart.products;
-    this.totalPrice = this.authService.userCart.totalCartPrice;
+    this.currentCartProducts = JSON.parse(localStorage.getItem('invoiceSummary')).products;
+    this.totalPrice = JSON.parse(localStorage.getItem('invoiceSummary')).totalCartPrice;
+
     this.setTotalCartProductsQuantity();
     this.dates = JSON.parse(localStorage.getItem('orderDates'));
 
+    if(this.totalCartProductsQuantity === 0){
+      this.hasProducts = false;
+      return;
+    }
   }
 
   public captureScreen() {
@@ -76,4 +80,13 @@ export class InvoiceComponent implements OnInit {
   capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  backToDashBoard(){
+    this.router.navigate(['dashboard']);
+    localStorage.removeItem('orderDates');
+    localStorage.removeItem('invoiceSummary');
+  }
+
+  ngOnDestroy(): void {}
+
 }
