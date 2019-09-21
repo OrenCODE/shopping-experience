@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule } from "@angular/material";
+import { MatCardModule, MatDialogModule } from "@angular/material";
 import { MatIconModule } from "@angular/material";
 import { MatMenuModule } from "@angular/material";
 import { MatSelectModule } from "@angular/material";
@@ -39,6 +39,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { OrderComponent } from './components/order/order.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { EditModalComponent } from './components/admin-page/edit-modal/edit-modal.component';
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 
 @NgModule({
@@ -55,6 +56,7 @@ import { NotFoundComponent } from './components/layout/not-found/not-found.compo
     InvoiceComponent,
     AdminPageComponent,
     NotFoundComponent,
+    EditModalComponent
   ],
   imports: [
     BrowserModule,
@@ -78,10 +80,13 @@ import { NotFoundComponent } from './components/layout/not-found/not-found.compo
     MatSidenavModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     NgMatSearchBarModule,
     NgHighlightModule,
     FlexLayoutModule,
-
+  ],
+  entryComponents: [
+    EditModalComponent
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

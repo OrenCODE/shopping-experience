@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const passport = require('../config/passport');
+const passport = require('passport');
 
 module.exports = (req, res, next) => {
     passport.authenticate('jwt', (err, user) => {

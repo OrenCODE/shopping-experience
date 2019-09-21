@@ -20,6 +20,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Disable route access if already loggedIn
+    if(this.authService.isUserLoggedIn()){
+      this.router.navigate(['dashboard']);
+    }
+    // Load FormBuilder
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]

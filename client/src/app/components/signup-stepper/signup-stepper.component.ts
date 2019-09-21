@@ -26,6 +26,11 @@ export class SignupStepperComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Disable route access if already loggedIn
+    if(this.authService.isUserLoggedIn()){
+      this.router.navigate(['dashboard']);
+    }
+    // Load FormBuilder
     this.firstFormGroup = this.formBuilder.group({
       identityNumber: ['', Validators.required],
       email: ['', Validators.required],

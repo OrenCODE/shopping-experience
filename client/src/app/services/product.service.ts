@@ -28,7 +28,7 @@ export class ProductService {
     return this.http.get<any>(`http://localhost:4000/api/product/search?name=${name}`)
   }
 
-  getProductById(productId): Observable<Product>{
-    return this.http.get<Product>(`http://localhost:4000/api/product/productById/${productId}`)
+  editProduct(productId, editedProduct, token): Observable<Product>{
+    return this.http.put<Product>(`http://localhost:4000/api/product/editProductById/${productId}`, editedProduct, {headers: {Authorization: token}})
   }
 }

@@ -16,7 +16,8 @@ exports.createNewProduct = (req, res) => {
 };
 
 exports.getProducts = (req, res) => {
-    Product.find({})
+    Product.find()
+        .sort({categoryId: 1})
         .then(allProducts => res.status(200).json(allProducts))
         .catch(err => res.status(500).json({
             msg: "could not fetch products"
@@ -56,6 +57,20 @@ exports.getProductById = (req, res) => {
             console.error(err);
             res.status(400).json({
                 msg: "product not found"
+            })
+        })
+};
+
+exports.editProduct = (req, res) => {
+    Product.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(() => {
+            Product.findOne({_id: req.params.id})
+                .then((product) => {
+                    res.json(product)
+
+                }).catch(err => {
+                console.error(err);
+                res.status(500).send(err)
             })
         })
 };

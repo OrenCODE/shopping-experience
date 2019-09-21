@@ -36,6 +36,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/app/components/admin-page" />
       <recent name="$PROJECT_DIR$/middleware" />
       <recent name="$PROJECT_DIR$/client/src/assets" />
       <recent name="$PROJECT_DIR$/client/src/app" />
@@ -106,7 +107,9 @@
       <workItem from="1568569492119" duration="10555000" />
       <workItem from="1568590611608" duration="31716000" />
       <workItem from="1568681230563" duration="1635000" />
-      <workItem from="1568801997571" duration="15202000" />
+      <workItem from="1568801997571" duration="29117000" />
+      <workItem from="1568918067201" duration="11408000" />
+      <workItem from="1569000472125" duration="11264000" />
     </task>
     <servers />
   </component>
