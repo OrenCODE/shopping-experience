@@ -1,14 +1,13 @@
-<h2 mat-dialog-title>Edit Product</h2>
-<form [formGroup]="editProductForm" (ngSubmit)="save(data.preEditFields._id)">
+<h2 mat-dialog-title>Add New Product</h2>
+<form [formGroup]="addProductForm" (ngSubmit)="save()">
   <mat-dialog-content class="mat-typography">
     <div class="form-body">
 
       <mat-form-field appearance="outline" class="justifier">
         <mat-label>Name</mat-label>
         <input class="form-input" matInput
-               placeholder="{{ capFirstLetter(data.preEditFields.name) }}"
-               formControlName="name"
-               [value]="data.preEditFields.name">
+               placeholder="Name"
+               formControlName="name">
         <!--        <mat-error *ngIf="editProductForm.get('name').errors?.serverError">-->
         <!--          {{ editProductForm.get('name').errors?.serverError }}-->
         <!--        </mat-error>-->
@@ -16,7 +15,7 @@
 
       <mat-form-field appearance="outline" class="justifier">
         <mat-label>Category</mat-label>
-        <mat-select placeholder="{{ data.categories[data.preEditFields.categoryId].name }}"
+        <mat-select placeholder="Category"
                     formControlName="categoryId">
           <mat-option *ngFor="let item of data.categories | keyvalue" [value]="data.categories[item.key]._id">
             {{ data.categories[item.key].name }}
@@ -32,9 +31,8 @@
         <input class="form-input" matInput
                type="number"
                [min]="0"
-               placeholder="{{ data.preEditFields.price | currency: 'USD'}}"
+               placeholder="Price"
                formControlName="price"
-               [value]="data.preEditFields.price"
         >
         <!--        <mat-error *ngIf="editProductForm.get('price').errors?.serverError">-->
         <!--          {{ editProductForm.get('price').errors?.serverError }}-->
@@ -44,10 +42,8 @@
       <mat-form-field appearance="outline" class="justifier">
         <mat-label>Image URL</mat-label>
         <input class="form-input" matInput
-               placeholder="{{ data.preEditFields.imageURL }}"
-               formControlName="imageURL"
-               [value]="data.preEditFields.imageURL"
-        >
+               placeholder="Image URL"
+               formControlName="imageURL">
         <!--        <mat-error *ngIf="editProductForm.get('imageURL').errors?.serverError">-->
         <!--          {{ editProductForm.get('imageURL').errors?.serverError }}-->
         <!--        </mat-error>-->
@@ -58,7 +54,8 @@
   <div class="form-footer">
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button type="submit">Save Changes</button>
+      <button mat-button type="submit">Save Product</button>
     </mat-dialog-actions>
   </div>
 </form>
+

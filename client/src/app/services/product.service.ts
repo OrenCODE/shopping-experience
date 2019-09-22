@@ -31,4 +31,8 @@ export class ProductService {
   editProduct(productId, editedProduct, token): Observable<Product>{
     return this.http.put<Product>(`http://localhost:4000/api/product/editProductById/${productId}`, editedProduct, {headers: {Authorization: token}})
   }
+
+  createNewProduct(newProduct, token): Observable<Product>{
+    return this.http.post<Product>('http://localhost:4000/api/product/createNewProduct', newProduct, {headers: {Authorization: token}})
+  }
 }

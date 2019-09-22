@@ -37,10 +37,6 @@ export class AuthService {
     return this.http.post<Credentials>('http://localhost:4000/api/user/login', loginDetails , httpOptions)
   }
 
-  // checkIfAdmin(userId, token): Observable<any>{
-  //   return this.http.get<any>(`http://localhost:4000/api/user/checkIfAdmin/${userId}`,{headers: {Authorization: token }})
-  // }
-
   storeUserData(token, loggedUser){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(loggedUser));

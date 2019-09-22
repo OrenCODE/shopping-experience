@@ -8,7 +8,7 @@
         </div>
 
         <form (ngSubmit)="onFirstStepSubmit(stepper)" [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill your credentials</ng-template>
+          <ng-template matStepLabel>First Step</ng-template>
 
           <mat-form-field appearance="outline" class="justifier">
             <mat-label>Your Identity Number</mat-label>
@@ -74,7 +74,7 @@
 
       <mat-step [stepControl]="secondFormGroup">
         <form (ngSubmit)="onSecondStepSubmit()" [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill your shipping details</ng-template>
+          <ng-template matStepLabel>Second Step</ng-template>
           <div class="signup-header">
             <img src="./../../../assets/truck.png" class="main-sign-icon" alt="">
           </div>

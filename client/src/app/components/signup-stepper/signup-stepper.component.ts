@@ -8,7 +8,7 @@ import { Router } from "@angular/router"
 @Component({
   selector: 'app-signup-stepper',
   templateUrl: './signup-stepper.component.html',
-  styleUrls: ['./signup-stepper.component.css']
+  styleUrls: ['./signup-stepper.component.scss']
 })
 export class SignupStepperComponent implements OnInit {
   isLinear: boolean = false;

@@ -7,7 +7,7 @@ import { AuthService } from "../../../services/auth.service";
 @Component({
   selector: 'app-edit-modal',
   templateUrl: './edit-modal.component.html',
-  styleUrls: ['./edit-modal.component.css']
+  styleUrls: ['./edit-modal.component.scss']
 })
 export class EditModalComponent implements OnInit {
 
@@ -30,10 +30,13 @@ export class EditModalComponent implements OnInit {
       price: '',
       imageURL: ''
     });
-    this.editProductForm.controls.categoryId.setValue(this.data.preEditFields.categoryId);
-    this.editProductForm.controls.name.setValue(this.data.preEditFields.name);
-    this.editProductForm.controls.price.setValue(this.data.preEditFields.price);
-    this.editProductForm.controls.imageURL.setValue(this.data.preEditFields.imageURL);
+    const editForm = this.editProductForm.controls;
+    const preEditFields = this.data.preEditFields;
+
+    editForm.categoryId.setValue(preEditFields.categoryId);
+    editForm.name.setValue(preEditFields.name);
+    editForm.price.setValue(preEditFields.price);
+    editForm.imageURL.setValue(preEditFields.imageURL);
   }
 
   save(productId){
@@ -56,4 +59,5 @@ export class EditModalComponent implements OnInit {
   capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
 }

@@ -8,10 +8,7 @@ exports.createNewProduct = (req, res) => {
         imageURL: req.body.imageURL,
     });
     product.save()
-        .then(product => res.status(200).json({
-            msg: "product saved successfully",
-            product: product
-        }))
+        .then(product => res.status(200).json(product))
         .catch(err => console.log(err));
 };
 
