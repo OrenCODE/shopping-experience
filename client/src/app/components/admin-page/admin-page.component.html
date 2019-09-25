@@ -1,26 +1,32 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <button mat-button (click)="openAddDialog(categories)">Add New Product</button>
-<div *ngIf="!isLoading" class="table-responsive">
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Category</th>
-      <th scope="col">Actions</th>
-      <th scope="col">Photo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let product of products">
-      <th scope="row">{{ product._id }}</th>
-      <td>{{ capFirstLetter(product.name) }}</td>
-      <td>{{ product.price | currency:'USD' }}</td>
-      <td>{{ categories[product.categoryId].name }}</td>
-      <td><button mat-button (click)="openEditDialog(product, categories)">Edit</button></td>
-      <td><img class="thumbnail" src="{{product.imageURL}}" alt=".."></td>
-    </tr>
-    </tbody>
-  </table>
+<div class="form-wraper">
+  <div class="container card">
+    <div *ngIf="!isLoading" class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Category</th>
+          <th scope="col">Actions</th>
+          <th scope="col">Photo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of products">
+          <th scope="row">{{ product._id }}</th>
+          <td>{{ capFirstLetter(product.name) }}</td>
+          <td>{{ product.price | currency:'USD' }}</td>
+          <td>{{ categories[product.categoryId].name }}</td>
+          <td>
+            <button mat-button (click)="openEditDialog(product, categories)">Edit</button>
+          </td>
+          <td><img class="image" src="{{ product.imageURL }}" alt=".."></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

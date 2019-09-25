@@ -21,7 +21,7 @@
 }
 
 div.transbox {
-  margin: 30px;
+  margin: 30px 0;
   background-color: #ffffff;
   border: 1px solid black;
   opacity: 0.2;
@@ -29,9 +29,31 @@ div.transbox {
   filter: alpha(opacity=60); /* For IE8 and earlier */
 }
 
-div.transbox p {
-  margin: 5%;
-  font-weight: bold;
-  font-size: 44px;
-  //color: #3F51B5;
+.productBag {
+  width: 40%;
+  border-radius: 10%;
 }
+
+.orderBag {
+  width: 40%;
+  border-radius: 10%;
+}
+
+.lowPrice{
+  width: 40%;
+  border-radius: 10%;
+}
+
+.cards {
+  display: flex;
+}
+
+
+//div.transbox p {
+//  margin: 0;
+//  font-weight: bold;
+//  font-size: 44px;
+//  //color: #3F51B5;
+//}
+
+

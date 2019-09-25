@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { ProductService } from "../../services/product.service";
 import { OrderService } from "../../services/order.service";
+import { Product } from "../../models/Product";
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { OrderService } from "../../services/order.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  products: Product[];
   numOfProducts: Number;
   numOfOrders: Number;
 
@@ -19,6 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.productService.getAllProducts().subscribe(data => {
       this.numOfProducts = data.length;
+      this.products = data
     });
     this.orderService.getAllOrders().subscribe(data => {
       this.numOfOrders = data.length;

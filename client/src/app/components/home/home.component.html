@@ -1,57 +1,40 @@
-<!--&lt;!&ndash;ngif button to resume shopping routerlink shop&ndash;&gt;-->
-<!--<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">-->
-<!--  <mdb-carousel-item>-->
-<!--    <div class="view w-100">-->
-<!--      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">-->
-<!--      <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>-->
-<!--    </div>-->
-<!--    <div class="carousel-caption">-->
-<!--      <h3 class="h3-responsive">Light mask</h3>-->
-<!--      <p>First text</p>-->
-<!--    </div>-->
-<!--  </mdb-carousel-item>-->
-<!--  <mdb-carousel-item>-->
-<!--    <div class="view w-100">-->
-<!--      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">-->
-<!--      <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>-->
-<!--    </div>-->
-<!--    <div class="carousel-caption">-->
-<!--      <h3 class="h3-responsive">Strong mask</h3>-->
-<!--      <p>Secondary text</p>-->
-<!--    </div>-->
-<!--  </mdb-carousel-item>-->
-<!--  <mdb-carousel-item>-->
-<!--    <div class="view w-100">-->
-<!--      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">-->
-<!--      <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>-->
-<!--    </div>-->
-<!--    <div class="carousel-caption">-->
-<!--      <h3 class="h3-responsive">Slight mask</h3>-->
-<!--      <p>Third text</p>-->
-<!--    </div>-->
-<!--  </mdb-carousel-item>-->
-<!--</mdb-carousel>-->
-<!--<button mat-button *ngIf="authService.isUserLoggedIn()" routerLink="shop">Continue Shopping</button>-->
+<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+  <mdb-carousel-item>
+    <img class="d-block w-100" src="https://demo.prestabrain.com/natural/modules/pssliderlayer/views/img/slider1.jpg" alt="First slide">
+  </mdb-carousel-item>
+  <mdb-carousel-item>
+    <img class="d-block w-100" src="https://demo.prestabrain.com/natural/modules/pssliderlayer/views/img/slider2.jpg">
+  </mdb-carousel-item>
+</mdb-carousel>
 
-<!--<div>Products: {{ numOfProducts }} </div>-->
-<!--<div>Orders: {{ numOfOrders }} </div>-->
-<div class="landing">
-  <div class="dark-overlay landing-inner text-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1 class="display-3 mb-4">FRESH
-          </h1>
-          <p class="lead">Eat clean and green.</p>
-          <p class="lead">Eat Organic</p>
-          <hr/><div class="transbox">
-          <p [countUp]="numOfProducts">0</p>
-          <p [countUp]="numOfOrders">0</p>
-        </div>
-          <hr/>
-          <button mat-button *ngIf="authService.isUserLoggedIn()" routerLink="shop">Continue Shopping</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="landing">-->
+<!--  <div class="dark-overlay landing-inner text-light">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-12 text-center">-->
+<!--          <h1 class="display-3 mb-4">FRESH-->
+<!--          </h1>-->
+<!--          <p class="lead">Eat clean and green.</p>-->
+<!--          <p class="lead">Eat Organic</p>-->
+<!--          <hr/>-->
+<!--          <div class="container">-->
+<!--            <div class="row">-->
+<!--              <div class="col-4">-->
+<!--                <img class="productBag" src="https://www.flaticon.com/premium-icon/icons/svg/869/869457.svg">-->
+<!--                <div [countUp]="numOfProducts">0</div>-->
+<!--              </div>-->
+<!--              <div class="col-4">-->
+<!--                <img class="orderBag" src="https://image.flaticon.com/icons/svg/1151/1151301.svg">-->
+<!--                <div [countUp]="numOfOrders">0</div>-->
+<!--              </div>-->
+<!--              <div class="col-4">-->
+<!--                <img class="orderBag" src="https://www.flaticon.com/premium-icon/icons/svg/2065/2065225.svg">-->
+<!--                <div [countUp]="numOfOrders">0</div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

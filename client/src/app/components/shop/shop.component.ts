@@ -26,6 +26,7 @@ export class ShopComponent implements OnInit {
 
   productsLength: Number;
   currentCartProducts: Product[];
+  totalCartProductsQuantity: Number;
 
   productId: String;
   cartId: String;
@@ -53,8 +54,9 @@ export class ShopComponent implements OnInit {
     this.cartId = this.authService.userCart._id;
 
     this.getAllProducts();
-    this.checkIfUserHasCart();
+    this.getUserCartStatus();
     this.getAllCategories();
+    this.setTotalCartProductsQuantity();
   }
 
   showAllProducts() {
@@ -74,6 +76,7 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
+      this.setTotalCartProductsQuantity(); // new line
     });
     if (this.currentCartProducts.length === 1){
       const status = {isOpen: 0};
@@ -86,6 +89,7 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
+      this.setTotalCartProductsQuantity(); // new line
     });
     const status = {isOpen: 0};
     const cartId = this.cartId;
@@ -129,7 +133,9 @@ export class ShopComponent implements OnInit {
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
+      this.setTotalCartProductsQuantity(); // new line
     });
+
   }
 
   setTotalPrice() {
@@ -171,8 +177,8 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  checkIfUserHasCart() {
-    this.cartService.checkIfUserHasCart(this.userId, this.userToken).subscribe(data => {
+  getUserCartStatus() {
+    this.cartService.getUserCartStatus(this.userId, this.userToken).subscribe(data => {
       this.currentCartProducts = data.cart.products;
       this.setTotalPrice();
     });
@@ -204,5 +210,11 @@ export class ShopComponent implements OnInit {
 
   capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  setTotalCartProductsQuantity() {
+    const cartProductsArr: Product[] = this.authService.userCart.products;
+    const cartProductsQuantityArr = cartProductsArr.map(obj => obj.quantity);
+    this.totalCartProductsQuantity = cartProductsQuantityArr.reduce((a, b) => a + b, 0);
   }
 }

@@ -98,7 +98,7 @@ exports.getCartById = (req, res) => {
 };
 
 
-exports.checkIfUserHasCart = (req, res) => {
+exports.getUserCartStatus = (req, res) => {
     Cart.findOne({userId: req.params.id})
         .then(cart => {
             if (cart === null) {
@@ -115,7 +115,7 @@ exports.checkIfUserHasCart = (req, res) => {
             }
             if (cart.isOpen === 1) {
                 return res.status(201).json({
-                    msg: `You have an open cart from: ${cart.date.toDateString()}, Total: ${parseFloat(cart.totalCartPrice).toFixed(2)}$`,
+                    msg: `You Have An Open Cart From: ${cart.date.toDateString()}, Total: ${parseFloat(cart.totalCartPrice).toFixed(2)}$`,
                     status: 1,
                     cart: cart
                 })

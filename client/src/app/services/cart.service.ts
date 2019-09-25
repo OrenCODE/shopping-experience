@@ -23,9 +23,9 @@ export class CartService {
       userId,{headers: {Authorization: token }})
   }
 
-  checkIfUserHasCart(userId, token): Observable<any>{
+  getUserCartStatus(userId, token): Observable<any>{
     return this.http.get<any>(
-      `http://localhost:4000/api/cart/checkIfUserHasCart/${userId}`,
+      `http://localhost:4000/api/cart/getUserCartStatus/${userId}`,
       {headers: {Authorization: token }})
   }
 

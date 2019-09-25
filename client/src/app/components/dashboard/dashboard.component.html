@@ -1,17 +1,128 @@
+<!--<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>-->
+<!--<div *ngIf="!isLoading">-->
+<!--  <div>-->
+<!--    Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>-->
+
+<!--  <div>{{ dashboardMessage }}</div>-->
+
+<!--  &lt;!&ndash;if there are products in the cart&ndash;&gt;-->
+<!--  <button *ngIf="continueShopButton"-->
+<!--          mat-button routerLink="/shop">Continue Shopping-->
+<!--  </button>-->
+<!--  &lt;!&ndash;if there are no products in the cart&ndash;&gt;-->
+
+<!--  <button *ngIf="!continueShopButton"-->
+<!--          mat-button routerLink="/shop">Go The Shop-->
+<!--  </button>-->
+<!--  <div>Products: {{ numOfProducts }} </div>-->
+<!--</div>-->
+
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="!isLoading">
-  <div> Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>
+  <div class="home-pro">
 
-  <div>{{ dashboardMessage }}</div>
+    <!-- PRO BANNER HEAD -->
+    <div class="banr-head">
+      <div class="container">
+        <div class="row">
 
-  <!--if there are products in the cart-->
-  <button *ngIf="continueShopButton"
-          mat-button routerLink="/shop">Continue Shopping</button>
-  <!--if there are no products in the cart-->
+          <!-- CONTENT -->
+          <div class="col-sm-7">
+            <div class="text-area">
+              <div class="position-center-center col-md-10">
+                <h1> Hi, {{capFirstLetter(user.firstName)}}</h1>
+                <div *ngIf="messageStatus === 0">
+                  <h6>Welcome To Shopping Experience.</h6>
+                  <h6>We Deliver Fresh Organic Food From Our Fields To Your Door.</h6>
+                </div>
+                <h6 *ngIf="messageStatus === 1">Welcome Back, Everything Is Right Were You Left It.</h6>
+                <div *ngIf="messageStatus === 2">
+                  <h6>New Fresh Products Are Waiting For You.</h6>
+                  <p>You Have A 5% Discount Code.</p>
+                </div>
+                <div> {{dashboardMessage}} </div>
+                <!--                <div class="card col-8">-->
+                <!--                  <h4 mat-card-title>My Delivery Details</h4>-->
+                <!--                  <p>City: {{user.city}}</p>-->
+                <!--                  <p>Street: {{user.street}}</p>-->
+                <!--                </div>-->
+              </div>
+            </div>
+            <div class="position-center-center col-md-5">
+              <div>
+                <button class="shop-btns" *ngIf="continueShopButton"
+                        mdbBtn type="button" gradient="peach" rounded="true" mdbWavesEffect routerLink="/shop">
+                  Continue Shopping
+                </button>
+                <button class="shop-btns" *ngIf="!continueShopButton"
+                        mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect routerLink="/shop">Go The
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
 
-  <button *ngIf="!continueShopButton"
-    mat-button routerLink="/shop">Go The Shop</button>
-  <div>Products: {{ numOfProducts }} </div>
+          <!-- FORM SECTION -->
+          <div class="col-sm-5">
+            <div class="login-sec">
+
+              <!-- TABS -->
+              <div class="uou-tabs accordion-xs">
+                <!-- Dashboard Image -->
+                <div class="content">
+                  <div>
+                    <img class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services">
+
+      <!-- SERVICES ROW -->
+      <div class="row">
+
+        <!-- SECTION -->
+        <div class="col-md-4">
+          <div class="ser-inn">
+            <i class="fa fa-globe"></i>
+            <h4>Amount Of Products In Our Shop</h4>
+            <i class="fa fa-globe big"></i>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
+              consectetur.</p>
+          </div>
+        </div>
+
+        <!-- SECTION -->
+        <div class="col-md-4">
+          <div class="ser-inn">
+            <i class="fa fa-book"></i>
+            <h4>Get the latest news
+              in your industry</h4>
+            <i class="fa fa-book big"></i>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
+              consectetur.</p>
+          </div>
+        </div>
+
+        <!-- SECTION  -->
+        <div class="col-md-4">
+          <div class="ser-inn">
+            <i class="fa fa-picture-o"></i>
+            <h4>Share what’s up
+              with you</h4>
+            <i class="fa fa-picture-o big"></i>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
+              consectetur.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
-
-

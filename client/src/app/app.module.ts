@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule} from "@angular/material";
+import { MatBadgeModule } from "@angular/material";
 import { MatDialogModule } from "@angular/material";
 import { MatIconModule } from "@angular/material";
 import { MatMenuModule } from "@angular/material";
@@ -45,8 +46,9 @@ import { OrderComponent } from './components/order/order.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { EditModalComponent } from './components/admin-page/edit-modal/edit-modal.component';
-import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { AddModalComponent } from './components/admin-page/add-modal/add-modal.component';
+import { NotFoundComponent } from './components/layout/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -91,7 +93,8 @@ import { AddModalComponent } from './components/admin-page/add-modal/add-modal.c
     NgHighlightModule,
     FlexLayoutModule,
     CountUpModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    MatBadgeModule
   ],
   entryComponents: [
     EditModalComponent,

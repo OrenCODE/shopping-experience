@@ -5,32 +5,36 @@ const passport = require('passport');
 const cartController = require('../../controllers/cart');
 const authenticate = passport.authenticate('jwt',{session: false});
 
-// Creates new Cart for user with the userId
+// POST creates new Cart for user with the userId
 router.post('/createCart', authenticate, cartController.createNewCart);
 
-// Add Product to the user Cart
+// PUT add product to the user Cart
 // :id = cartId
 router.put('/addProductToCart/:id', authenticate, cartController.addProductToCart);
 
-// Delete Product from the user Cart
+// PUT remove product from the user Cart
 // :id = cartId
 router.put('/deleteProductFromCart/:id', authenticate, cartController.deleteProductFromCart);
 
-// Delete all products from the user Cart
+// PUT remove all products from the user Cart
 // :id = cartId
 router.put('/deleteAllProducts/:id', authenticate, cartController.deleteAllProductsFromCart);
 
-// Get cart by id
+// GET cart by id
 // :id = cartId
 router.get('/:id', authenticate, cartController.getCartById);
 
-// Check if the User has a cart
+// GET user cart by status
+// @ Status = 0 : user Cart is empty.
+// @ Status = 1 : user Cart has products init.
 // :id = userId
-router.get('/checkIfUserHasCart/:id', authenticate, cartController.checkIfUserHasCart);
+router.get('/getUserCartStatus/:id', authenticate, cartController.getUserCartStatus);
 
+// PUT change user cart status
 // :id = cartId
 router.put('/updateCartStatus/:id', authenticate, cartController.updateCartStatus);
 
+// PUT set total price of the user cart
 // :id = cartId
 router.put('/setCartTotalPrice/:id', cartController.setCartTotalPrice);
 
