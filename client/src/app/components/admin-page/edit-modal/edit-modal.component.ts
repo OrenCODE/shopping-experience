@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ProductService } from "../../../services/product.service";
 import { AuthService } from "../../../services/auth.service";
 
@@ -25,10 +25,10 @@ export class EditModalComponent implements OnInit {
     this.adminToken = this.authService.currentUserToken;
 
     this.editProductForm = this.formBuilder.group({
-      name: '',
-      categoryId: '',
-      price: '',
-      imageURL: ''
+      name: [ '',Validators.required ],
+      categoryId: [ '',Validators.required ],
+      price: [ '',Validators.required ],
+      imageURL: [ '', Validators.required ]
     });
     const editForm = this.editProductForm.controls;
     const preEditFields = this.data.preEditFields;

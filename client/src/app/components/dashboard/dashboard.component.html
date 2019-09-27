@@ -71,7 +71,9 @@
                 <!-- Dashboard Image -->
                 <div class="content">
                   <div>
-                    <img class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">
+                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">
+<!--                    <img *ngIf="messageStatus === 1" class="welcome-image" src="https://www.flaticon.com/premium-icon/icons/svg/2147/2147437.svg" alt="..">-->
+<!--                    <img *ngIf="messageStatus === 2" class="welcome-image" src="https://www.flaticon.com/premium-icon/shopping-cart_2100374#term=cart&page=4&position=66" alt="..">-->
                   </div>
 
                 </div>

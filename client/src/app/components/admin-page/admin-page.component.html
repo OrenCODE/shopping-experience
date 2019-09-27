@@ -1,5 +1,9 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-<button mat-button (click)="openAddDialog(categories)">Add New Product</button>
+<div *ngIf="!isLoading" class="container add-header">
+  <button class="add-button" mdbBtn type="button" color="indigo" mdbWavesEffect (click)="openAddDialog(categories)">Add
+    New Product
+  </button>
+</div>
 <div class="form-wraper">
   <div class="container card">
     <div *ngIf="!isLoading" class="table-responsive">
@@ -21,7 +25,7 @@
           <td>{{ product.price | currency:'USD' }}</td>
           <td>{{ categories[product.categoryId].name }}</td>
           <td>
-            <button mat-button (click)="openEditDialog(product, categories)">Edit</button>
+            <button class="edit-btn" (click)="openEditDialog(product, categories)"></button>
           </td>
           <td><img class="image" src="{{ product.imageURL }}" alt=".."></td>
         </tr>

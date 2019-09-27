@@ -3,6 +3,7 @@ import { AuthService } from "../../services/auth.service";
 import { CategoryService } from "../../services/category.service";
 import { ProductService } from "../../services/product.service";
 import { CartService } from "../../services/cart.service";
+import { FormControl } from "@angular/forms";
 
 import { Category } from "../../models/Category";
 import { Product } from "../../models/Product";
@@ -13,6 +14,9 @@ import { Product } from "../../models/Product";
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
+
+  navbarOpen = false;
+  control: FormControl = new FormControl('');
 
   isLoading: Boolean = true;
   searchInputOn: Boolean = true;
@@ -76,7 +80,7 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteProductFromCart(this.cartId, productId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
-      this.setTotalCartProductsQuantity(); // new line
+      this.setTotalCartProductsQuantity();
     });
     if (this.currentCartProducts.length === 1){
       const status = {isOpen: 0};
@@ -89,7 +93,7 @@ export class ShopComponent implements OnInit {
     this.cartService.deleteAllProductsFromCart(this.cartId, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
-      this.setTotalCartProductsQuantity(); // new line
+      this.setTotalCartProductsQuantity();
     });
     const status = {isOpen: 0};
     const cartId = this.cartId;
@@ -147,7 +151,8 @@ export class ShopComponent implements OnInit {
   }
 
   onUserSearch(searchValue) {
-    this.productService.searchProducts(searchValue).subscribe(data => {
+    const search = searchValue.toLowerCase();
+    this.productService.searchProducts(search).subscribe(data => {
       const valueFound = data;
       const results = {};
       for (let i = 0; i < valueFound.length; i++) {
@@ -216,5 +221,9 @@ export class ShopComponent implements OnInit {
     const cartProductsArr: Product[] = this.authService.userCart.products;
     const cartProductsQuantityArr = cartProductsArr.map(obj => obj.quantity);
     this.totalCartProductsQuantity = cartProductsQuantityArr.reduce((a, b) => a + b, 0);
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }

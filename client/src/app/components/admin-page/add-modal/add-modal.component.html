@@ -8,9 +8,7 @@
         <input class="form-input" matInput
                placeholder="Name"
                formControlName="name">
-        <!--        <mat-error *ngIf="editProductForm.get('name').errors?.serverError">-->
-        <!--          {{ editProductForm.get('name').errors?.serverError }}-->
-        <!--        </mat-error>-->
+        <mat-error *ngIf="addProductForm.controls['name'].errors?.required">Product name is required.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="justifier">
@@ -21,9 +19,7 @@
             {{ data.categories[item.key].name }}
           </mat-option>
         </mat-select>
-        <!--        <mat-error *ngIf="editProductForm.get('category').errors?.serverError">-->
-        <!--          {{ editProductForm.get('category').errors?.serverError }}-->
-        <!--        </mat-error>-->
+        <mat-error *ngIf="addProductForm.controls['categoryId'].errors?.required">Category is required.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="justifier">
@@ -34,9 +30,7 @@
                placeholder="Price"
                formControlName="price"
         >
-        <!--        <mat-error *ngIf="editProductForm.get('price').errors?.serverError">-->
-        <!--          {{ editProductForm.get('price').errors?.serverError }}-->
-        <!--        </mat-error>-->
+        <mat-error *ngIf="addProductForm.controls['price'].errors?.required">Price is required.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="justifier">
@@ -44,9 +38,7 @@
         <input class="form-input" matInput
                placeholder="Image URL"
                formControlName="imageURL">
-        <!--        <mat-error *ngIf="editProductForm.get('imageURL').errors?.serverError">-->
-        <!--          {{ editProductForm.get('imageURL').errors?.serverError }}-->
-        <!--        </mat-error>-->
+        <mat-error *ngIf="addProductForm.controls['imageURL'].errors?.required">Image URL is required.</mat-error>
       </mat-form-field>
 
     </div>
@@ -54,7 +46,7 @@
   <div class="form-footer">
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button type="submit">Save Product</button>
+      <button mat-button type="submit" [disabled]="!addProductForm.valid">Save Product</button>
     </mat-dialog-actions>
   </div>
 </form>

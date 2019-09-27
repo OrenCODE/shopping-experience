@@ -1,6 +1,31 @@
-.image{
+::ng-deep html,body {height: fit-content !important; overflow: scroll}
+
+.add-header {
+  padding: 0;
+}
+
+.image {
   width: 80px;
   height: 80px;
   //background-size: cover;
   //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.add-button {
+  margin: 20px 0;
+  border-radius: 3px;
+  font-weight: bolder;
+}
+
+.edit-btn {
+  background: url('../../../assets/edit.png') no-repeat;
+  cursor: pointer;
+  border: none;
+  margin: 20px 10px;
+  width: 32px;
+  height: 32px;
+}
+
+.blue-gradient {
+  background: linear-gradient(40deg,#303f9f,#45cafc)!important;
 }
