@@ -196,9 +196,6 @@
           <span class="badge badge-secondary badge-pill">{{ totalCartProductsQuantity }}</span>
         </h4>
 
-        <!-- Cart -->
-        <ul *ngIf="this.authService.userCart.products.length > 0 && !isLoading"
-            class="list-group mb-3 z-depth-1">
           <span>
             <form>
               <mat-form-field appearance="outline" class="justifier cartSearch">
@@ -207,6 +204,10 @@
               </mat-form-field>
             </form>
           </span>
+
+        <!-- Cart -->
+        <ul *ngIf="this.authService.userCart.products.length > 0 && !isLoading"
+            class="list-group mb-3 z-depth-1">
           <li *ngFor="let cartProduct of currentCartProducts"
               class="list-group-item d-flex justify-content-between lh-condensed">
             <div>

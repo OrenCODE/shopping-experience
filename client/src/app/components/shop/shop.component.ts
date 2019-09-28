@@ -104,7 +104,7 @@ export class ShopComponent implements OnInit {
     const cartProduct = this.currentCartProducts.find(product => product._id === productId);
     if (cartProduct === undefined) {
       this.productId = productId;
-      this.quantity = 1;
+      this.quantity = 0; // was 1
     } else if (cartProduct._id === productId) {
       this.quantity = cartProduct.quantity as any;
       this.productId = productId
@@ -113,16 +113,17 @@ export class ShopComponent implements OnInit {
 
   addItem(_id) {
     this.quantity += 1;
+    this.sendToCart(_id, this.quantity)
   }
 
   removeItem(_id) {
-    // if (this.quantity - 1 >= 0) {
-    //   // this.deleteProductFromCart(_id);
-    //   this.quantity -= 1;
-    //
-    // }
+    if (this.quantity - 1 === 0) {
+      this.deleteProductFromCart(_id);
+      this.quantity -= 1;
+    }
     if (this.quantity > 1) {
       this.quantity -= 1;
+      this.sendToCart(_id, this.quantity)
     }
   }
 
@@ -225,5 +226,12 @@ export class ShopComponent implements OnInit {
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+  }
+
+  allowNumbersOnly(e) {
+    const code = (e.which) ? e.which : e.keyCode;
+    if (code > 31 && (code < 48 || code > 57)) {
+      e.preventDefault();
+    }
   }
 }
