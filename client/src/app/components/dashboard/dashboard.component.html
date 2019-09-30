@@ -27,7 +27,7 @@
         <div class="row">
 
           <!-- CONTENT -->
-          <div class="col-sm-7">
+          <div class="col-sm-7 welcome-card">
             <div class="text-area">
               <div class="position-center-center col-md-10">
                 <h1> Hi, {{capFirstLetter(user.firstName)}}</h1>
@@ -71,9 +71,10 @@
                 <!-- Dashboard Image -->
                 <div class="content">
                   <div>
-                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">
-<!--                    <img *ngIf="messageStatus === 1" class="welcome-image" src="https://www.flaticon.com/premium-icon/icons/svg/2147/2147437.svg" alt="..">-->
-<!--                    <img *ngIf="messageStatus === 2" class="welcome-image" src="https://www.flaticon.com/premium-icon/shopping-cart_2100374#term=cart&page=4&position=66" alt="..">-->
+<!--                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">-->
+                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308857.svg" alt="..">
+                    <img *ngIf="messageStatus === 1" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308833.svg" alt="..">
+                    <img *ngIf="messageStatus === 2" class="welcome-image" src="https://image.flaticon.com/icons/svg/291/291893.svg" alt="..">
                   </div>
 
                 </div>
@@ -105,8 +106,7 @@
         <div class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-book"></i>
-            <h4>Get the latest news
-              in your industry</h4>
+            <h4><span matBadge="4" matBadgeOverlap="false" >Total Orders From Our Shop</span></h4>
             <i class="fa fa-book big"></i>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
               consectetur.</p>

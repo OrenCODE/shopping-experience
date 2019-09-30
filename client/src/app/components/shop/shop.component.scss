@@ -1,5 +1,8 @@
-::ng-deep body {overflow: no-display}
-.nav-props{
+::ng-deep body {
+  overflow: no-display
+}
+
+.nav-props {
   background: #3f51b5;
   color: #fff;
 }
@@ -33,6 +36,18 @@
 .example-sidenav {
   width: 30%;
   padding: 20px 0 0 20px;
+}
+
+.p-card {
+  padding: 0;
+}
+
+.in-cart {
+  font-size: 13px;
+  color: #3f51b5;
+  font-weight: bolder;
+  margin: auto;
+  text-align: center;
 }
 
 .card-footer {

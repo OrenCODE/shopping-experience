@@ -15,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule} from "@angular/material";
+import { MatCardModule } from "@angular/material";
+import { MatButtonToggleModule } from "@angular/material";
 import { MatBadgeModule } from "@angular/material";
 import { MatDialogModule } from "@angular/material";
 import { MatIconModule } from "@angular/material";
@@ -94,7 +95,8 @@ import { NotFoundComponent } from './components/layout/not-found/not-found.compo
     FlexLayoutModule,
     CountUpModule,
     MDBBootstrapModule.forRoot(),
-    MatBadgeModule
+    MatBadgeModule,
+    MatButtonToggleModule
   ],
   entryComponents: [
     EditModalComponent,

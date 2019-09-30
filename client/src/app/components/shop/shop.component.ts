@@ -128,6 +128,11 @@ export class ShopComponent implements OnInit {
   }
 
   sendToCart(_id, quantity) {
+
+    if(quantity === null){
+      return;
+    }
+
     const addedProduct = {_id, quantity};
     const cartId = this.cartId;
     const cartStatus = this.authService.userCart.isOpen;
@@ -138,7 +143,7 @@ export class ShopComponent implements OnInit {
     this.cartService.addProductToCart(cartId, addedProduct, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);
       this.setTotalPrice();
-      this.setTotalCartProductsQuantity(); // new line
+      this.setTotalCartProductsQuantity();
     });
 
   }
@@ -234,4 +239,5 @@ export class ShopComponent implements OnInit {
       e.preventDefault();
     }
   }
+
 }

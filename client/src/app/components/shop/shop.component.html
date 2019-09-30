@@ -43,6 +43,7 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <h3>Your Cart</h3>
+    <div *ngIf="this.authService.userCart.products.length === 0">You Have no products in your cart</div>
     <div *ngIf="this.authService.userCart.products.length > 0 && !isLoading">
       <button mat-button routerLink="/order">CHECKOUT
         <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
@@ -56,7 +57,8 @@
         </div>
         <ul class="col-md-5 to-center" style="text-align: center">
           <li>
-            <span style="font-weight: bolder">{{ cartProduct.quantity }}X</span> {{ capFirstLetter(productsForCart[cartProduct._id].name) }}
+            <span style="font-weight: bolder">{{ cartProduct.quantity }}
+              X</span> {{ capFirstLetter(productsForCart[cartProduct._id].name) }}
             <div>{{ productsForCart[cartProduct._id].price * cartProduct.quantity | currency: 'USD'}}</div>
             <button mat-button (click)="deleteProductFromCart(cartProduct._id)">
               <mat-icon>remove_shopping_cart</mat-icon>
@@ -74,10 +76,11 @@
     <div *ngIf="!productsByCategory">
 
       <div class="search-results" *ngIf="searchValue && !numOfSearchResults">No products found</div>
-      <div class="search-results" *ngIf="searchValue && numOfSearchResults !== 0">Results: {{ numOfSearchResults }}</div>
+      <div class="search-results" *ngIf="searchValue && numOfSearchResults !== 0">
+        Results: {{ numOfSearchResults }}</div>
 
       <div class="row">
-        <mdb-card class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of products | keyvalue">
+        <mdb-card class="col-lg-2 col-md-4 col-sm-6 p-card" *ngFor="let item of products | keyvalue">
           <div class="to-center productImg">
             <img class="card-img-top" [src]="products[item.key].imageURL">
           </div>
@@ -91,18 +94,23 @@
               </button>
               <ng-template #updateQuantity>
                 <form>
-                  <div class="row">
-                    <button class="col-2 qnt-btn" mat-button (click)="removeItem(item.key)"><mat-icon>remove_circle</mat-icon></button>
+                  <div class="to-center">
+                    <button class="col-2 qnt-btn" mat-button (click)="removeItem(item.key)">
+                      <mat-icon>remove_circle</mat-icon>
+                    </button>
                     <div class="col input-box">
                       <input type="number" [min]="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
                              oninput="validity.valid || (value ='')"
                              (keydown)="allowNumbersOnly($event)">
                     </div>
-                    <button class="col-2 qnt-btn" mat-button (click)="addItem(item.key)"><mat-icon>add_circle</mat-icon></button>
-                    <button *ngIf="productId === item.key && quantity !== 0" mat-button class="justifier"
-                            (click)="sendToCart(item.key, quantity)">Send To Cart
+                    <button class="col-2 qnt-btn" mat-button (click)="addItem(item.key)">
+                      <mat-icon>add_circle</mat-icon>
                     </button>
                   </div>
+                  <p class="in-cart" *ngIf="productId === item.key && quantity > 0">In Cart</p>
+                  <button *ngIf="productId === item.key && quantity !== 0" mat-button class="justifier"
+                          (click)="sendToCart(item.key, quantity)">Change Quantity
+                  </button>
                 </form>
               </ng-template>
             </div>
@@ -114,7 +122,7 @@
     <!--Products by Category-->
     <div>
       <div class="row">
-        <mdb-card class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of productsByCategory">
+        <mdb-card class="col-lg-2 col-md-4 col-sm-6 p-card" *ngFor="let item of productsByCategory">
           <div class="to-center productImg">
             <img class="card-img-top" [src]="item.imageURL" [alt]="item.imageURL">
           </div>
@@ -126,17 +134,20 @@
                       (click)="addToCart(item._id)">Add To Cart
               </button>
               <div *ngIf="productId === item._id" class="to-center">
-                <button class="col-2 qnt-btn" mat-button (click)="removeItem(item._id)"><mat-icon>remove_circle</mat-icon></button>
+                <button class="col-2 qnt-btn" mat-button (click)="removeItem(item._id)">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
                 <div class="col input-box">
                   <input type="number" [min]="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
                          oninput="validity.valid || (value ='')"
                          (keydown)="allowNumbersOnly($event)">
                 </div>
                 <!--                <div>  {{ quantity }}  </div>-->
-                <button class="col-2 qnt-btn" mat-button (click)="addItem(item._id)"><mat-icon>add_circle</mat-icon></button>
+                <button class="col-2 qnt-btn" mat-button (click)="addItem(item._id)">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
               </div>
-
-              <button *ngIf="productId === item._id && quantity !== 0" mat-button class="justifier">In Cart</button>
+              <p class="in-cart" *ngIf="productId === item._id && quantity > 0">In Cart</p>
 
               <button *ngIf="productId === item._id && quantity !== 0" mat-button class="justifier"
                       (click)="sendToCart(productId, quantity)">Change Quantity

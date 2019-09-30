@@ -30,9 +30,9 @@ exports.addProductToCart = (req, res) => {
                     $set: {"products.$.quantity": req.body.quantity}
                 })
                     .then(() => {
-                        Cart.findOne({_id: req.params.id})
+                        Cart.findById(req.params.id)
                             .then((cart) => {
-                                res.status(200).json(cart);
+                                return res.status(200).json(cart);
                             })
                     })
             } else {

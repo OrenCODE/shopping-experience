@@ -1,9 +1,17 @@
+::ng-deep body {
+  overflow: no-display
+}
+
 .banr-head {
   margin: 50px 50px 0 0;
 }
 
 .services {
   margin: 10px 50px 50px;
+}
+
+.welcome-card {
+  margin: auto;
 }
 
 .welcome-image {
