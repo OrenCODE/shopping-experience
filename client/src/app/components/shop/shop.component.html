@@ -16,11 +16,15 @@
        [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <button mat-button (click)="showAllProducts()">All Products</button>
+        <button mat-button style="margin: 0 5px" (click)="showAllProducts()"
+                [ngClass]="categoryId ? null : 'active-btn'"
+        >All Products</button>
       </li>
 
       <li class="nav-item" *ngFor="let category of categories">
-        <button mat-button (click)="filterProductsByCategory(category._id)"> {{ category.name }}</button>
+        <button mat-button style="margin: 0 5px" (click)="filterProductsByCategory(category._id)"
+        [ngClass]="categoryId === category._id ? 'active-btn' : null"
+        > {{ category.name }}</button>
       </li>
 
       <form *ngIf="searchInputOn">

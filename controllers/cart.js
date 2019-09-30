@@ -32,8 +32,8 @@ exports.addProductToCart = (req, res) => {
                     .then(() => {
                         Cart.findById(req.params.id)
                             .then((cart) => {
-                                return res.status(200).json(cart);
-                            })
+                                res.status(200).json(cart);
+                            });
                     })
             } else {
                 Cart.findOneAndUpdate({_id: req.params.id}, {

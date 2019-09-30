@@ -33,6 +33,7 @@ export class ShopComponent implements OnInit {
   totalCartProductsQuantity: Number;
 
   productId: String;
+  categoryId: String;
   cartId: String;
 
   public quantity: number;
@@ -64,11 +65,13 @@ export class ShopComponent implements OnInit {
   }
 
   showAllProducts() {
+    this.categoryId = null;
     this.productsByCategory = null;
     this.searchInputOn = true;
   }
 
   filterProductsByCategory(categoryId) {
+    this.categoryId = categoryId;
     this.productService.getProductsByCategoryId(categoryId).subscribe(data => {
       this.productsByCategory = data;
       this.searchInputOn = false;
