@@ -2,22 +2,46 @@
   overflow: no-display
 }
 
+
+
 .banr-head {
   margin: 50px 50px 0 0;
 }
 
 .services {
+  text-align: center;
   margin: 10px 50px 50px;
 }
 
 .welcome-card {
+  padding-left: 45px;
+  padding-right: 0;
   margin: auto;
 }
 
 .welcome-image {
-  margin: 0 40px 50px;
+  margin: 0 0 40px 50px;
 }
 
 .shop-btns {
-  margin: 0;
+  margin: 15px 0;
+}
+
+.counter {
+  margin-bottom: 15px;
+}
+
+.mat-fab{
+  font-size: 38px;
+}
+
+.productBag {
+  margin-right: 7px;
+  width: 28%;
+  border-radius: 10%;
+}
+.orderBag {
+  margin-right: 7px;
+  width: 28%;
+  border-radius: 10%;
 }

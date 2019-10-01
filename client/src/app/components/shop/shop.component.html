@@ -93,12 +93,12 @@
             <p class="to-center">{{ products[item.key].price | currency: 'USD'}}</p>
             <div class="card-footer">
               <button *ngIf="item.key !== productId; else updateQuantity"
-                      mat-button class="justifier"
+                      mat-button style="background: white" class="justifier"
                       (click)="addToCart(item.key)">Add to Cart
               </button>
               <ng-template #updateQuantity>
                 <form>
-                  <div class="to-center">
+                  <div class="to-center quantity-section">
                     <button class="col-2 qnt-btn" mat-button (click)="removeItem(item.key)">
                       <mat-icon>remove_circle</mat-icon>
                     </button>
@@ -112,7 +112,9 @@
                     </button>
                   </div>
                   <p class="in-cart" *ngIf="productId === item.key && quantity > 0">In Cart</p>
-                  <button *ngIf="productId === item.key && quantity !== 0" mat-button class="justifier"
+                  <button *ngIf="productId === item.key && quantity !== 0"
+                          mat-button
+                          class="justifier"
                           (click)="sendToCart(item.key, quantity)">Change Quantity
                   </button>
                 </form>
@@ -134,10 +136,12 @@
             <h4 class="to-center" style="text-align: center"> {{ capFirstLetter(item.name) }} </h4>
             <p class="to-center"> {{ item.price | currency:'USD'}} </p>
             <div class="card-footer">
-              <button *ngIf="item._id !== productId" mat-button class="justifier"
+              <button *ngIf="item._id !== productId" mat-button
+                      style="background: white"
+                      class="justifier"
                       (click)="addToCart(item._id)">Add To Cart
               </button>
-              <div *ngIf="productId === item._id" class="to-center">
+              <div *ngIf="productId === item._id" class="to-center quantity-section">
                 <button class="col-2 qnt-btn" mat-button (click)="removeItem(item._id)">
                   <mat-icon>remove_circle</mat-icon>
                 </button>

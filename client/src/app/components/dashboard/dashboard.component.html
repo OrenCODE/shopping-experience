@@ -51,11 +51,11 @@
             <div class="position-center-center col-md-5">
               <div>
                 <button class="shop-btns" *ngIf="continueShopButton"
-                        mdbBtn type="button" gradient="peach" rounded="true" mdbWavesEffect routerLink="/shop">
+                        mdbBtn type="button" gradient="peach" rounded="true" size="lg" mdbWavesEffect routerLink="/shop">
                   Continue Shopping
                 </button>
                 <button class="shop-btns" *ngIf="!continueShopButton"
-                        mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect routerLink="/shop">Go The
+                        mdbBtn type="button" gradient="blue" rounded="true" size="lg" mdbWavesEffect routerLink="/shop">Go The
                   Shop
                 </button>
               </div>
@@ -71,7 +71,6 @@
                 <!-- Dashboard Image -->
                 <div class="content">
                   <div>
-<!--                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/123/123403.svg" alt="..">-->
                     <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308857.svg" alt="..">
                     <img *ngIf="messageStatus === 1" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308833.svg" alt="..">
                     <img *ngIf="messageStatus === 2" class="welcome-image" src="https://image.flaticon.com/icons/svg/291/291893.svg" alt="..">
@@ -97,8 +96,12 @@
             <i class="fa fa-globe"></i>
             <h4>Amount Of Products In Our Shop</h4>
             <i class="fa fa-globe big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
-              consectetur.</p>
+            <div class="to-center counter">
+              <img *ngIf="messageStatus !== 1" class="productBag" src="../../../assets/gro.png">
+              <img *ngIf="messageStatus === 1" class="productBag" src="../../../assets/gro2.png">
+              <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfProducts>0</button>
+              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfProducts>0</button>
+            </div>
           </div>
         </div>
 
@@ -106,10 +109,14 @@
         <div class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-book"></i>
-            <h4><span matBadge="4" matBadgeOverlap="false" >Total Orders From Our Shop</span></h4>
+            <h4>Total Orders From Our Shop</h4>
             <i class="fa fa-book big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
-              consectetur.</p>
+            <div class="to-center counter">
+              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/order.png" alt="...">
+              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/order2.png" alt="...">
+              <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfOrders>0</button>
+              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
+            </div>
           </div>
         </div>
 
@@ -117,11 +124,14 @@
         <div class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-picture-o"></i>
-            <h4>Share what’s up
-              with you</h4>
+            <h4>Fresh Products Under 5$</h4>
             <i class="fa fa-picture-o big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing edivt. Proin nibh augue conseqaut nibbhi eldivt ipsum
-              consectetur.</p>
+            <div class="to-center counter">
+              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/coin.png" alt="...">
+              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/coin2.png" alt="...">
+              <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfProducts>0</button>
+              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
+            </div>
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   messageStatus: Number;
 
   numOfProducts: Number;
+  numOfOrders: Number;
   dashboardMessage: String;
 
   constructor(private authService: AuthService,
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
     this.getUserAuthDetails();
     this.getUserCartStatus();
     this.getAllProducts();
+    this.getAllOrders();
   }
 
   getUserAuthDetails(){
@@ -85,9 +87,13 @@ export class DashboardComponent implements OnInit {
   getAllProducts(){
     this.productService.getAllProducts().subscribe(data => {
       this.numOfProducts = data.length;
-      setTimeout(() => {
         this.isLoading = false;
-      }, 300);
+    });
+  }
+
+  getAllOrders(){
+    this.orderService.getAllOrders().subscribe(data => {
+      this.numOfOrders = data.length;
     });
   }
 
