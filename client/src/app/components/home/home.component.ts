@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
       this.numOfProducts = data.length;
       this.products = data
     });
-    this.orderService.getAllOrders().subscribe(data => {
-      this.numOfOrders = data.length;
+    this.orderService.getOrdersLength().subscribe(data => {
+      this.numOfOrders = data;
     })
   }
 

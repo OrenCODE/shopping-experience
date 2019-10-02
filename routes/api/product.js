@@ -4,22 +4,27 @@ const router = express.Router();
 const productController = require('../../controllers/product');
 const adminCheck = require("../../middleware/adminAuthCheck");
 
-// Get Array of products from the database
+// GET Array of products from the database
 router.get('/products', productController.getProducts);
 
-// Get product by id
+// GET product by id
 router.get('/productById/:id', productController.getProductById);
 
-// Get products by categoryId
+// GET products by categoryId
 router.get('/productsByCategory/:id', productController.getProductsByCategory);
 
-// Get products by onType Search
+// GET products by onType Search
 router.get('/search', productController.searchProduct);
 
-// Creates new product: Admin
+// POST
+// Creates new product: Admin Route
 router.post('/createNewProduct', adminCheck , productController.createNewProduct);
 
-// Edit product by productId: Admin
+// PUT
+// Edit product by productId: Admin Route
 router.put('/editProductById/:id', adminCheck , productController.editProduct);
+
+// GET the amount of products under 5$
+router.get('/getCheapProducts', productController.getCheapProductLength);
 
 module.exports = router;

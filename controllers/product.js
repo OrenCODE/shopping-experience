@@ -71,3 +71,11 @@ exports.editProduct = (req, res) => {
             })
         })
 };
+
+exports.getCheapProductLength = (req, res) => {
+    Product.find({price: {$lt : 5}})
+        .then(products => res.status(200).json(products.length))
+        .catch(err => res.status(500).json({
+            msg: "could not fetch products"
+        }))
+};

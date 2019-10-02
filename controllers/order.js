@@ -17,7 +17,7 @@ exports.createNewOrder = (req, res) => {
             // check if the same delivery date exist more than 3 times
             if (orders.length >= 3) {
                 return res.status(400).json({
-                    msg: "all deliveries are taken for this date"
+                    msg: "all deliveries are occupied on this date"
                 })
             }
             if (orders.length === 2) {
@@ -72,6 +72,14 @@ const newOrder = (req) => {
 exports.getOrders = (req, res) => {
     Order.find({})
         .then(orders => res.status(200).json(orders))
+        .catch(err => res.status(500).json({
+            msg: "could not find any orders"
+        }))
+};
+
+exports.getOrdersLength = (req, res) => {
+    Order.find({})
+        .then(orders => res.status(200).json(orders.length))
         .catch(err => res.status(500).json({
             msg: "could not find any orders"
         }))

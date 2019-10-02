@@ -2,8 +2,6 @@
   overflow: no-display
 }
 
-
-
 .banr-head {
   margin: 50px 50px 0 0;
 }
@@ -20,7 +18,9 @@
 }
 
 .welcome-image {
+  width: 65%;
   margin: 0 0 40px 50px;
+  animation: fadein 2s;
 }
 
 .shop-btns {
@@ -29,19 +29,27 @@
 
 .counter {
   margin-bottom: 15px;
+  animation: fadein 1s;
 }
 
 .mat-fab{
   font-size: 38px;
+  //animation: fadein 1s;
 }
 
 .productBag {
   margin-right: 7px;
   width: 28%;
   border-radius: 10%;
+  animation: fadein 1s;
 }
 .orderBag {
   margin-right: 7px;
   width: 28%;
   border-radius: 10%;
+  animation: fadein 1s;
+}
+
+.content{
+  text-align: center;
 }

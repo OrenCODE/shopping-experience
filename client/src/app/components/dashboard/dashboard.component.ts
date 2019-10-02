@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
 
   numOfProducts: Number;
   numOfOrders: Number;
+  numOfCheapProducts: Number;
   dashboardMessage: String;
 
   constructor(private authService: AuthService,
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.getUserCartStatus();
     this.getAllProducts();
     this.getAllOrders();
+    this.getAllCheapProducts();
   }
 
   getUserAuthDetails(){
@@ -55,7 +57,7 @@ export class DashboardComponent implements OnInit {
             this.dashboardMessage = "Your Last Order From: " + (new DatePipe('en').transform(data[0].orderDate, 'dd/MM/yyyy'));
             this.messageStatus = 2;
           }else{
-            this.dashboardMessage = 'welcome to your first shopping experience';
+            this.dashboardMessage = 'Click Below To Start Your First FOODJAM Experience';
             this.messageStatus = 0;
           }
         });
@@ -73,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
         // IF the user is new
       } else {
-        this.dashboardMessage = 'welcome to your first shopping experience';
+        this.dashboardMessage = 'Click Below To Start Your First FOODJAM Experience';
         this.messageStatus = 0;
 
         const userId = {userId: this.userId};
@@ -92,9 +94,16 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllOrders(){
-    this.orderService.getAllOrders().subscribe(data => {
-      this.numOfOrders = data.length;
+    this.orderService.getOrdersLength().subscribe(data => {
+      this.numOfOrders = data;
     });
+  }
+
+  getAllCheapProducts(){
+    this.productService.getCheapProductsLength().subscribe(data => {
+      console.log(data);
+      this.numOfCheapProducts = data;
+    })
   }
 
   capFirstLetter = (string) => {

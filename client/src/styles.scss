@@ -5,7 +5,7 @@
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
 $custom-typography: mat-typography-config(
-  $font-family:   "Myriad Pro",
+  $font-family:   'Righteous',
   $display-4:     mat-typography-level(112px, 112px, 300),
   $display-3:     mat-typography-level(56px, 56px, 400),
   $display-2:     mat-typography-level(45px, 48px, 400),
@@ -31,37 +31,16 @@ $custom-typography: mat-typography-config(
 
 @include mat-core($custom-typography);
 
-body{
-  font-family: "Myriad Pro", sans-serif;
-  margin:0 !important;
-  overflow: scroll;
+html {
+  position: relative;
+  min-height: 100%;
 }
 
-//.border-none * {
-//  border: none!important;
-//}
-//.fa {
-//  display: inline-block;
-//  font-size: inherit;
-//  text-rendering: auto;
-//  -webkit-font-smoothing: antialiased;
-//  -moz-osx-font-smoothing: grayscale;
-//}
-//
-//img {
-//  vertical-align: middle;
-//}
-//.feature-box .fbox-body h4 {
-//  font-size: 20px;
-//  font-family: "Domine",sans-serif;
-//  color: #5f9c30;
-//  text-transform: capitalize;
-//  margin-bottom: 3px;
-//  font-weight: 600;
-//  padding-bottom: 8px;
-//}
-
-
+body{
+  font-family: 'Righteous', cursive;
+  margin:0 !important;
+  overflow: auto;
+}
 
 .thumbnail{
   width: 80px;

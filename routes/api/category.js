@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 
 const categoryController = require('../../controllers/category');
-const authenticate = passport.authenticate('jwt',{session: false});
+const adminCheck = require("../../middleware/adminAuthCheck");
 
-// Gets categories from the database
+// GET all categories from the database
 router.get('/categories', categoryController.getCategories);
 
-// Creates new Category: Admin
-router.post('/createNewCategory', authenticate, categoryController.createNewCategory);
+// POST Creates new Category: Admin
+router.post('/createNewCategory', adminCheck, categoryController.createNewCategory);
 
 
 module.exports = router;

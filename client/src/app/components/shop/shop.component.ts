@@ -107,7 +107,7 @@ export class ShopComponent implements OnInit {
     const cartProduct = this.currentCartProducts.find(product => product._id === productId);
     if (cartProduct === undefined) {
       this.productId = productId;
-      this.quantity = 0; // was 1
+      this.quantity = 0;
     } else if (cartProduct._id === productId) {
       this.quantity = cartProduct.quantity as any;
       this.productId = productId
@@ -206,7 +206,6 @@ export class ShopComponent implements OnInit {
   }
 
   updateCartTotalPrice() {
-    // update the users cart totalPrice on database
     const totalCartPrice = {totalCartPrice: this.totalPrice};
     this.cartService.setCartTotalPrice(this.cartId, totalCartPrice, this.userToken).subscribe(data => {
       this.updateLocalStorage(data);

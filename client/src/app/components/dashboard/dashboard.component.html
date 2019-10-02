@@ -1,25 +1,5 @@
-<!--<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>-->
-<!--<div *ngIf="!isLoading">-->
-<!--  <div>-->
-<!--    Welcome {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}</div>-->
-
-<!--  <div>{{ dashboardMessage }}</div>-->
-
-<!--  &lt;!&ndash;if there are products in the cart&ndash;&gt;-->
-<!--  <button *ngIf="continueShopButton"-->
-<!--          mat-button routerLink="/shop">Continue Shopping-->
-<!--  </button>-->
-<!--  &lt;!&ndash;if there are no products in the cart&ndash;&gt;-->
-
-<!--  <button *ngIf="!continueShopButton"-->
-<!--          mat-button routerLink="/shop">Go The Shop-->
-<!--  </button>-->
-<!--  <div>Products: {{ numOfProducts }} </div>-->
-<!--</div>-->
-
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-<div *ngIf="!isLoading">
-  <div class="home-pro">
+  <div *ngIf="!isLoading" class="home-pro">
 
     <!-- PRO BANNER HEAD -->
     <div class="banr-head">
@@ -32,7 +12,7 @@
               <div class="position-center-center col-md-10">
                 <h1> Hi, {{capFirstLetter(user.firstName)}}</h1>
                 <div *ngIf="messageStatus === 0">
-                  <h6>Welcome To Shopping Experience.</h6>
+                  <h6>Welcome To FOODJAM.</h6>
                   <h6>We Deliver Fresh Organic Food From Our Fields To Your Door.</h6>
                 </div>
                 <h6 *ngIf="messageStatus === 1">Welcome Back, Everything Is Right Were You Left It.</h6>
@@ -41,11 +21,13 @@
                   <p>You Have A 5% Discount Code.</p>
                 </div>
                 <div> {{dashboardMessage}} </div>
+
                 <!--                <div class="card col-8">-->
                 <!--                  <h4 mat-card-title>My Delivery Details</h4>-->
                 <!--                  <p>City: {{user.city}}</p>-->
                 <!--                  <p>Street: {{user.street}}</p>-->
                 <!--                </div>-->
+
               </div>
             </div>
             <div class="position-center-center col-md-5">
@@ -71,9 +53,9 @@
                 <!-- Dashboard Image -->
                 <div class="content">
                   <div>
-                    <img *ngIf="messageStatus === 0" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308857.svg" alt="..">
-                    <img *ngIf="messageStatus === 1" class="welcome-image" src="https://image.flaticon.com/icons/svg/308/308833.svg" alt="..">
-                    <img *ngIf="messageStatus === 2" class="welcome-image" src="https://image.flaticon.com/icons/svg/291/291893.svg" alt="..">
+                    <img *ngIf="messageStatus === 0" class="welcome-image" src="../../../assets/ecommerce.png" alt="..">
+                    <img *ngIf="messageStatus === 1" class="welcome-image" src="../../../assets/dashboard-open-cart.png" alt="..">
+                    <img *ngIf="messageStatus === 2" class="welcome-image" src="../../../assets/dashboard-order.png" alt="..">
                   </div>
 
                 </div>
@@ -97,8 +79,8 @@
             <h4>Amount Of Products In Our Shop</h4>
             <i class="fa fa-globe big"></i>
             <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="productBag" src="../../../assets/gro.png">
-              <img *ngIf="messageStatus === 1" class="productBag" src="../../../assets/gro2.png">
+              <img *ngIf="messageStatus !== 1" class="productBag" src="../../../assets/gro.png" alt="pb">
+              <img *ngIf="messageStatus === 1" class="productBag" src="../../../assets/gro2.png" alt="pb">
               <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfProducts>0</button>
               <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfProducts>0</button>
             </div>
@@ -112,8 +94,8 @@
             <h4>Total Orders From Our Shop</h4>
             <i class="fa fa-book big"></i>
             <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/order.png" alt="...">
-              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/order2.png" alt="...">
+              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/order.png" alt="order">
+              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/order2.png" alt="order">
               <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfOrders>0</button>
               <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
             </div>
@@ -124,17 +106,16 @@
         <div class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-picture-o"></i>
-            <h4>Fresh Products Under 5$</h4>
+            <h4>FoodJam Products Under 5$</h4>
             <i class="fa fa-picture-o big"></i>
             <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/coin.png" alt="...">
-              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/coin2.png" alt="...">
-              <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfProducts>0</button>
-              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
+              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/coin.png" alt="coin">
+              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/coin2.png" alt="coin">
+              <button *ngIf="messageStatus !== 1" mat-fab color="primary" [countUp]=numOfCheapProducts>0</button>
+              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfCheapProducts>0</button>
             </div>
           </div>
         </div>
       </div>
     </section>
   </div>
-</div>

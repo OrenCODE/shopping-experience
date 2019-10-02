@@ -35,4 +35,8 @@ export class ProductService {
   createNewProduct(newProduct, token): Observable<Product>{
     return this.http.post<Product>('http://localhost:4000/api/product/createNewProduct', newProduct, {headers: {Authorization: token}})
   }
+
+  getCheapProductsLength(): Observable<Number>{
+    return this.http.get<Number>('http://localhost:4000/api/product/getCheapProducts')
+  }
 }
