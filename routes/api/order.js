@@ -6,20 +6,21 @@ const orderController = require('../../controllers/order');
 const authenticate = passport.authenticate('jwt',{session: false});
 const adminCheck = require("../../middleware/adminAuthCheck");
 
-// GET all orders in the system
+// GET all orders from the database
 // Admin Route
 router.get('/orders', adminCheck, orderController.getOrders);
 
 // GET the amount of orders in the database
 router.get('/ordersLength', orderController.getOrdersLength);
 
-// Creates new Order while checking if the delivery date is available
+// POST
+// Create new Order while checking if the delivery date is available
 router.post('/createNewOrder', authenticate , orderController.createNewOrder);
 
-// Gets All fully booked dates
+// GET All fully booked dates
 router.get('/getFullyBookedDates', authenticate ,orderController.getFullyBookedDates);
 
-// Get The latest order by userId
+// GET The latest order by userId
 router.get('/getLatestOrderByUserId/:id', authenticate, orderController.getLatestOrderByUserId);
 
 module.exports = router;

@@ -1,12 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="navbar">
   <mat-toolbar-row>
     <button routerLink="" mat-button><img src="../../../../assets/logo-white.png" alt="logo"></button>
     <span class="spacer"></span>
 
-    <button *ngIf="!authService.isUserLoggedIn()" routerLink="signup" mat-button>SignUp</button>
-    <button *ngIf="!authService.isUserLoggedIn()" routerLink="login" mat-button>Login</button>
+    <button class="nav-btn" *ngIf="!authService.isUserLoggedIn()" routerLink="signup" mat-button>SignUp</button>
+    <button class="nav-btn" *ngIf="!authService.isUserLoggedIn()" routerLink="login" mat-button>Login</button>
 
-    <button mat-button *ngIf="authService.isUserLoggedIn()" [matMenuTriggerFor]="menu">
+    <button class="nav-btn" mat-button *ngIf="authService.isUserLoggedIn()" [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
        {{ capFirstLetter(authService.currentUserData.firstName) }} {{ capFirstLetter(authService.currentUserData.lastName) }}
     </button>

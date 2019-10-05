@@ -1,59 +1,56 @@
-.landing {
-  position: relative;
-  background: url('../../../assets/05.png') no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  margin-bottom: -50px;
+.bg-primary {
+  margin-bottom: 0 !important;
+  background-color: #121348 !important;
+  color: bisque !important;
 }
 
-.landing-inner {
-  padding-top: 80px;
+.text-white {
+  color: bisque!important;
 }
 
-.dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0;
-  left: 0;
+.btn-primary {
+  background-color: #121348 !important;
+  color: white;
+}
+
+.btn-primary:hover {
+  color: bisque;
+}
+
+.info-secondary {
+  background-color: #F8AC43;
+  color: #121348;
+  padding-top: 50px;
+}
+
+.header-img {
   width: 100%;
-  height: 100%;
+  animation: fadein 2s;
 }
 
-div.transbox {
-  margin: 30px 0;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.2;
-  color: #3F51B5;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
+.product-cards{
+  padding: 30px;
+  background-color: #121348;
+  text-align: center;
 }
 
-.productBag {
-  width: 40%;
-  border-radius: 10%;
+.img-card {
+  margin-top: 15px;
+  width: 30%;
 }
 
-.orderBag {
-  width: 40%;
-  border-radius: 10%;
+.catalog-header{
+  color: bisque;
 }
 
-.lowPrice{
-  width: 40%;
-  border-radius: 10%;
+mdb-card {
+  border: none;
 }
 
-.cards {
-  display: flex;
+mdb-card-body{
+  color: bisque;
 }
 
-
-//div.transbox p {
-//  margin: 0;
-//  font-weight: bold;
-//  font-size: 44px;
-//  //color: #3F51B5;
-//}
-
-
+ol.carousel-indicators {
+  margin: -8px !important;
+}

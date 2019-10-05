@@ -12,9 +12,15 @@
 }
 
 .add-button {
+  background-color: #13143F !important;
+  color: white;
   margin: 20px 0;
   border-radius: 3px;
   font-weight: bolder;
+}
+
+.add-button:hover {
+  color: bisque;
 }
 
 .edit-btn {

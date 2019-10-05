@@ -7,7 +7,8 @@ const adminCheck = require("../../middleware/adminAuthCheck");
 // GET all categories from the database
 router.get('/categories', categoryController.getCategories);
 
-// POST Creates new Category: Admin
+// POST
+// Create new Category: Admin Route
 router.post('/createNewCategory', adminCheck, categoryController.createNewCategory);
 
 

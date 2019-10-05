@@ -8,9 +8,11 @@ const adminCheck = require("../../middleware/adminAuthCheck");
 router.get('/products', productController.getProducts);
 
 // GET product by id
+// :id = productId
 router.get('/productById/:id', productController.getProductById);
 
 // GET products by categoryId
+// :id = categoryId
 router.get('/productsByCategory/:id', productController.getProductsByCategory);
 
 // GET products by onType Search
@@ -22,6 +24,7 @@ router.post('/createNewProduct', adminCheck , productController.createNewProduct
 
 // PUT
 // Edit product by productId: Admin Route
+// :id = productId
 router.put('/editProductById/:id', adminCheck , productController.editProduct);
 
 // GET the amount of products under 5$

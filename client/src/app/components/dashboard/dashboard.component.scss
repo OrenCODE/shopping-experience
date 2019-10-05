@@ -1,5 +1,8 @@
 ::ng-deep body {
-  overflow: no-display
+  overflow: no-display;
+  //background-color: #121348;
+  //#F7B456
+  //color: white;
 }
 
 .banr-head {
@@ -52,4 +55,12 @@
 
 .content{
   text-align: center;
+}
+
+.counter-blue {
+  background-color: #23346F;
+}
+
+.custom-blue {
+  background: linear-gradient(40deg,#45cafc,#13143F)!important;
 }
