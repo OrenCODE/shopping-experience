@@ -27,9 +27,9 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-.connect(db, {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true})
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.log(err));
+    .connect(db, {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true})
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -45,6 +45,13 @@ app.use('/api/cart', cart);
 app.use('/api/product', product);
 app.use('/api/category', category);
 app.use('/api/order', order);
+
+// Server static assets
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 // Listen
 app.listen(port, () => console.log(`Server is running on port ${port}`));
