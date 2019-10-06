@@ -41,7 +41,7 @@
 
 .example-sidenav {
   width: 30%;
-  padding: 20px 0 0 20px;
+  padding: 16px 8px 0 30px
 }
 
 .p-card {
@@ -89,7 +89,7 @@
 }
 
 .cartItem {
-  padding: 0 29px 10px;
+  padding: 2px 0 10px 0;
 }
 
 .input-res {
@@ -114,4 +114,10 @@
   border-radius: 0;
   padding: 0;
   min-width: 0;
+}
+
+.checkout-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
 }

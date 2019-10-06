@@ -4,9 +4,9 @@
     <div class="row h-100 align-items-center">
       <div class="col-lg-8">
         <h1 class="display-4 text-white mt-5 mb-2">JAM-PACKED With Fresh Groceries</h1>
-        <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab
-          labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque
-          unde nisi, totam quas ipsam.</p>
+        <p class="lead mb-5 text-white-50">We at foodjame offer the experience of an online supermarket at the comfort of your home.
+          With our trusted partner network of over 100 family farms we are able to offer you the best and freshest products in the market.
+        </p>
       </div>
       <div class="col-lg-4">
         <img class="header-img" src="../../../assets/884.png" alt="...">
@@ -22,12 +22,12 @@
       <div class="col-md-8 mb-5">
         <h2>What We Do</h2>
         <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta
-          quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo,
-          maiores!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in
-          nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate.
-          Voluptatum.</p>
+        <p class="info-p">FOODJAM was set up by farmers and friends from all over the country,
+          with the aim of reaching families directly in their home - without any middle-man.
+        </p>
+        <p class="info-p">From the moment you place your order, our products are packed and handled with care and shipped directly to your door
+        with no commercial factor.
+        </p>
         <button class="btn btn-primary btn-lg" routerLink="/shop" *ngIf="this.authService.isUserLoggedIn()">Continue
           Shopping
         </button>
@@ -60,7 +60,7 @@
             </div>
             <mdb-card-body>
               <mdb-card-title>
-                <h4>{{card.name}}</h4>
+                <h4>{{capFirstLetter(card.name)}}</h4>
               </mdb-card-title>
               <p>{{card.price | currency: 'USD'}}</p>
             </mdb-card-body>

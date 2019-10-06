@@ -11,6 +11,7 @@
 .btn-primary {
   background-color: #121348 !important;
   color: white;
+  margin: 0;
 }
 
 .btn-primary:hover {
@@ -53,4 +54,8 @@ mdb-card-body{
 
 ol.carousel-indicators {
   margin: -8px !important;
+}
+
+.info-p {
+  font-size: 20px;
 }
