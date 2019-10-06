@@ -138,8 +138,8 @@
                          formControlName="cardName"
                          id="cardName"
                          type="text">
-                  <mat-error *ngIf="orderForm.controls['cardName'].errors?.pattern">Please insert characters only
-                  </mat-error>
+                  <mat-error *ngIf="orderForm.get('cardName').errors?.serverError">
+                    {{ orderForm.get('cardName').errors?.serverError }}</mat-error>
                 </mat-form-field>
 
               </div>
@@ -172,7 +172,9 @@
                   <input matInput
                          formControlName="cvv"
                          id="cvv"
-                         type="text">
+                         type="number">
+                  <mat-error *ngIf="orderForm.get('cvv').errors?.serverError">
+                    {{ orderForm.get('cvv').errors?.serverError }}</mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -196,7 +198,7 @@
           <span class="badge badge-secondary badge-pill">{{ totalCartProductsQuantity }}</span>
         </h4>
 
-          <span>
+        <span>
             <form>
               <mat-form-field appearance="outline" class="justifier cartSearch">
               <input matInput autocomplete="off" type="search" name="searchValue" placeholder="Search"

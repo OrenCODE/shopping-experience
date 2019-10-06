@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {ProductService} from "../../services/product.service";
-import {OrderService} from "../../services/order.service";
-import {CartService} from "../../services/cart.service";
-import {FormGroup, Validators, FormBuilder} from "@angular/forms";
-import {Router} from "@angular/router"
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { ProductService } from "../../services/product.service";
+import { OrderService } from "../../services/order.service";
+import { CartService } from "../../services/cart.service";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router"
 
-import {Product} from "../../models/Product";
-import {City} from "../../models/City";
-import {DatePipe} from '@angular/common';
+import { Product } from "../../models/Product";
+import { City } from "../../models/City";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-order',
@@ -63,8 +63,8 @@ export class OrderComponent implements OnInit {
     this.getFullyBookedDates();
 
     this.currentCartProducts = this.authService.userCart.products;
-    this.totalPrice = this.authService.userCart.totalCartPrice;
 
+    this.getCartTotalPrice();
     this.setTotalCartProductsQuantity();
 
     this.orderForm = this.formBuilder.group({
@@ -73,7 +73,7 @@ export class OrderComponent implements OnInit {
       street: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       creditCard: ['', Validators.required],
-      cardName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z ]*$')])],
+      cardName: ['', Validators.required],
       expiration: ['', Validators.required],
       cvv: ['', Validators.required]
     });
@@ -81,7 +81,9 @@ export class OrderComponent implements OnInit {
 
   onOrderSubmit() {
     const orderDetails = this.orderForm.getRawValue();
+    const cardName = orderDetails.cardName;
     const creditCard = orderDetails.creditCard.toString();
+    const cvv = orderDetails.cvv.toString();
     const deliveryDate = new DatePipe('en').transform(orderDetails.deliveryDate, 'yyyy/MM/dd');
     const products = this.authService.userCart.products;
 
@@ -92,7 +94,9 @@ export class OrderComponent implements OnInit {
       city: orderDetails.city,
       street: orderDetails.street,
       deliveryDate: deliveryDate,
+      cardName: cardName,
       creditCard: creditCard,
+      cvv: cvv,
       products: products
     };
 
@@ -130,6 +134,12 @@ export class OrderComponent implements OnInit {
     this.productService.getAllProducts().subscribe(data => {
       this.convertArrToObject(data);
       this.isLoading = false
+    });
+  }
+
+  getCartTotalPrice() {
+    this.cartService.getUserCartStatus(this.userId, this.userToken).subscribe(data => {
+      this.totalPrice = data.cart.totalCartPrice;
     });
   }
 
