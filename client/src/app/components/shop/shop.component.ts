@@ -37,7 +37,7 @@ export class ShopComponent implements OnInit {
   cartId: String;
 
   public quantity: number;
-  public totalPrice: number;
+  public totalPrice: Number;
   public searchValue: string = '';
 
   userId: String;
@@ -154,7 +154,7 @@ export class ShopComponent implements OnInit {
   setTotalPrice() {
     this.totalPrice = 0;
     for (let i = 0; i < this.currentCartProducts.length; i++) {
-      this.totalPrice += this.currentCartProducts[i].quantity as any * this.productsForCart[this.currentCartProducts[i]._id as any].price;
+      this.totalPrice += (this.currentCartProducts[i].quantity * this.productsForCart[this.currentCartProducts[i]._id].price) as any;
     }
     this.updateCartTotalPrice();
   }

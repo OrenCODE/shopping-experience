@@ -36,11 +36,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets" />
       <recent name="$PROJECT_DIR$/client/src" />
       <recent name="$PROJECT_DIR$/client/src/app" />
       <recent name="$PROJECT_DIR$/client/src/assets" />
       <recent name="$PROJECT_DIR$/client/src/app/components/admin-page" />
-      <recent name="$PROJECT_DIR$/middleware" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client/src/assets" />
@@ -118,7 +118,7 @@
       <workItem from="1569253394065" duration="26692000" />
       <workItem from="1569356563232" duration="107393000" />
       <workItem from="1569959712363" duration="44910000" />
-      <workItem from="1570209517485" duration="50896000" />
+      <workItem from="1570209517485" duration="61309000" />
     </task>
     <servers />
   </component>

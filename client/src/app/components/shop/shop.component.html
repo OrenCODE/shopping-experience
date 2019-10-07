@@ -53,8 +53,7 @@
       <button mat-button routerLink="/order">CHECKOUT
         <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
       </button>
-      <button mat-button (click)="emptyCart()"
-      >CLEAR CART
+      <button mat-button (click)="emptyCart()">CLEAR CART
       </button>
       <div class="row" *ngFor="let cartProduct of currentCartProducts">
         <div class="col-md-5 to-center cartItem">

@@ -41,10 +41,8 @@ export class AddModalComponent implements OnInit {
       price: newProductValues.price,
       imageURL: newProductValues.imageURL
     };
-    console.log(newProduct);
 
     this.productService.createNewProduct(newProduct, this.adminToken).subscribe(data => {
-      console.log(data);
       this.dialogRef.close(data);
     });
   }

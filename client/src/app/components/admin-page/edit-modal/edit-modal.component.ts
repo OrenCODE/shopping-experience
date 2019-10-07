@@ -48,10 +48,8 @@ export class EditModalComponent implements OnInit {
       price: newFormValues.price,
       imageURL: newFormValues.imageURL
     };
-    console.log(editedProduct);
 
     this.productService.editProduct(productId, editedProduct, this.adminToken).subscribe(data => {
-      console.log(data);
       this.dialogRef.close(data);
     });
   }

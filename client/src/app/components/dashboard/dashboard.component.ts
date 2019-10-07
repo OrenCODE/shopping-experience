@@ -101,7 +101,6 @@ export class DashboardComponent implements OnInit {
 
   getAllCheapProducts(){
     this.productService.getCheapProductsLength().subscribe(data => {
-      console.log(data);
       this.numOfCheapProducts = data;
     })
   }

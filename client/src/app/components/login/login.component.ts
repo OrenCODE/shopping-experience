@@ -32,7 +32,11 @@ export class LoginComponent implements OnInit {
   }
 
   onUserLogin() {
-    const loginDetails = this.loginForm.getRawValue();
+    const formValues = this.loginForm.getRawValue();
+    const loginDetails = {
+      email: formValues.email.toLowerCase(),
+      password: formValues.password
+    };
     this.authService.loginUser(loginDetails).subscribe(data => {
 
       if(data.admin){
