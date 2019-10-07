@@ -1760,7 +1760,8 @@ var ShopComponent = /** @class */ (function () {
         var _this = this;
         this.cartService.getUserCartStatus(this.userId, this.userToken).subscribe(function (data) {
             _this.currentCartProducts = data.cart.products;
-            _this.setTotalPrice();
+            _this.totalPrice = data.cart.totalCartPrice;
+            // this.setTotalPrice();
         });
     };
     ShopComponent.prototype.getAllCategories = function () {
