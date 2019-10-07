@@ -194,7 +194,8 @@ export class ShopComponent implements OnInit {
   getUserCartStatus() {
     this.cartService.getUserCartStatus(this.userId, this.userToken).subscribe(data => {
       this.currentCartProducts = data.cart.products;
-      this.setTotalPrice();
+      this.totalPrice = data.cart.totalCartPrice;
+      // this.setTotalPrice();
     });
   }
 
