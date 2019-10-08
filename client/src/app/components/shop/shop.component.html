@@ -151,16 +151,16 @@
                 <div class="col input-box">
                   <input type="number" [min]="0" class="input-res to-center" name="quantity" [(ngModel)]="quantity"
                          oninput="validity.valid || (value ='')"
-                         (keydown)="allowNumbersOnly($event)">
+                         (keydown)="allowNumbersOnly($event)"
+                         (click)="showQuantityButton()">
                 </div>
-                <!--                <div>  {{ quantity }}  </div>-->
                 <button class="col-2 qnt-btn" mat-button (click)="addItem(item._id)">
                   <mat-icon>add_circle</mat-icon>
                 </button>
               </div>
-              <p class="in-cart" *ngIf="productId === item._id && quantity > 0">In Cart</p>
+              <p class="in-cart" *ngIf="productId === item._id && quantity > 0 && !quantityButtonActive">In Cart</p>
 
-              <button *ngIf="productId === item._id && quantity !== 0" mat-button class="justifier"
+              <button *ngIf="productId === item._id && quantityButtonActive" mat-button class="justifier"
                       (click)="sendToCart(productId, quantity)">Change Quantity
               </button>
             </div>
