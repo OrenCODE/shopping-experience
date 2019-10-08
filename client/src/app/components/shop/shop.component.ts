@@ -15,10 +15,10 @@ import { Product } from "../../models/Product";
 })
 export class ShopComponent implements OnInit {
 
-  navbarOpen = false;
-  control: FormControl = new FormControl('');
-
   isLoading: Boolean = true;
+  navbarOpen = false;
+
+  control: FormControl = new FormControl('');
   searchInputOn: Boolean = true;
   numOfSearchResults: Number;
 
@@ -35,6 +35,8 @@ export class ShopComponent implements OnInit {
   productId: String;
   categoryId: String;
   cartId: String;
+
+  quantityButtonActive: Boolean = false;
 
   public quantity: number;
   public totalPrice: Number;
@@ -101,6 +103,7 @@ export class ShopComponent implements OnInit {
     const status = {isOpen: 0};
     const cartId = this.cartId;
     this.updateCartStatus(cartId, status);
+    this.quantity = 0;
   }
 
   addToCart(productId) {
@@ -112,11 +115,13 @@ export class ShopComponent implements OnInit {
       this.quantity = cartProduct.quantity as any;
       this.productId = productId
     }
+    this.quantityButtonActive = false;
   }
 
   addItem(_id) {
     this.quantity += 1;
-    this.sendToCart(_id, this.quantity)
+    this.sendToCart(_id, this.quantity);
+    this.quantityButtonActive = false;
   }
 
   removeItem(_id) {
@@ -128,11 +133,17 @@ export class ShopComponent implements OnInit {
       this.quantity -= 1;
       this.sendToCart(_id, this.quantity)
     }
+    this.quantityButtonActive = false;
   }
 
   sendToCart(_id, quantity) {
 
     if(quantity === null){
+      return;
+    }
+
+    if(quantity === 0){
+      this.deleteProductFromCart(_id);
       return;
     }
 
@@ -234,6 +245,10 @@ export class ShopComponent implements OnInit {
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+  }
+
+  showQuantityButton() {
+    this.quantityButtonActive = true;
   }
 
   allowNumbersOnly(e) {
