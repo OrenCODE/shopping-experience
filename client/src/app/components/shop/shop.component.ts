@@ -159,7 +159,7 @@ export class ShopComponent implements OnInit {
       this.setTotalPrice();
       this.setTotalCartProductsQuantity();
     });
-
+    this.quantityButtonActive = false;
   }
 
   setTotalPrice() {

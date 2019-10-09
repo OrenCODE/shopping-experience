@@ -19,43 +19,43 @@ export class CartService {
 
   createNewCart(userId, token): Observable<Cart>{
     return this.http.post<Cart>(
-      `api/cart/createCart`,
+      `http://localhost:4000/api/cart/createCart`,
       userId,{headers: {Authorization: token }})
   }
 
   getUserCartStatus(userId, token): Observable<any>{
     return this.http.get<any>(
-      `api/cart/getUserCartStatus/${userId}`,
+      `http://localhost:4000/api/cart/getUserCartStatus/${userId}`,
       {headers: {Authorization: token }})
   }
 
   updateCartStatus(cartId, cartStatus, token): Observable<Cart>{
     return this.http.put<Cart>(
-      `api/cart/updateCartStatus/${cartId}`,
+      `http://localhost:4000/api/cart/updateCartStatus/${cartId}`,
       cartStatus ,{headers: {Authorization: token }})
   }
 
   addProductToCart(cartId, product, token): Observable<Product>{
     return this.http.put<Product>(
-      `api/cart/addProductToCart/${cartId}`,
+      `http://localhost:4000/api/cart/addProductToCart/${cartId}`,
       product,{headers: {Authorization: token }})
   }
 
   deleteProductFromCart(cartId, productId, token): Observable<any>{
     return this.http.put<any>(
-      `api/cart/deleteProductFromCart/${cartId}`,
+      `http://localhost:4000/api/cart/deleteProductFromCart/${cartId}`,
       productId ,{headers: {Authorization: token }})
   }
 
   deleteAllProductsFromCart(cartId, token): Observable<Cart>{
     return this.http.put<Cart>(
-      `api/cart/deleteAllProducts/${cartId}`,
+      `http://localhost:4000/api/cart/deleteAllProducts/${cartId}`,
       {}, {headers: {Authorization: token }})
   }
 
   setCartTotalPrice(cartId, totalCartPrice, token): Observable<Cart>{
     return this.http.put<Cart>(
-      `api/cart/setCartTotalPrice/${cartId}`,
+      `http://localhost:4000/api/cart/setCartTotalPrice/${cartId}`,
       totalCartPrice ,{headers: {Authorization: token }})
   }
 
