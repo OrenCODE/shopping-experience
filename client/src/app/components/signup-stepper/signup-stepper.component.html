@@ -14,10 +14,10 @@
             <mat-label>Your Identity Number</mat-label>
             <input matInput placeholder="9 Digits..."
                    formControlName="identityNumber"
-                   type="number"
-                   [min]="0"
+                   type="string"
                    (keydown)="allowNumbersOnly($event)"
             >
+<!--            [min]="0"-->
             <button mat-icon-button matSuffix>
               <mat-icon>picture_in_picture</mat-icon>
             </button>
@@ -135,7 +135,7 @@
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-button class="sm-btn custom-btn" type="submit"
-                    style="margin:0 7px">START SHOPPING
+                    style="margin:0 7px">CONTINUE
               <mat-icon>shopping_cart</mat-icon>
             </button>
           </div>
