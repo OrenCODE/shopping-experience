@@ -283,12 +283,23 @@ a {
 
  */
 @media (min-width: 481px) and (max-width: 767px) {
+
   .mat-toolbar-row {
     height: 64px !important;
+    button.mat-button {
+      padding: 0 0 0 6px;
+    }
   }
+
+  .signup-wrapper {
+    overflow: hidden;
+  }
+
   .form-container {
-    width: 95%;
+    width: 100vw;
     margin: auto;
+    border: 0;
+    box-shadow: unset;
     padding-bottom: 24px !important;
     display: block;
     background: rgb(253, 253, 253);
@@ -304,19 +315,33 @@ a {
 
 */
 @media (min-width: 320px) and (max-width: 480px) {
+
+
   .mat-toolbar-row {
     height: 64px !important;
+    button.mat-button {
+     padding: 0 0 0 6px;
+    }
   }
+
+  .signup-wrapper {
+    overflow: hidden;
+  }
+
   .form-container {
-    width: 95%;
+    width: 100vw;
+    box-shadow: unset;
+    border: 0;
     margin: auto;
     padding-bottom: 24px !important;
     display: block;
     background: rgb(253, 253, 253);
   }
+
   .btn {
     font-size: 1em;
   }
+
 }
 
 @keyframes fadein {
