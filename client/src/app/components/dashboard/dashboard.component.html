@@ -2,123 +2,83 @@
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <div *ngIf="!isLoading">
 
-    <!-- PRO BANNER HEAD -->
-    <div class="welcome-section">
-      <div class="container">
-        <div class="row">
-
-          <!-- CONTENT -->
-          <div class="col-sm-7 welcome-card">
-            <div class="text-area">
-              <div class="position-center-center col-md-10">
-                <h1> Hi, {{capFirstLetter(user.firstName)}}</h1>
-                <div *ngIf="messageStatus === 0">
-                  <h6>Welcome To FOODJAM.</h6>
-                  <h6>We Deliver Fresh Organic Food From Our Fields To Your Door.</h6>
-                </div>
-                <h6 *ngIf="messageStatus === 1">Welcome Back, Everything Is Right Were You Left It.</h6>
-                <div *ngIf="messageStatus === 2">
-                  <h6>New Fresh Products Are Waiting For You.</h6>
-                </div>
-                <div> {{dashboardMessage}} </div>
+    <div class="dashboard-container">
+      <div class="welcome-section">
+        <div class="welcome-box">
+          <div class="welcome-text">
+            <div>
+              <h1> Hi, {{capFirstLetter(user.firstName)}}</h1>
+              <div *ngIf="messageStatus === 0">
+                <h6>Welcome To FOODJAM.</h6>
+                <h6>We Deliver Fresh Organic Food From Our Fields To Your Door.</h6>
               </div>
-            </div>
-            <div class="position-center-center col-md-5">
-              <div>
-                <button class="shop-btns" *ngIf="continueShopButton"
-                        mdbBtn type="button" gradient="peach" rounded="true" size="lg" mdbWavesEffect
-                        routerLink="/shop">
-                  Continue Shopping
-                </button>
-                <button class="shop-btns custom-blue" *ngIf="!continueShopButton"
-                        mdbBtn type="button" gradient="blue" rounded="true" size="lg" mdbWavesEffect routerLink="/shop">
-                  Enter The
-                  Shop
-                </button>
+              <h6 *ngIf="messageStatus === 1">Welcome Back</h6>
+              <div *ngIf="messageStatus === 2">
+                <h6>New Fresh Products Are Waiting For You.</h6>
               </div>
+              <div> {{dashboardMessage}} </div>
             </div>
           </div>
+          <div>
+            <button class="shop-btns" *ngIf="continueShopButton"
+                    mdbBtn type="button" gradient="peach" rounded="true" size="lg" mdbWavesEffect
+                    routerLink="/shop">
+              Continue Shopping
+            </button>
+            <button class="shop-btns custom-blue" *ngIf="!continueShopButton"
+                    mdbBtn type="button" gradient="blue" rounded="true" size="lg" mdbWavesEffect routerLink="/shop">
+              Enter The
+              Shop
+            </button>
+          </div>
+        </div>
 
-          <!-- FORM SECTION -->
-          <div class="col-sm-5">
-            <div class="login-sec">
+        <div class="welcome-image-container">
+          <img *ngIf="messageStatus === 0" class="welcome-image" src="../../../assets/ecommerce.png" alt="..">
+          <img *ngIf="messageStatus === 1" class="welcome-image" src="../../../assets/dashboard-open-cart.png"
+               alt="..">
+          <img *ngIf="messageStatus === 2" class="welcome-image" src="../../../assets/dashboard-order.png"
+               alt="..">
+        </div>
+      </div>
 
-              <!-- TABS -->
-              <div class="uou-tabs accordion-xs">
-                <!-- Dashboard Image -->
-                <div class="content">
-                  <div>
-                    <img *ngIf="messageStatus === 0" class="welcome-image" src="../../../assets/ecommerce.png" alt="..">
-                    <img *ngIf="messageStatus === 1" class="welcome-image" src="../../../assets/dashboard-open-cart.png"
-                         alt="..">
-                    <img *ngIf="messageStatus === 2" class="welcome-image" src="../../../assets/dashboard-order.png"
-                         alt="..">
-                  </div>
+      <div class="counters-section">
+        <div>
+          <h4>Groceries In Our Shop</h4>
+          <div class="to-center counter">
+            <img *ngIf="messageStatus !== 1" class="productBag" src="../../../assets/gro.png" alt="pb">
+            <img *ngIf="messageStatus === 1" class="productBag" src="../../../assets/gro2.png" alt="pb">
+            <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue" [countUp]=numOfProducts>
+              0
+            </button>
+            <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfProducts>0</button>
+          </div>
+        </div>
 
-                </div>
-              </div>
-            </div>
+        <div>
+          <h4 class="counter-title">Customer Orders</h4>
+          <div class="to-center counter">
+            <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/order.png" alt="order">
+            <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/order2.png" alt="order">
+            <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue" [countUp]=numOfOrders>0
+            </button>
+            <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
+          </div>
+        </div>
+
+        <div>
+          <h4>Groceries Under 5$</h4>
+          <div class="to-center counter">
+            <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/coin.png" alt="coin">
+            <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/coin2.png" alt="coin">
+            <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue"
+                    [countUp]=numOfCheapProducts>0
+            </button>
+            <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfCheapProducts>0</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SERVICES -->
-    <section class="services">
-
-      <!-- SERVICES ROW -->
-      <div class="row">
-
-        <!-- SECTION -->
-        <div class="col-md-4">
-          <div class="ser-inn">
-            <i class="fa fa-globe"></i>
-            <h4>Groceries In Our Shop</h4>
-            <i class="fa fa-globe big"></i>
-            <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="productBag" src="../../../assets/gro.png" alt="pb">
-              <img *ngIf="messageStatus === 1" class="productBag" src="../../../assets/gro2.png" alt="pb">
-              <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue" [countUp]=numOfProducts>
-                0
-              </button>
-              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfProducts>0</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION -->
-        <div class="col-md-4">
-          <div class="ser-inn">
-            <i class="fa fa-book"></i>
-            <h4 class="counter-title">Customer Orders</h4>
-            <i class="fa fa-book big"></i>
-            <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/order.png" alt="order">
-              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/order2.png" alt="order">
-              <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue" [countUp]=numOfOrders>0
-              </button>
-              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfOrders>0</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION  -->
-        <div class="col-md-4">
-          <div class="ser-inn">
-            <i class="fa fa-picture-o"></i>
-            <h4>Groceries Under 5$</h4>
-            <i class="fa fa-picture-o big"></i>
-            <div class="to-center counter">
-              <img *ngIf="messageStatus !== 1" class="orderBag" src="../../../assets/coin.png" alt="coin">
-              <img *ngIf="messageStatus === 1" class="orderBag" src="../../../assets/coin2.png" alt="coin">
-              <button *ngIf="messageStatus !== 1" mat-fab color="primary" class="counter-blue"
-                      [countUp]=numOfCheapProducts>0
-              </button>
-              <button *ngIf="messageStatus === 1" mat-fab color="warn" [countUp]=numOfCheapProducts>0</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </div>

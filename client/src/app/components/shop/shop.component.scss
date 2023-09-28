@@ -1,5 +1,5 @@
-::ng-deep body {
-  overflow: no-display
+.shop-wrapper {
+  height: calc(100vh - 110px);
 }
 
 .nav-props {
@@ -27,21 +27,16 @@
   height: 50px;
 }
 
-.example-container {
-  min-height: 750px;
-  margin: auto;
+.sidebar-container {
+  min-height: 630px;
+  //max-height: 630px;
+  //margin: auto;
 }
 
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
+.sidebar-wrapper {
   width: 30%;
-  padding: 16px 30px 0 30px
+  min-height: 630px;
+  padding: 16px 20px;
 }
 
 .p-card {
@@ -52,25 +47,30 @@
 
 .cart-head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-block: 20px;
+
 }
 
 .cart-product-row {
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
+  padding-inline: 16px;
+  margin-bottom: 24px;
+  justify-content: space-between;
 }
 
 .cart-header-button {
-  border-radius: 5px;
-  border: 1px #121348 solid;
+  padding-block: 12px;
+  border-radius: 0;
+  align-items: center;
 }
 
 .cart-header-total {
+  min-width: 20px;
+  text-align: center;
   padding: 6px;
-  border-radius: 5px;
-  border: 1px #121348 solid;
 }
 
 .quantity-section {

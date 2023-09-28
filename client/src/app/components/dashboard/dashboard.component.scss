@@ -7,32 +7,34 @@
 }
 
 .welcome-section {
-  padding: 50px 0 0;
+  display: flex;
+  padding-block: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-.text-area {
+.welcome-text {
   color: wheat;
+}
+.welcome-image-container {
+  text-align: center;
+}
+
+.welcome-image {
+  width: 60%;
+  animation: fadein 2s;
 }
 
 h4 {
   color: wheat;
 }
 
-.services {
-  text-align: center;
+.counters-section {
+  display: flex;
+  padding-top: 40px;
+  justify-content: space-between;
 }
 
-.welcome-card {
-  padding-left: 45px;
-  padding-right: 0;
-  margin: auto;
-}
-
-.welcome-image {
-  width: 65%;
-  margin: 0 0 40px 50px;
-  animation: fadein 2s;
-}
 
 .shop-btns {
   margin: 15px 0;
@@ -40,6 +42,7 @@ h4 {
 
 .counter {
   padding: 20px 0;
+  gap: 10px;
   animation: fadein 1s;
 }
 
@@ -48,21 +51,11 @@ h4 {
 }
 
 .productBag {
-  margin-right: 7px;
-  width: 28%;
-  border-radius: 10%;
   animation: fadein 1s;
 }
 
 .orderBag {
-  margin-right: 7px;
-  width: 28%;
-  border-radius: 10%;
   animation: fadein 1s;
-}
-
-.content {
-  text-align: center;
 }
 
 .counter-blue {
