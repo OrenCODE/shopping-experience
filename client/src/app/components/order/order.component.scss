@@ -19,8 +19,20 @@
   text-align: center;
 }
 
+.checkout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 26px;
+  width: 66%;
+}
+
 h6{
   line-height: 1.5;
+}
+
+h2 {
+  margin: 0;
 }
 
 .mb-5, .my-5 {

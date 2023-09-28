@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark nav-props">
   <button mat-button class="navbar-brand" (click)="drawer.toggle()">
     <mat-icon *ngIf="totalCartProductsQuantity === 0">shopping_cart</mat-icon>
-    <mat-icon *ngIf="totalCartProductsQuantity > 0" matBadge="{{ totalCartProductsQuantity }}" matBadgeColor="warn">
+    <mat-icon *ngIf="totalCartProductsQuantity > 0" matBadge="{{ currentCartProducts.length }}" matBadgeColor="warn">
       shopping_cart
     </mat-icon>
   </button>
@@ -47,15 +47,14 @@
 <!--Cart Sidebar Section-->
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <h3>Your Cart</h3>
     <div *ngIf="this.authService.userCart.products.length === 0">You Have no products in your cart</div>
     <div *ngIf="this.authService.userCart.products.length > 0 && !isLoading">
-      <button mat-button routerLink="/order">CHECKOUT
-        <p>Total: <span>{{ totalPrice | currency: 'USD' }}</span></p>
-      </button>
-      <button mat-button (click)="emptyCart()">CLEAR CART
-      </button>
-      <div class="row" *ngFor="let cartProduct of currentCartProducts">
+      <div class="cart-head">
+        <button class="cart-header-button" mat-button routerLink="/order">CHECKOUT</button>
+        <button class="cart-header-button" mat-button (click)="emptyCart()">CLEAR CART</button>
+        <div class="cart-header-total">Total: {{ totalPrice | currency: 'USD' }}</div>
+      </div>
+      <div class="cart-product-row" *ngFor="let cartProduct of currentCartProducts">
         <div class="col-md-5 to-center cartItem">
           <img class="thumbnail" [src]="productsForCart[cartProduct._id].imageURL" alt="...">
         </div>
@@ -119,7 +118,7 @@
                           class="justifier"
                           (click)="sendToCart(item.key, quantity)">Change Quantity
                   </button>
-<!--                   quantity !== 0"-->
+                  <!--                   quantity !== 0"-->
                 </form>
               </ng-template>
             </div>

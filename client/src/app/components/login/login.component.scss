@@ -1,8 +1,6 @@
-.example-container {
+.login-wrapper {
+  height: calc(100vh - 120px);
   display: flex;
-  flex-direction: column;
-}
-
-.example-container > * {
-  width: 100%;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,13 +1,13 @@
-::ng-deep body {
-  overflow: no-display;
-  //background-color: #121348;
-  //#F7B456
-  //color: white;
+.dashboard-wrapper {
+  height: calc(100vh - 110px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121348;
 }
 
-.banr-head {
-  background-color: #121348;
-  padding: 50px 50px 0 0;
+.welcome-section {
+  padding: 50px 0 0;
 }
 
 .text-area {
@@ -19,9 +19,7 @@ h4 {
 }
 
 .services {
-  background-color: #121348;
   text-align: center;
-  padding: 10px 50px 50px;
 }
 
 .welcome-card {
@@ -41,13 +39,12 @@ h4 {
 }
 
 .counter {
-  margin-bottom: 15px;
+  padding: 20px 0;
   animation: fadein 1s;
 }
 
-.mat-fab{
+.mat-fab {
   font-size: 38px;
-  //animation: fadein 1s;
 }
 
 .productBag {
@@ -56,6 +53,7 @@ h4 {
   border-radius: 10%;
   animation: fadein 1s;
 }
+
 .orderBag {
   margin-right: 7px;
   width: 28%;
@@ -63,7 +61,7 @@ h4 {
   animation: fadein 1s;
 }
 
-.content{
+.content {
   text-align: center;
 }
 
@@ -72,5 +70,5 @@ h4 {
 }
 
 .custom-blue {
-  background: linear-gradient(40deg,#45cafc,#13143F)!important;
+  background: linear-gradient(40deg, #45cafc, #13143F) !important;
 }

@@ -1,72 +1,78 @@
-<!--HEADER SECTION-->
-<header class="bg-primary py-5 mb-5">
-  <div class="container h-100">
-    <div class="row h-100 align-items-center">
-      <div class="col-lg-8">
-        <h1 class="display-4 text-white mt-5 mb-2">JAM-PACKED With Fresh Groceries</h1>
-        <p class="lead mb-5 text-white-50">We at foodjame offer the experience of an online supermarket at the comfort of your home.
-          With our trusted partner network of over 100 family farms we are able to offer you the best and freshest products in the market.
-        </p>
-      </div>
-      <div class="col-lg-4">
-        <img class="header-img" src="../../../assets/884.png" alt="...">
-      </div>
-    </div>
-  </div>
-</header>
+<div class="home-wrapper">
 
-<!--INFO SECTION-->
-<div class="info-secondary">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mb-5">
-        <h2>What We Do</h2>
-        <hr>
-        <p class="info-p">FOODJAM was set up by farmers and friends from all over the country,
-          with the aim of reaching families directly in their home - without any middle-man.
-        </p>
-        <p class="info-p">From the moment you place your order, our products are packed and handled with care and shipped directly to your door
-        with no commercial factor.
-        </p>
-        <button class="btn btn-primary btn-lg" routerLink="/shop" *ngIf="this.authService.isUserLoggedIn()">Continue
-          Shopping
-        </button>
-        <button class="btn btn-primary btn-lg" routerLink="/signup" *ngIf="!this.authService.isUserLoggedIn()">Sign Up
-          Here
-        </button>
-      </div>
-      <div class="col-md-4 mb-5">
-        <img class="card-img-top" src="../../../assets/bag-home.png" alt="">
+  <!--HEADER SECTION-->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 text-white mt-5 mb-2">JAM-PACKED With Fresh Groceries</h1>
+          <p class="lead mb-5 text-white-50">We at foodjame offer the experience of an online supermarket at the comfort
+            of your home.
+            With our trusted partner network of over 100 family farms we are able to offer you the best and freshest
+            products in the market.
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <img class="header-img" src="../../../assets/884.png" alt="...">
+        </div>
       </div>
     </div>
-    <!-- /.row -->
+  </header>
+
+  <!--INFO SECTION-->
+  <div class="info-secondary">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mb-5">
+          <h2>What We Do</h2>
+          <hr>
+          <p class="info-p">FOODJAM was set up by farmers and friends from all over the country,
+            with the aim of reaching families directly in their home - without any middle-man.
+          </p>
+          <p class="info-p">From the moment you place your order, our products are packed and handled with care and
+            shipped directly to your door
+            with no commercial factor.
+          </p>
+          <button class="btn btn-primary btn-lg" routerLink="/shop" *ngIf="this.authService.isUserLoggedIn()">Continue
+            Shopping
+          </button>
+          <button class="btn btn-primary btn-lg" routerLink="/signup" *ngIf="!this.authService.isUserLoggedIn()">Sign Up
+            Here
+          </button>
+        </div>
+        <div class="col-md-4 mb-5">
+          <img class="card-img-top" src="../../../assets/bag-home.png" alt="">
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <!--PRODUCT CAROUSEL-->
+  <footer class="product-cards">
+    <h2 class="catalog-header">Our Catalog</h2>
+    <hr>
+    <div class="container">
+      <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+                    [animation]="'slide'">
+        <mdb-carousel-item *ngFor="let item of slides; let i = index">
+          <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}"
+               *ngFor="let card of item; let cardIndex = index">
+            <mdb-card class="my-1" style="background-color: #121348; color: white">
+              <div class="to-center">
+                <mdb-card-img [src]="card.imageURL" class="img-card" alt="Card image cap"></mdb-card-img>
+              </div>
+              <mdb-card-body>
+                <mdb-card-title>
+                  <h4>{{capFirstLetter(card.name)}}</h4>
+                </mdb-card-title>
+                <p>{{card.price | currency: 'USD'}}</p>
+              </mdb-card-body>
+            </mdb-card>
+          </div>
+        </mdb-carousel-item>
+      </mdb-carousel>
+    </div>
+  </footer>
 
 </div>
-
-<!--PRODUCT CAROUSEL-->
-<footer class="product-cards">
-  <h2 class="catalog-header">Our Catalog</h2>
-  <hr>
-  <div class="container">
-    <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
-                  [animation]="'slide'">
-      <mdb-carousel-item *ngFor="let item of slides; let i = index">
-        <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}"
-             *ngFor="let card of item; let cardIndex = index">
-          <mdb-card class="my-1" style="background-color: #121348; color: white">
-            <div class="to-center">
-            <mdb-card-img [src]="card.imageURL" class="img-card" alt="Card image cap"></mdb-card-img>
-            </div>
-            <mdb-card-body>
-              <mdb-card-title>
-                <h4>{{capFirstLetter(card.name)}}</h4>
-              </mdb-card-title>
-              <p>{{card.price | currency: 'USD'}}</p>
-            </mdb-card-body>
-          </mdb-card>
-        </div>
-      </mdb-carousel-item>
-    </mdb-carousel>
-  </div>
-</footer>
