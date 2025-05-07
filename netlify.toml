@@ -6,6 +6,10 @@ command = "npm install && npm install --prefix client --legacy-peer-deps && npm 
 publish   = "client/dist/client"
 functions = "netlify/functions"
 
+[build.environment]
+# allow Angular/webpack to run on Node 17+
+NODE_OPTIONS = "--openssl-legacy-provider"
+
 [[redirects]]
 # any API call → your Express app wrapped as a Lambda
 from   = "/api/*"
