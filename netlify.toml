@@ -2,7 +2,7 @@
 # 1) install root (Express + serverless-http) deps
 # 2) install client (Angular) deps
 # 3) build the Angular app in client/, output → client/dist/client
-command   = "npm install && npm install --prefix client && npm run build --prefix client"
+command = "npm install && npm install --prefix client --legacy-peer-deps && npm run build --prefix client"
 publish   = "client/dist/client"
 functions = "netlify/functions"
 
