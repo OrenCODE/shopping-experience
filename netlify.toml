@@ -1,0 +1,19 @@
+[build]
+# 1) install root (Express + serverless-http) deps
+# 2) install client (Angular) deps
+# 3) build the Angular app in client/, output → client/dist/client
+command   = "npm install && npm install --prefix client && npm run build --prefix client"
+publish   = "client/dist/client"
+functions = "netlify/functions"
+
+[[redirects]]
+# any API call → your Express app wrapped as a Lambda
+from   = "/api/*"
+to     = "/.netlify/functions/server"
+status = 200
+
+[[redirects]]
+# all other routes → Angular’s index.html for client-side routing
+from   = "/*"
+to     = "/index.html"
+status = 200

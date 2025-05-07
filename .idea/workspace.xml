@@ -27,9 +27,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="1PJb01R9D5fIc0Jmy6CbikKynVU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,9 +38,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "javascript.nodejs.core.library.configured.version": "20.6.1",
-    "javascript.nodejs.core.library.typings.version": "20.6.1",
+    "javascript.nodejs.core.library.typings.version": "20.6.5",
     "last_opened_file_path": "/Users/orencohen/Repos/shopping-experience",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -125,7 +126,10 @@
       <workItem from="1569356563232" duration="107393000" />
       <workItem from="1569959712363" duration="44910000" />
       <workItem from="1570209517485" duration="71065000" />
-      <workItem from="1695740609586" duration="2686000" />
+      <workItem from="1695740609586" duration="45585000" />
+      <workItem from="1696145671453" duration="33000" />
+      <workItem from="1696316375986" duration="2315000" />
+      <workItem from="1719086692583" duration="732000" />
     </task>
     <servers />
   </component>

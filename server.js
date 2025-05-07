@@ -53,5 +53,11 @@ app.get('*', (req, res) => {
    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Listen
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+// only start the server when running locally
+if (require.main === module) {
+   const port = process.env.PORT || 4000;
+   app.listen(port, () => console.log(`Server running on port ${port}`));
+}
+
+// export the Express app for Netlify Functions
+module.exports = app;
