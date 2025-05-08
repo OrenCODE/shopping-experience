@@ -3,6 +3,7 @@ const router = express.Router();
 
 const productController = require('../../controllers/product');
 const adminCheck = require("../../middleware/adminAuthCheck");
+const upload = require('../../middleware/uploadImage');
 
 // GET Array of products from the database
 router.get('/products', productController.getProducts);
@@ -29,5 +30,8 @@ router.put('/editProductById/:id', adminCheck , productController.editProduct);
 
 // GET the amount of products under 5$
 router.get('/getCheapProducts', productController.getCheapProductLength);
+
+// PUT /api/product/image/:id
+router.put('/image/:id', upload.single('image'), productController.updateProductImage);
 
 module.exports = router;

@@ -79,3 +79,26 @@ exports.getCheapProductLength = (req, res) => {
             msg: "could not fetch products"
         }))
 };
+
+exports.updateProductImage = (req, res) => {
+    Product.findById(req.params.id)
+        .then(product => {
+            if (!product) {
+                return res.status(404).json({ msg: 'Product not found' });
+            }
+            if (!req.file) {
+                return res.status(400).json({ msg: 'No image file provided' });
+            }
+            product.imageURL = `/uploads/${req.file.filename}`;
+            return product.save();
+        })
+        .then(updatedProduct => {
+            if (updatedProduct) {
+                res.json(updatedProduct);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Server error');
+        });
+};

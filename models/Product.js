@@ -18,7 +18,6 @@ const ProductSchema = new Schema({
     },
     imageURL: {
         type: String,
-        required: true
     }
 });
 
