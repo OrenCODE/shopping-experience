@@ -13,7 +13,7 @@ NODE_OPTIONS = "--openssl-legacy-provider"
 [[redirects]]
 # any API call → your Express app wrapped as a Lambda
 from   = "/api/*"
-to     = "/.netlify/functions/server/api/:splat"
+to     = "/.netlify/functions/server/:splat"
 status = 200
 force = true
 
