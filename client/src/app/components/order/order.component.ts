@@ -43,7 +43,7 @@ export class OrderComponent implements OnInit {
     {value: 'Kfar-Saba-8', viewValue: 'Kfar Saba'}, {value: 'Kiryat-Shmona-9', viewValue: 'Kiryat Shmona'},
   ];
 
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
               private productService: ProductService,
               private orderService: OrderService,
               private cartService: CartService,

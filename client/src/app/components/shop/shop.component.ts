@@ -45,7 +45,7 @@ export class ShopComponent implements OnInit {
   userId: String;
   userToken: String;
 
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
               private categoryService: CategoryService,
               private productService: ProductService,
               private cartService: CartService,

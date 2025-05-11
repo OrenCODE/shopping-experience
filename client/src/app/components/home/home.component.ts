@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     return R;
   };
 
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
               private productService: ProductService,
               private orderService: OrderService) { }
 
