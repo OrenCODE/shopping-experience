@@ -6,6 +6,7 @@ import { Credentials } from "../models/Credentials";
 import { User } from "../models/User";
 import { Cart } from "../models/Cart";
 import * as jwt_decode from "jwt-decode";
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,15 +27,15 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   checkUserCredentials(userCredentials): Observable<Credentials>{
-    return this.http.post<Credentials>('http://localhost:4000/api/user/registerCheck', userCredentials, httpOptions);
+    return this.http.post<Credentials>(`${environment.apiBase}/user/registerCheck`, userCredentials, httpOptions);
   }
 
   registerUser(user): Observable<User>{
-    return this.http.post<User>('http://localhost:4000/api/user/register', user , httpOptions);
+    return this.http.post<User>(`${environment.apiBase}/user/register`, user , httpOptions);
   }
 
   loginUser(loginDetails): Observable<Credentials>{
-    return this.http.post<Credentials>('http://localhost:4000/api/user/login', loginDetails , httpOptions)
+    return this.http.post<Credentials>(`${environment.apiBase}/user/login`, loginDetails , httpOptions)
   }
 
   storeUserData(token, loggedUser){

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "../models/Product";
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,26 +18,26 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>('http://localhost:4000/api/product/products');
+    return this.http.get<Product[]>(`${environment.apiBase}/product/products`);
   }
 
   getProductsByCategoryId(categoryId): Observable<Product[]>{
-    return this.http.get<Product[]>(`http://localhost:4000/api/product/productsByCategory/${categoryId}`);
+    return this.http.get<Product[]>(`${environment.apiBase}/product/productsByCategory/${categoryId}`);
   }
 
   searchProducts(name): Observable<any>{
-    return this.http.get<any>(`http://localhost:4000/api/product/search?name=${name}`)
+    return this.http.get<any>(`${environment.apiBase}/product/search?name=${name}`)
   }
 
   editProduct(productId, editedProduct, token): Observable<Product>{
-    return this.http.put<Product>(`http://localhost:4000/api/product/editProductById/${productId}`, editedProduct, {headers: {Authorization: token}})
+    return this.http.put<Product>(`${environment.apiBase}/product/editProductById/${productId}`, editedProduct, {headers: {Authorization: token}})
   }
 
   createNewProduct(newProduct, token): Observable<Product>{
-    return this.http.post<Product>('http://localhost:4000/api/product/createNewProduct', newProduct, {headers: {Authorization: token}})
+    return this.http.post<Product>(`${environment.apiBase}/product/createNewProduct`, newProduct, {headers: {Authorization: token}})
   }
 
   getCheapProductsLength(): Observable<Number>{
-    return this.http.get<Number>('http://localhost:4000/api/product/getCheapProducts')
+    return this.http.get<Number>(`${environment.apiBase}/product/getCheapProducts`)
   }
 }
