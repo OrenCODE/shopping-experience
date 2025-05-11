@@ -40,9 +40,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "javascript.nodejs.core.library.configured.version": "20.6.1",
-    "javascript.nodejs.core.library.typings.version": "20.6.5",
-    "last_opened_file_path": "/Users/orencohen/Repos/shopping-experience",
+    "com.codeium.enabled": "true",
+    "javascript.nodejs.core.library.configured.version": "22.13.1",
+    "javascript.nodejs.core.library.typings.version": "22.13.17",
+    "last_opened_file_path": "/Users/orencohen/Repos/shopping-experience/client/src/assets/product-images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,16 +54,25 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/assets/product-images" />
+      <recent name="$USER_HOME$/Documents/foodjam-pngs" />
+      <recent name="$PROJECT_DIR$/client/src/assets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/uploads" />
       <recent name="$PROJECT_DIR$/public/assets" />
       <recent name="$PROJECT_DIR$/client/src" />
       <recent name="$PROJECT_DIR$/client/src/app" />
       <recent name="$PROJECT_DIR$/client/src/assets" />
-      <recent name="$PROJECT_DIR$/client/src/app/components/admin-page" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/client/src/assets" />
-    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -130,6 +140,7 @@
       <workItem from="1696145671453" duration="33000" />
       <workItem from="1696316375986" duration="2315000" />
       <workItem from="1719086692583" duration="732000" />
+      <workItem from="1746625044562" duration="25308000" />
     </task>
     <servers />
   </component>
